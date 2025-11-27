@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $data->name ?? 'رويال فيو' }} | فخامة الإقامة</title>
+<link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link
@@ -685,16 +686,21 @@
                         <div class="row gy-3 gx-3 align-items-end">
 
                             <!-- اختيار الفندق -->
-                            <div class="col-lg-3">
-                                <label class="small text-muted mb-1">اختر الفندق</label>
-                                <select class="form-control form-control-custom">
-                                    <option value="">اختر الفندق</option>
-                                    <option>فندق رويال فيو</option>
-                                    <option>فندق السلام</option>
-                                    <option>فندق الزهراء</option>
-                                    <option>فندق النسيم</option>
-                                </select>
-                            </div>
+                          <div class="col-lg-3">
+    <label class="small text-muted mb-1">اختر الفندق</label>
+
+    <select class="form-control form-control-custom" name="hotel_id">
+        <option value="">اختر الفندق</option>
+
+        @foreach($hotels as $hotel)
+            <option value="{{ $hotel->id }}">
+                {{ $hotel->name }}
+            </option>
+        @endforeach
+
+    </select>
+</div>
+
 
                             <!-- تاريخ الوصول -->
                             <div class="col-lg-3">
@@ -842,6 +848,9 @@
                         </li>
                         <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
                             {{ $data->phone1 ?? '+966 50 123 4567' }}
+                        </li>
+                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
+                            {{ $data->phone2 ?? '+966 50 123 4567' }}
                         </li>
                         <li class="mb-3"><i class="fas fa-envelope text-danger me-2"></i>
                             {{ $data->email ?? 'info@royalview.com' }}

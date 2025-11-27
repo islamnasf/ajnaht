@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $data->name ?? 'رويال فيو' }} | فنادقنا الفاخرة</title>
 
@@ -389,7 +391,7 @@
         }
 
         .hotel-item .hotel-content {
-            padding: 40px 35px;
+            padding: 100px 100px;
             color: var(--dark-text);
             text-align: right;
             display: flex;
@@ -398,10 +400,10 @@
         }
 
         .hotel-item .hotel-content .hotel-name {
-            font-size: 2.2rem;
+            font-size: 2.7rem;
             font-weight: 900;
             color: var(--primary-red);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             position: relative;
             padding-bottom: 10px;
         }
@@ -418,7 +420,7 @@
         }
 
         .hotel-item .hotel-content p {
-            font-size: 1rem;
+            font-size: 1.5rem;
             color: var(--text-light);
             line-height: 1.7;
             margin-bottom: 25px;
@@ -436,7 +438,7 @@
             margin-bottom: 10px;
             color: var(--dark-text);
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.5rem;
             transition: color 0.3s;
         }
 
@@ -833,7 +835,7 @@
                     <div class="row g-0 hotel-item {{ $loop->index % 2 != 0 ? 'reverse' : '' }}">
 
                         {{-- عمود الصورة --}}
-                        <div class="col-lg-6 hotel-image-col">
+                        <div class="col-lg-5 hotel-image-col">
                             @if($hotel->image)
                             <img src="{{ asset($hotel->image) }}" class="hotel-image" alt="{{ $hotel->name }}">
                             @else
@@ -844,7 +846,7 @@
                         </div>
 
                         {{-- عمود المحتوى --}}
-                        <div class="col-lg-6 hotel-content">
+                        <div class="col-lg-7 hotel-content">
                             <div>
                                 <h3 class="hotel-name">{{ $hotel->name }}</h3>
 
@@ -893,6 +895,9 @@
                         </li>
                         <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
                             {{ $data->phone1 ?? '+966 50 123 4567' }}
+                        </li>
+                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
+                            {{ $data->phone2 ?? '+966 50 123 4567' }}
                         </li>
                         <li class="mb-3"><i class="fas fa-envelope text-danger me-2"></i>
                             {{ $data->email ?? 'info@royalview.com' }}
