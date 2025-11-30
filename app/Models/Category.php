@@ -12,4 +12,10 @@ class Category extends Model
     public function reservations(){
       return $this->hasMany(Reservation::class,'hotel_id');
     }
+       public function prices(){
+      return $this->hasMany(Price::class,'category_id');
+    }
+      public function files(){
+      return $this->hasMany(File::class,'category_id');
+    }
 }

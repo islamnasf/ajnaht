@@ -4,51 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{{ $data->name ?? 'رويال فيو' }} | فخامة الإقامة</title>
 <link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=cairo:wght@300;500;700;900&family=Display:wght@700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --primary-red: #7d1517;
-            /* لونك المفضل */
-            --primary-gradient: linear-gradient(135deg, #7d1517 0%, #4a0d0e 100%);
+            --primary-red: #c6842f;
+            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
             --gold: #D4AF37;
-            /* ذهبي للفخامة */
-            /* === التغيير الأساسي: خلفية فاتحة (كريمي فاتح) === */
             --light-bg: #f8f8f8;
-            /* لون خلفية فاتح جداً */
             --dark-text: #212529;
-            /* نص داكن للقراءة */
             --card-bg: #ffffff;
-            /* خلفية بيضاء للبطاقات */
             --text-light: #495057;
-            /* نص ثانوي داكن */
         }
 
         body {
-            /* === استخدام خط Tajawal الأنيق والمحترف === */
-            font-family: "cairo", sans-serif;
-            /* استخدام الخلفية الفاتحة الجديدة */
-            background-color: var(--light-bg);
-            /* استخدام النص الداكن الجديد */
+            font-family: "IBM Plex Sans Arabic", sans-serif;
+              background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
         }
 
-        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar {
             width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            /* خلفية الشريطة تصبح فاتحة */
             background: #e9ecef;
         }
 
@@ -56,38 +45,27 @@
             background: var(--primary-red);
             border-radius: 5px;
         }
-
-        /* تحديد النصوص */
         ::selection {
             background: var(--primary-red);
             color: #fff;
         }
-
-        /* --- Navbar --- */
         .navbar {
-            /* جعل النافبار أبيض بالكامل */
             background-color: rgba(255, 255, 255, 0.75);
-            padding: 10px 0;
+            padding: 5px 0;
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-
             transition: all 0.4s ease;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            /* ظل خفيف للبروز */
             box-shadow: 0 50px 50px rgba(0, 0, 0, 0.05);
         }
 
-        /* تأثير إضاءة اللوجو */
         .navbar-brand {
             font-weight: 900;
-            /* جعل اللوجو نصاً داكناً */
             color: var(--dark-text) !important;
             font-size: 1.8rem;
             letter-spacing: 1px;
-            /* إزالة الـ text-shadow أو تخفيفه */
             text-shadow: none;
         }
-
         .nav-link {
             color: var(--dark-text) !important;
             font-weight: 500;
@@ -95,14 +73,11 @@
             position: relative;
             transition: 0.3s;
         }
-
         .nav-link:hover,
         .nav-link.active {
             color: var(--primary-red) !important;
         }
-
         .nav-link::after {
-            /* لا تغيير */
             content: '';
             position: absolute;
             width: 0;
@@ -128,7 +103,7 @@
 
         .navbar-nav .dropdown-item {
             color: var(--dark-text);
-            padding: 10px 20px;
+            padding: 5px 10px;
             transition: background-color 0.2s, color 0.2s;
             font-weight: 500;
         }
@@ -150,7 +125,7 @@
             padding: 10px 30px;
             border-radius: 0;
             font-weight: 700;
-            text-transform: uppercase;
+            /* text-transform: uppercase; */
             letter-spacing: 1px;
             transition: all 0.4s ease;
             position: relative;
@@ -186,8 +161,8 @@
         /* --- Hero Section (Showcase) --- */
         .hero {
             position: relative;
-            height: 100vh;
-            min-height: 650px;
+            height: 90vh;
+            min-height: 600px;
             display: flex;
             align-items: center;
             /* وضع المحتوى في منتصف الهيرو */
@@ -364,8 +339,11 @@
             padding-bottom: 30px;
             border-top: 5px solid var(--primary-red);
             /* النص داخل التذييل داكن */
-            color: var(--dark-text);
-        }
+            background: #e9ecef;
+            padding-top: 80px;
+            padding-bottom: 30px;
+            border-top: 5px solid var(--primary-red);
+            color: var(--dark-text);        }
 
         .footer h3,
         .footer h4 {
@@ -414,7 +392,46 @@
         /* --- Responsive Enhancements (Mobile) --- */
         /* -------------------------------------- */
 
+
+                 .user-dropdown {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .user-dropdown .menu {
+                        display: none;
+                        position: absolute;
+                        right: 0;
+                        background: #fff;
+                        min-width: 150px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        border-radius: 8px;
+                        z-index: 999;
+                    }
+
+                    .user-dropdown .menu.show {
+                        display: block;
+                    }
+
+                    .user-dropdown .menu a,
+                    .user-dropdown .menu button {
+                        display: block;
+                        width: 100%;
+                        padding: 10px 15px;
+                        text-align: right;
+                        border: none;
+                        background: transparent;
+                        text-decoration: none;
+                        color: #333;
+                    }
+
+                    .user-dropdown .menu a:hover,
+                    .user-dropdown .menu button:hover {
+                        background: #f3f3f3;
+                        cursor: pointer;
+                    }
         @media (max-width: 992px) {
+
             .hero {
                 /* ارتفاع متغير وأصغر على الأجهزة اللوحية */
                 height: 70vh;
@@ -422,6 +439,7 @@
                 /* تعديل محاذاة النص في الهيرو للأجهزة الأصغر */
                 align-items: flex-end;
             }
+
 
             .hero-title {
                 font-size: 3rem;
@@ -526,26 +544,21 @@
             }
 
         }
-
-        /* -------------------------------------- */
-        /* --- Responsive Enhancements (Mobile) --- */
-        /* -------------------------------------- */
-
-        /* تطبيق على الشاشات الصغيرة والمتوسطة (أقل من 992px) */
+    
     </style>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
+        <div class="container connav">
             <a class="navbar-brand" href="#">
                 @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="50" style="border-radius: 5px;">
+                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
                 @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-                <span> فنادق رومانس </span>
+                <!-- <span> فنادق رومانس </span> -->
 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -565,13 +578,6 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><i
                                         class="fas fa-book me-2 text-danger"></i> مقالات</a></li>
-                            <!-- <li><a class="dropdown-item" href="#"><i
-                                        class="fas fa-utensils me-2 text-danger"></i> المطاعم وتجارب الطعام</a></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="fas fa-spa me-2 text-danger"></i> المنتجع الصحي وخدمات السبا</a></li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="fas fa-concierge-bell me-2 text-danger"></i> خدمات الكونسيرج الخاصة</a>
-                            </li> -->
                         </ul>
                     </li>
                 </ul>
@@ -579,45 +585,6 @@
                 $user = auth()->user();
                 @endphp
 
-                <style>
-                    .user-dropdown {
-                        position: relative;
-                        display: inline-block;
-                    }
-
-                    .user-dropdown .menu {
-                        display: none;
-                        position: absolute;
-                        right: 0;
-                        background: #fff;
-                        min-width: 150px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border-radius: 8px;
-                        z-index: 999;
-                    }
-
-                    .user-dropdown .menu.show {
-                        display: block;
-                    }
-
-                    .user-dropdown .menu a,
-                    .user-dropdown .menu button {
-                        display: block;
-                        width: 100%;
-                        padding: 10px 15px;
-                        text-align: right;
-                        border: none;
-                        background: transparent;
-                        text-decoration: none;
-                        color: #333;
-                    }
-
-                    .user-dropdown .menu a:hover,
-                    .user-dropdown .menu button:hover {
-                        background: #f3f3f3;
-                        cursor: pointer;
-                    }
-                </style>
 
                 <div class="user-dropdown">
                     @guest
@@ -667,10 +634,10 @@
         <div class="container hero-content">
             <div class="row align-items-center text-center">
                 <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
-                    <h1 class="hero-title">
+                    <!-- <h1 class="hero-title">
                         {{ $data->name ?? 'LUXURY' }} <br>
                         <span>ROMANCE HOTELS</span>
-                    </h1>
+                    </h1> -->
                 </div>
             </div>
         </div>
@@ -682,14 +649,14 @@
             <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                 <div class="search-glass">
                     <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
-                    <form>
+                    <form  action="{{ route('newReser') }}" method="GET">
                         <div class="row gy-3 gx-3 align-items-end">
 
                             <!-- اختيار الفندق -->
-                          <div class="col-lg-3">
+                          <div class="col-lg-4">
     <label class="small text-muted mb-1">اختر الفندق</label>
 
-    <select class="form-control form-control-custom" name="hotel_id">
+    <select class="form-control form-control-custom" name="hotel_id" required>
         <option value="">اختر الفندق</option>
 
         @foreach($hotels as $hotel)
@@ -703,25 +670,35 @@
 
 
                             <!-- تاريخ الوصول -->
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label class="small text-muted mb-1">الوصول</label>
-                                <input type="date" class="form-control form-control-custom">
+                                <input type="date" class="form-control form-control-custom"  name="start"  required>
                             </div>
 
                             <!-- تاريخ المغادرة -->
-                            <div class="col-lg-3">
+                            <div class="col-lg-4">
                                 <label class="small text-muted mb-1">المغادرة</label>
-                                <input type="date" class="form-control form-control-custom">
+                                <input type="date" class="form-control form-control-custom"  name="end"  required>
                             </div>
 
                             <!-- عدد الغرف -->
-                            <div class="col-lg-3">
+                            <!-- <div class="col-lg-3">
                                 <label class="small text-muted mb-1">عدد الغرف</label>
                                 <input type="number" class="form-control form-control-custom" min="1" value="1">
-                            </div>
+                            </div> -->
 
                             <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-luxury w-100 py-3">حجز</button>
+
+   @guest
+                    <a href="{{ route('login') }}" class="btn btn-luxury w-100 py-3">
+يجب  التسجيل اولا لانشاء حجز                     </a>
+                    @endguest
+
+                    @auth
+                                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الان </button>
+
+                    @endauth
+
                             </div>
                         </div>
                     </form>
@@ -769,156 +746,63 @@
         </div>
     </section>
 
-
-   <section class="hotels-section py-5" id="hotels">
+<section class="hotels-section py-5" id="hotels">
     <div class="container">
         <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
             اكتشف فنادقنا المميزة
         </h2>
 
-        <div class="row g-4">
-            @foreach($hotels as $hotel)
-            <div class="col-lg-3 col-md-6">
-                <div class="card h-100 shadow-sm">
-                    @if($hotel->image)
-                        <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}"      style="width: 100%; height: 250px; object-fit: cover; object-position: center; border-radius: 8px;">
+        <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+                {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
+                @php
+                    $chunks = $hotels->chunk(4); // تقسيم مجموعة الفنادق إلى مجموعات تحتوي كل منها على 4
+                    $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
+                @endphp
 
-                        
-                    @else
-                        <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top" alt="{{ $hotel->name }}">
-                    @endif
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
-                        <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
-                        <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p>
-                        <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p>
-                        <p class="mb-2">⭐ {{ $hotel->rate }}</p>
-                        <a href="#" class="btn btn-luxury mt-auto">عرض</a>
+                @foreach($chunks as $chunk)
+                {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
+                <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
+                    <div class="row g-4 justify-content-center">
+                        @foreach($chunk as $hotel)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="card h-100 shadow-sm">
+                                @if($hotel->image)
+                                    <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}" style="width: 100%; height: 250px; object-fit: cover; object-position: center; border-radius: 8px;">
+                                @else
+                                    <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top" alt="{{ $hotel->name }}">
+                                @endif
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
+                                    <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
+                                    <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p>
+                                    <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p>
+                                    <p class="mb-2">⭐ {{ $hotel->rate }}</p>
+<a href="{{ route('hotelDetails', $hotel->id) }}" class="btn btn-luxury mt-auto">عرض</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
 
-        <!-- زر عرض الكل أسفل العناصر -->
-        <div class="text-center mt-4">
-            <a href="{{ route('hotels') }}" class="btn btn-luxury btn-lg">
-                عرض الكل
-            </a>
+            {{-- أزرار التحكم (السابق/التالي) --}}
+            @if(count($chunks) > 1)
+            <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">السابق</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">التالي</span>
+            </button>
+            @endif
         </div>
     </div>
 </section>
+@include('footer')
 
-
-
-
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="row mb-5 footer-map">
-                <div class="col-12 text-center mb-5" data-aos="fade-up">
-                    <h2 class="display-5 fw-bold mb-2" style="color: var(--dark-text);">تفضل بزيارتنا </h2>
-                </div>
-                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
-                    <iframe
-                        src="{{$data->location ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15334.821035210212!2d39.8166667!3d21.4225211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c21b21235b3f17%3A0x6b4a5d8f6f59b9c9!2z2KjYp9iz2YrYqSDYqtmE2Ykg2YjYutiv2YXYtNin2YUg2YjYstmK2LE!5e0!3m2!1sar!2ssa!4v1700742514457!5m2!1sar!2ssa'}}"
-                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-            <div class="row gy-5 pt-5 border-top border-secondary-subtle">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
-                    <h3 class="mb-4 fw-bold">{{ $data->name ?? 'Royal View' }}</h3>
-                    <p class="text-muted">{{ $data->description ?? 'فندق رويال فيو، حيث الفخامة تلتقي بالتاريخ. إقامتك الملكية في قلب المدينة.' }}</p>
-                    <div class="mt-4">
-                        @if($data->faceLink) <a href="{{ $data->faceLink }}" class="social-circle"><i
-                                class="fab fa-facebook-f"></i></a> @endif
-                        @if($data->instaLink) <a href="{{ $data->instaLink }}" class="social-circle"><i
-                                class="fab fa-instagram"></i></a> @endif
-                        @if($data->wattsLink) <a href="{{ $data->wattsLink }}" class="social-circle"><i
-                                class="fab fa-whatsapp"></i></a> @endif
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="mb-4">معلومات التواصل</h4>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-3"><i class="fas fa-map-marker-alt text-danger me-2"></i>
-                            {{ $data->address ?? 'مكة المكرمة، المملكة العربية السعودية' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
-                            {{ $data->phone1 ?? '+966 50 123 4567' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
-                            {{ $data->phone2 ?? '+966 50 123 4567' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-envelope text-danger me-2"></i>
-                            {{ $data->email ?? 'info@royalview.com' }}
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-12" data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="mb-4">روابط سريعة</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left text-danger me-2"></i> الأسئلة الشائعة</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left text-danger me-2"></i> سياسة الخصوصية</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left text-danger me-2"></i> الشروط والأحكام</a></li>
-                        <li><a href="#about" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left text-danger me-2"></i> اكتشف قصتنا</a></li>
-                    </ul>
-                </div>
-
-            </div>
-            <hr class="border-secondary mt-5">
-            <div class="text-center text-muted py-3">
-                <small>
-                    © {{ date('Y') }} {{ $data->name ?? 'Royal View' }}. جميع الحقوق محفوظة. تصميم:
-                    <a href="https://wa.me/966560637609" target="_blank" style="text-decoration: none; color: inherit;">
-                        Elegance
-                    </a>
-                </small>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
-
-    <script>
-        // تهيئة مكتبة الأنيميشن
-        AOS.init({
-            offset: 100,
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-        });
-
-        // تأثير 3D للصور والعناصر
-        VanillaTilt.init(document.querySelectorAll(".tilt-element"), {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.1,
-            /* تم تخفيف الـ Glare ليتناسب مع الخلفية الفاتحة */
-        });
-
-        // تغيير النافبار عند السكرول (تم التعديل ليتناسب مع الوضع الفاتح)
-        window.onscroll = function() {
-            var navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                // عند النزول، اجعله أبيض بالكامل
-                navbar.style.background = "rgba(255, 255, 255, 0.75)"; // زيادة العتامة قليلاً
-                navbar.style.padding = "10px 0";
-                navbar.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
-            } else {
-                // في الأعلى، ابقيه شفافاً قليلاً فوق صورة الهيرو
-                navbar.style.background = "rgba(255, 255, 255, 0.75)";
-                navbar.style.padding = "20px 0";
-                navbar.style.boxShadow = "none";
-            }
-        };
-    </script>
 </body>
-
 </html>

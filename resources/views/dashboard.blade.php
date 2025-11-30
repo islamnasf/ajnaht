@@ -20,9 +20,9 @@ dashboard
     </div>
 </div>
 <div class="row">
-        <div class="col-sm-12">
+        <!-- <div class="col-sm-12">
         <img src="{{ URL::asset('assets/images/logo-dark.png') }}" alt="" style=" width:100%; margin-bottom: 20px; border-radius: 25px 0px 25px 0px; " >
-        </div>
+        </div> -->
     </div>
 <!-- breadcrumb -->
 @endsection

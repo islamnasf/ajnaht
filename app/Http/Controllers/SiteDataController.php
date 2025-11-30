@@ -118,14 +118,30 @@ class SiteDataController extends Controller
 public function landing()
 {
     // جلب أول 4 فنادق فقط
-    $hotels = Category::take(4)->get();
+    $hotels = Category::get();
 
     $data = SiteData::first();
 
     return view('landing', compact('data', 'hotels'));
 }
+public function newReser(Request $request)
+{
+    $hotel= Category::where('id',$request->hotel_id)->with('prices')->first();
+$start = $request->start;
+$end = $request->end;
+    $data = SiteData::first();
+    return view('newReser', compact('data', 'hotel','start','end'));
+}
 
 
+
+public function hotelDetails( $hotel)
+{
+    $hotel = Category::with(['prices', 'files'])->findOrFail($hotel);
+    $data = SiteData::first();
+
+    return view('hotelDetails', compact('data','hotel'));
+}
 
 
 }

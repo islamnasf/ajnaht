@@ -12,15 +12,15 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-// Route::middleware('guest')->group(function () {
-// // Route::get('/', [AuthenticatedSessionController::class, 'create'])
-// //                 ;
-// //             });
+
+
+
 Route::get('/', [SiteDataController::class, 'landing'])->name('website');
 Route::get('/hotels', [SiteDataController::class, 'hotels'])->name('hotels');
+Route::get('/newReser', [SiteDataController::class, 'newReser'])->name('newReser');
+Route::get('/hotelDetails/{hotel}', [SiteDataController::class, 'hotelDetails'])->name('hotelDetails');
+
+
 
 
 Route::middleware(['auth', 'verified', 'role:مسؤول'])
@@ -63,6 +63,12 @@ route::group(['prefix' => 'dashboard/category/'], function () {
     Route::post('delete/{service}', [ControllersCategoryController::class, 'delete'])->name('deleteCategory');
     Route::post('update/{service}', [ControllersCategoryController::class, 'update'])->name('updateCategory');
     // Route::get('active/{service}', [ServiceController::class, 'toggle'])->name('activeCategory');
+        Route::post('updatePrices/{category}', [ControllersCategoryController::class, 'updatePrices'])->name('updatePrices');
+    Route::post('files/store', [ControllersCategoryController::class, 'storeFiles'])->name('files.store');
+    Route::delete('/files/{id}', [ControllersCategoryController::class, 'deleteFile'])->name('deleteFile');
+
+
+
 });
 //sub category
 route::group(['prefix' => 'dashboard/sub/category/'], function () {
@@ -113,6 +119,7 @@ Route::post('/reservations/store', [ReservationController::class, 'store'])->nam
 route::group(['prefix' => 'dashboard/site'], function () {
     Route::get('show', [SiteDataController::class, 'index'])->name('getSiteData');
     Route::post('/reservations/update', [SiteDataController::class, 'updateSiteData'])->name('siteData.update');
+
 
 });
 

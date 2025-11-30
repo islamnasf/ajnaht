@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('rooms')->nullable();
             $table->string('beds')->nullable();
             $table->string('address')->nullable();
-            $table->string('location')->nullable();
-                        $table->string('rate')->nullable();
+            $table->text('location')->nullable();
+                $table->string('rate')->nullable();
 
         });
     }

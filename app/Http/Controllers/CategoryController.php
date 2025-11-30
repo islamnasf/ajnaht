@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Price;
+use App\Models\File;
+
 use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::with('prices')->get();
         return view('/admin/categories', compact('categories'));
     }
 
@@ -104,4 +107,75 @@ class CategoryController extends Controller
         toastr()->success('Data Deleted successfully');
         return back();
     }
+
+
+public function updatePrices(Request $request, $id)
+{
+    $category = Category::findOrFail($id);
+
+    foreach ($request->prices as $beds => $data) {
+
+        Price::updateOrCreate(
+            [
+                'category_id' => $id,
+                'name'        => $beds
+            ],
+            [
+                'price'         => $data['price'] ?? 0,
+                'roomAvailable' => $data['roomAvailable'] ?? 0,
+            ]
+        );
+    }
+
+    return back()->with('success', 'تم تحديث البيانات بنجاح');
+}
+
+public function storeFiles(Request $request)
+{
+    $request->validate([
+        'images.*' => 'required',
+        'category_id' => 'nullable|exists:categories,id'
+    ]);
+
+    if ($request->hasFile('images')) {
+
+        foreach ($request->file('images') as $image) {
+
+            // اسم ملف فريد
+            $fileName = time() . '_' . $image->getClientOriginalName();
+
+            // رفع الصورة
+            $path = $image->move(
+                public_path('categories/images'),
+                $fileName
+            );
+
+            // لو فشل الرفع
+            if (!$path) {
+                return back()->withErrors([
+                    'images' => 'حدث خطأ أثناء رفع إحدى الصور.'
+                ]);
+            }
+
+            // حفظ المسار في قاعدة البيانات
+            File::create([
+                'image' => 'categories/images/' . $fileName,
+                'category_id' => $request->category_id
+            ]);
+        }
+    }
+
+    return back()->with('success', 'تم رفع الصور بنجاح');
+}
+
+
+public function deleteFile($id)
+{
+    $file = File::findOrFail($id);
+
+    $file->delete();
+
+    return back()->with('success', 'تم حذف الصورة بنجاح');
+}
+
 }

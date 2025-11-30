@@ -9,9 +9,9 @@
     <title>{{ $data->name ?? 'رويال فيو' }} | فنادقنا الفاخرة</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=cairo:wght@300;500;700;900&family=Display:wght@700&display=swap"
-        rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -19,39 +19,29 @@
 
     <style>
         :root {
-            --primary-red: #7d1517;
-            /* لونك المفضل */
-            --primary-gradient: linear-gradient(135deg, #7d1517 0%, #4a0d0e 100%);
+            --primary-red: #c6842f;
+            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
             --gold: #D4AF37;
-            /* ذهبي للفخامة */
-            /* === التغيير الأساسي: خلفية فاتحة (كريمي فاتح) === */
             --light-bg: #f8f8f8;
-            /* لون خلفية فاتح جداً */
-            --dark-text: #212529;
-            /* نص داكن للقراءة */
+            --dark-text: #2c3e50;
             --card-bg: #ffffff;
-            /* خلفية بيضاء للبطاقات */
-            --text-light: #495057;
-            /* نص ثانوي داكن */
+            --text-light: #7f8c8d;
+            --section-padding: 80px 0; /* تحسين قراءة الـ Padding */
         }
 
         body {
-            /* === استخدام خط Tajawal الأنيق والمحترف === */
-            font-family: "cairo", sans-serif;
-            /* استخدام الخلفية الفاتحة الجديدة */
-            background-color: var(--light-bg);
-            /* استخدام النص الداكن الجديد */
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+              background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
         }
 
-        /* تخصيص شريط التمرير */
+        /* تخصيص شريط التمرير (بقي كما هو) */
         ::-webkit-scrollbar {
             width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            /* خلفية الشريطة تصبح فاتحة */
             background: #e9ecef;
         }
 
@@ -60,34 +50,27 @@
             border-radius: 5px;
         }
 
-        /* تحديد النصوص */
         ::selection {
             background: var(--primary-red);
             color: #fff;
         }
 
-        /* --- Navbar --- */
+        /* --- Navbar (بقي كما هو) --- */
         .navbar {
-            /* جعل النافبار أبيض بالكامل */
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 0;
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             transition: all 0.4s ease;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            /* ظل خفيف للبروز */
-            box-shadow: 0 50px 50px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
-        /* تأثير إضاءة اللوجو */
         .navbar-brand {
             font-weight: 900;
-            /* جعل اللوجو نصاً داكناً */
             color: var(--dark-text) !important;
             font-size: 1.8rem;
             letter-spacing: 1px;
-            /* إزالة الـ text-shadow أو تخفيفه */
             text-shadow: none;
         }
 
@@ -105,7 +88,6 @@
         }
 
         .nav-link::after {
-            /* لا تغيير */
             content: '';
             position: absolute;
             width: 0;
@@ -120,7 +102,6 @@
             width: 100%;
         }
 
-        /* تنسيق الـ Dropdown داخل النافبار */
         .navbar-nav .dropdown-menu {
             border: none;
             border-radius: 10px;
@@ -131,7 +112,7 @@
 
         .navbar-nav .dropdown-item {
             color: var(--dark-text);
-            padding: 10px 20px;
+            padding: 10px 0px;
             transition: background-color 0.2s, color 0.2s;
             font-weight: 500;
         }
@@ -142,16 +123,13 @@
             color: white;
         }
 
-        /* نهاية تنسيق الـ Dropdown */
 
-
-        /* لا تغيير على الأزرار لأنها تستخدم ألوان العلامة التجارية */
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
             border: 1px solid var(--primary-red);
             padding: 10px 30px;
-            border-radius: 0;
+            border-radius: 30px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -159,7 +137,6 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
-            border-radius: 30px;
         }
 
         .btn-luxury::before {
@@ -170,7 +147,6 @@
             width: 0%;
             height: 100%;
             background: var(--light-bg);
-            /* البريق بلون الخلفية الفاتحة */
             z-index: -1;
             transition: all 0.4s ease;
             transform: skewX(45deg);
@@ -186,21 +162,17 @@
             border-color: var(--primary-red);
         }
 
-        /* --- Hero Section (Showcase) --- */
+        /* --- Hero Section (بقي كما هو) --- */
         .hero {
             position: relative;
-            /* تم تقليل الارتفاع من 100vh إلى 75vh */
-            height: 55vh;
-            min-height: 400px;
+            height: 35vh;
+            min-height: 250px;
             display: flex;
             align-items: center;
-            /* وضع المحتوى في منتصف الهيرو */
             overflow: hidden;
         }
 
-
         .hero-bg {
-            /* لا تغيير: نحافظ على الصورة الخلفية كما هي */
             position: absolute;
             top: 0;
             left: 0;
@@ -227,171 +199,102 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* تخفيف التظليل ليتناسب مع الخلفيات الفاتحة */
-            background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
             z-index: 0;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            /* النص لا يزال أبيض ليتناقض مع صورة الخلفية الداكنة */
             color: #ffffff;
             font-size: 1.3rem;
-            /* تعديل padding-bottom ليتناسب مع الارتفاع الجديد */
-            /* padding-bottom: 100px; */
+                       
+
         }
 
         .hero-title {
             font-size: 3.5rem;
-            /* زيادة حجم الخط قليلاً */
             font-weight: 500;
             line-height: 1.1;
             text-transform: uppercase;
+
         }
 
         .hero-title span {
             color: transparent;
-            /* الحفاظ على تأثير الـ stroke الأبيض */
             -webkit-text-stroke: 1.5px #ffffffe0;
-            /* تخفيف الـ stroke قليلاً ليتناسب مع اللون الأبيض */
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            /* إضافة ظل خفيف لتحسين الرؤية على الخلفية */
         }
 
-        /* --- Glassmorphism Search Box (تم تفتيحه ليصبح مناسباً) --- */
-        .search-form-container {
-            position: relative;
-            z-index: 10;
-            /* رفع الفورم للأعلى بشكل فعال */
-            margin-top: -30px;
-        }
-
-        .search-glass {
-            /* زيادة الشفافية والـ blur لجعله أفتح */
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            transform: translateY(0);
-            transition: transform 0.3s;
-            /* النص داخل الصندوق يصبح داكناً للوضوح على الخلفية الفاتحة */
-            color: var(--dark-text);
-        }
-
-        .search-glass h4 {
-            color: var(--dark-text);
-            font-weight: 700;
-            /* تثقيل الخط لعنوان الفورم */
-        }
-
-        .search-glass:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-red);
-        }
-
-        .form-control-custom {
-            /* تفتيح لون خلفية الحقول */
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-bottom: 2px solid var(--primary-red);
-            /* النص داخل الحقول داكن */
-            color: var(--dark-text);
-            border-radius: 0;
-            padding: 15px;
-            /* زيادة حجم الخط قليلاً في الحقول */
-            font-size: 1.05rem;
-        }
-
-        .form-control-custom:focus {
-            background: rgba(255, 255, 255, 1);
-            color: var(--dark-text);
-            box-shadow: none;
-            border-color: var(--gold);
-        }
-
-        .form-control-custom::placeholder {
-            color: rgba(0, 0, 0, 0.5);
-        }
 
         /* ----------------------------------- */
-        /* --- NEW: Alternating Hotels CSS --- */
+        /* --- START MODIFIED Hotels CSS (Simpler, Cleaner Look) --- */
         /* ----------------------------------- */
-
+        .hotels-section {
+            padding: var(--section-padding);
+        }
+        
         .hotel-item {
             display: flex;
             align-items: stretch;
-            /* تأكد من أن الأعمدة تمتد لارتفاع متساوٍ */
-            margin-bottom: 60px;
+            /* **تبسيط الفصل بين العناصر** */
+            margin-bottom: 30px; 
             background-color: var(--card-bg);
-            /* أبيض افتراضي */
-            border-radius: 15px;
+            border-radius: 10px; /* إضافة حواف دائرية بسيطة */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* ظل ناعم فقط */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            border: 1px solid transparent;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             padding: 0;
         }
-
-        /* === التنسيق المتناوب 1: إضافة خلفية خفيفة للعناصر الفردية === */
-        /* يتم تطبيق هذا على الفنادق التي هي في المركز الأول، الثالث، الخامس، إلخ (index 0, 2, 4...) */
-        .hotels-section .row .hotel-item:nth-child(odd) {
-            background-color: #f0f0f0;
-            /* تظليل خفيف جداً يختلف عن الخلفية الأساسية */
-            border-right: 5px solid var(--primary-red);
-            /* خط أحمر على اليمين لـ RTL */
-        }
         
-        /* بالنسبة للعناصر الزوجية تكون بيضاء وخالية من الخطوط على اليمين/اليسار في الوضع الافتراضي */
+        /* **إلغاء التناوب في الخلفية لتوحيد المظهر** */
+        .hotels-section .row .hotel-item:nth-child(odd),
         .hotels-section .row .hotel-item:nth-child(even) {
             background-color: var(--card-bg);
-            border-left: 5px solid var(--gold); /* إضافة لمسة ذهبية على اليسار */
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            border-left: 1px solid rgba(0, 0, 0, 0.05);
         }
-        
+
 
         .hotel-item:hover {
-            /* رفع خفيف وظل أقوى مع إطار أحمر */
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: var(--gold);
-            /* عند التحويم يصبح الإطار ذهبياً */
+            transform: translateY(-5px); /* رفع خفيف وجميل */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-red);
         }
 
         .hotel-item .hotel-image-col {
             padding: 0;
             display: flex;
-            /* للمساعدة في تثبيت الارتفاع على 500px */
         }
+        
+        /* **جعل الصورة تأخذ الحواف الدائرية بشكل صحيح** */
+        .hotel-item:not(.reverse) .hotel-image {
+             border-top-right-radius: 9px;
+             border-bottom-right-radius: 9px;
+        }
+        .hotel-item.reverse .hotel-image {
+             border-top-left-radius: 9px;
+             border-bottom-left-radius: 9px;
+        }
+        
 
         .hotel-item .hotel-image {
-            height: 500px;
-            /* الارتفاع الثابت المطلوب */
-            min-height: 350px;
+            height: 300px; 
+            min-height: 250px;
             width: 100%;
             object-fit: cover;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            /* تحويل الحركة لزوم سلس وأبطأ */
-            filter: brightness(0.95) saturate(1.1);
-            /* زيادة التباين والتشبع قليلاً */
-            /* إعداد الحدود الافتراضية (للـ odd index: صورة على اليسار) */
-            border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
+            filter: brightness(0.95);
         }
 
         .hotel-item:hover .hotel-image {
-            transform: scale(1.1);
-            /* زووم أقوى عند الـ hover */
-            filter: brightness(1) saturate(1.2);
-            /* تفتيح وزيادة تشبع عند التحويم */
+            transform: scale(1.02); /* زوم أقل وأكثر نعومة */
+            filter: brightness(1);
         }
 
         .hotel-item .hotel-content {
-            padding: 100px 100px;
+            padding: 35px; /* تقليل الـ padding قليلاً */
             color: var(--dark-text);
             text-align: right;
             display: flex;
@@ -400,9 +303,9 @@
         }
 
         .hotel-item .hotel-content .hotel-name {
-            font-size: 2.7rem;
-            font-weight: 900;
-            color: var(--primary-red);
+            font-size: 2rem; /* تصغير حجم العنوان قليلاً */
+            font-weight: 800;
+            color: var(--dark-text); /* جعل العنوان بلون النص الأساسي */
             margin-bottom: 15px;
             position: relative;
             padding-bottom: 10px;
@@ -413,114 +316,64 @@
             position: absolute;
             right: 0;
             bottom: 0;
-            width: 50px;
+            width: 50px; 
             height: 3px;
-            background: var(--gold);
-            /* خط فاصل ذهبي تحت العنوان */
+            background: var(--primary-red); /* استخدام اللون الأساسي للفاصل */
         }
 
-        .hotel-item .hotel-content p {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            line-height: 1.7;
+        /* === تنسيق تفاصيل الفندق الجديد === */
+        .hotel-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px; /* تقليل التباعد بين التفاصيل */
             margin-bottom: 25px;
-            /* تحديد الحد الأقصى للارتفاع لإجبار تقليل الكلام */
-            max-height: 85px;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        /* تنسيق أيقونات التفاصيل */
         .hotel-details span {
-            display: block;
-            /* جعل كل تفصيل في سطر منفصل للوضوح */
-            margin-left: 0;
-            margin-bottom: 10px;
-            color: var(--dark-text);
-            font-weight: 500;
-            font-size: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            color: var(--dark-text); 
+            font-weight: 600; /* جعل الخط أغمق قليلاً */
+            font-size: 1rem;
             transition: color 0.3s;
         }
 
-        .hotel-item:hover .hotel-details span {
+        .hotel-details i, .hotel-details .star-rating-icon {
             color: var(--primary-red);
-            /* تلوين التفاصيل عند التحويم */
+            margin-left: 8px;
+            font-size: 1.25rem;
         }
-
-        .hotel-details i {
-            color: var(--primary-red);
-            margin-left: 5px;
+        
+        /* تنسيق النجوم */
+        .star-rating .bi-star-fill {
+            color: var(--gold);
+            margin-left: 2px !important;
+            font-size: 1rem; /* تصغير حجم النجمة قليلاً */
         }
-
-        /* نمط الـ Reverse: الصورة على اليمين */
+        
+        .star-rating-label {
+            color: var(--text-light); /* استخدام لون فاتح لتسمية التصنيف */
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        
+        /* نمط الـ Reverse */
         .hotel-item.reverse {
-            /* في RTL، الـ flex-row-reverse يضع الصورة (التي هي آخر عنصر في الـ row) على اليمين */
             flex-direction: row-reverse;
         }
 
-        /* تعديل الـ border-radius للصورة في النمط العكسي (الـ even index: صورة على اليمين) */
-        .hotel-item.reverse .hotel-image {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
 
         /* ----------------------------------- */
-        /* --- End NEW: Alternating Hotels CSS --- */
+        /* --- End MODIFIED Hotels CSS --- */
         /* ----------------------------------- */
 
 
-        /* --- About Section --- */
-        .about-section {
-            padding: 100px 0;
-            position: relative;
-            /* استخدام الخلفية الفاتحة */
-            background-color: var(--light-bg);
-        }
-
-        .about-img-box {
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-img-box img {
-            border-radius: 20px;
-            /* تخفيف الـ grayscale قليلاً */
-            filter: grayscale(40%);
-            transition: 0.5s;
-        }
-
-        .about-img-box:hover img {
-            filter: grayscale(0%);
-        }
-
-        /* إطار خلفي للصورة باللون الأحمر */
-        .about-bg-accent {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            border: 5px solid var(--primary-red);
-            border-radius: 20px;
-            z-index: -1;
-            transition: 0.5s;
-        }
-
-        .about-img-box:hover .about-bg-accent {
-            top: 20px;
-            right: 20px;
-        }
-
-        /* --- Footer (دمج الموقع والمراسلة) --- */
+        /* --- Footer (بقي كما هو تقريباً) --- */
         .footer {
-            /* خلفية فاتحة جداً في التذييل */
             background: #e9ecef;
             padding-top: 80px;
             padding-bottom: 30px;
             border-top: 5px solid var(--primary-red);
-            /* النص داخل التذييل داكن */
             color: var(--dark-text);
         }
 
@@ -530,7 +383,6 @@
             font-weight: 700;
         }
 
-        /* تنسيق الخريطة داخل التذييل */
         .footer-map iframe {
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -549,7 +401,6 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            /* الأيقونات داكنة */
             color: var(--dark-text);
             margin: 0 5px;
             transition: 0.3s;
@@ -572,11 +423,14 @@
         /* -------------------------------------- */
 
         @media (max-width: 992px) {
+            /* إعدادات الهيرو */
+
+             body {
+            margin:25px;
+        }
             .hero {
-                /* تم تقليل الارتفاع على الأجهزة اللوحية */
-                height: 65vh;
-                min-height: 450px;
-                /* تعديل محاذاة النص في الهيرو للأجهزة الأصغر */
+                height: 45vh;
+                min-height: 300px;
                 align-items: flex-end;
             }
 
@@ -584,106 +438,100 @@
                 font-size: 3rem;
             }
 
-            /* تعديل الـ margin-top لرفع الفورم على الأجهزة اللوحية */
-            .search-form-container {
-                margin-top: -20px;
-            }
-
-            .about-img-box {
-                margin-bottom: 40px;
-            }
-
-            /* تنسيق خاص لقسم الفنادق المتناوب على الأجهزة اللوحية */
+            /* تنسيق الفنادق: تصبح عمودية على اللوحي والموبايل */
             .hotel-item {
-                /* جعل الكل عمودياً على الأجهزة الصغيرة/اللوحية */
                 flex-direction: column !important;
-                margin-bottom: 40px;
-                border-right: none !important;
-                /* إزالة الخطوط الجانبية في العرض العمودي */
-                border-left: none !important;
+                margin-bottom: 30px;
+                border-radius: 10px;
             }
+            
+            .hotels-section .row .hotel-item:nth-child(odd),
+            .hotels-section .row .hotel-item:nth-child(even) {
+                background-color: var(--card-bg); 
+                border-right: 1px solid rgba(0, 0, 0, 0.05);
+                border-left: 1px solid rgba(0, 0, 0, 0.05);
+            }
+            
+            .hotel-item:hover {
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            }
+
+             /* **إزالة الحواف الدائرية المنفصلة على الموبايل** */
+            .hotel-item .hotel-image {
+                border-radius: 0 !important;
+            }
+
 
             .hotel-item .hotel-image {
-                height: 350px;
-                /* ارتفاع أقل للصورة على الأجهزة اللوحية */
-                border-radius: 15px 15px 0 0 !important;
-                /* تحديد الحدود العلوية فقط */
+                height: 250px;
             }
 
             .hotel-item .hotel-content {
-                padding: 30px 20px;
+                padding: 30px 0px;
             }
             
-            /* إلغاء الخلفيات المتناوبة في شاشات الموبايل لتجنب التكرار العمودي */
-            .hotels-section .row .hotel-item:nth-child(odd),
-            .hotels-section .row .hotel-item:nth-child(even) {
-                 background-color: var(--card-bg);
+            /* **ترتيب التفاصيل على اللوحي عمودياً** */
+            .hotel-details {
+                flex-direction: column;
+                gap: 10px; 
+                margin-bottom: 20px;
             }
-
+            
+             /* **فصل بسيط بين عناصر التفاصيل على اللوحي** */
+             .hotel-details span {
+                padding-bottom: 5px; 
+                border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .hotel-details span:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
         }
 
         @media (max-width: 768px) {
             .hero {
-                /* تم تقليل الارتفاع على الهواتف */
-                height: 55vh;
-                min-height: 400px;
-            }
-
-            .hero-content {
-                padding-top: 50px;
-                /* زيادة padding-bottom لدفعه للأعلى قليلاً على الهواتف */
-                padding-bottom: 30px;
-                /* تم تعديله ليكون أكثر تناسقًا مع الفورم */
+                height: 3vh;
+                min-height: 200px;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
-
-            /* رفع الفورم بشكل أكبر على الهواتف */
-            .search-form-container {
-                margin-top: -10px;
-                padding-top: 0;
-            }
-
-            .search-glass {
-                padding: 20px;
-                margin-top: 0;
-            }
-
-            .about-bg-accent {
-                display: none;
-            }
-
-            .about-section .d-flex {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-
-            .about-section .d-flex>div {
-                margin-bottom: 15px;
-                margin-right: 0 !important;
-                margin-left: 0 !important;
-                padding-right: 0 !important;
-                padding-left: 15px !important;
-                border-right: 3px solid var(--primary-red);
-                border-left: none;
-            }
-
-            .footer-map {
-                padding-bottom: 30px;
-            }
-
-            .footer .col-md-6:not(:last-child) {
-                border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-                padding-bottom: 25px !important;
+            
+            .hotel-item {
+                 /* **إضافة خط فاصل سفلي أو لا شيء، نكتفي بالظل حالياً لتقليل التعقيد** */
                 margin-bottom: 25px;
             }
-
+            
+            .hotel-item .hotel-image {
+                height: 200px;
+            }
+            
+            .hotel-item .hotel-content .hotel-name {
+                font-size: 1.7rem; 
+                margin-bottom: 10px;
+            }
+            
+             .hotel-item .hotel-content {
+                padding: 20px 15px; 
+            }
+            
+            /* **جعل التفاصيل أكثر إحكاماً على الهاتف** */
+            .hotel-details {
+                gap: 8px; 
+                margin-bottom: 15px;
+            }
+            
+            .hotel-details span {
+                font-size: 0.95rem;
+            }
+            
         }
 
         /* -------------------------------------- */
-        /* --- Responsive Enhancements (Mobile) --- */
+        /* --- End Responsive Enhancements (Mobile) --- */
         /* -------------------------------------- */
     </style>
 </head>
@@ -694,11 +542,10 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="50" style="border-radius: 5px;">
+                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
                 @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-                <span> فنادق رومانس </span>
 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -815,8 +662,8 @@
             <div class="row align-items-center text-center">
                 <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="hero-title">
-                        فنادقنا <br>
-                        <span>ROMANCE HOTELS</span>
+                        الفنادق <br>
+                        <!-- <span> فنادقنا</span> -->
                     </h1>
                 </div>
             </div>
@@ -835,7 +682,7 @@
                     <div class="row g-0 hotel-item {{ $loop->index % 2 != 0 ? 'reverse' : '' }}">
 
                         {{-- عمود الصورة --}}
-                        <div class="col-lg-5 hotel-image-col">
+                        <div class="col-lg-3 hotel-image-col">
                             @if($hotel->image)
                             <img src="{{ asset($hotel->image) }}" class="hotel-image" alt="{{ $hotel->name }}">
                             @else
@@ -846,20 +693,39 @@
                         </div>
 
                         {{-- عمود المحتوى --}}
-                        <div class="col-lg-7 hotel-content">
+                        <div class="col-lg-8 hotel-content">
                             <div>
                                 <h3 class="hotel-name">{{ $hotel->name }}</h3>
+                                
+                                {{-- تم حذف الوصف لتقليل الارتفاع --}}
+                                {{-- <p>{{ $hotel->description }}</p> --}}
 
 
                                 <div class="hotel-details mb-4">
-                                    <span><i class="fas fa-bed"></i> عدد الغرف والأجنحة: **{{ $hotel->rooms }}**</span>
-                                    <span><i class="fas fa-couch"></i> عدد الأسرّة: **{{ $hotel->beds }}**</span>
-                                    <span><i class="fas fa-star text-gold"></i> التصنيف: **{{ $hotel->rate }}**</span>
+                                    <span><i class="fas fa-bed"></i> غرف وأجنحة: {{ $hotel->rooms }}</span>
+                                    <span><i class="fas fa-couch"></i> عدد الأسرّة: {{ $hotel->beds }}</span>
+                                    
+                                    {{-- **تعديل: عرض التصنيف بالنجوم حسب العدد الفعلي** --}}
+                                    <span>
+                                        <i class="star-rating-icon bi-star-fill"></i> 
+                                        <span class="star-rating-label">التصنيف:</span>
+                                        <span class="star-rating">
+                                            @php
+                                                // نحول التقييم إلى عدد صحيح (مثلاً 4.7 تصبح 5، 4.1 تصبح 4)
+                                                $rate = round($hotel->rate); 
+                                            @endphp
+                                            {{-- عرض عدد النجوم المساوي للتقييم --}}
+                                            @for ($i = 0; $i < $rate; $i++)
+                                                <i class="bi bi-star-fill"></i>
+                                            @endfor
+                                        </span>
+                                    </span>
+                                    {{-- **نهاية تعديل النجوم** --}}
                                 </div>
                             </div>
 
                             <div class="d-flex justify-content-start">
-                                <a href="#" class="btn btn-luxury mt-3">استكشف الأجنحة المتاحة <i
+                                <a href="#" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
                                         class="fas fa-chevron-left me-1"></i></a>
                             </div>
                         </div>
@@ -871,106 +737,9 @@
     </section>
 
 
-    <footer class="footer" id="contact">
-        <div class="container">
-            <div class="row gy-5 pt-5 border-top border-secondary-subtle">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="0">
-                    <h3 class="mb-4 fw-bold">{{ $data->name ?? 'Royal View' }}</h3>
-                    <p class="text-muted">{{ $data->description ?? 'فندق رويال فيو، حيث الفخامة تلتقي بالتاريخ. إقامتك الملكية في قلب المدينة.' }}</p>
-                    <div class="mt-4">
-                        @if($data->faceLink) <a href="{{ $data->faceLink }}" class="social-circle"><i
-                                class="fab fa-facebook-f"></i></a> @endif
-                        @if($data->instaLink) <a href="{{ $data->instaLink }}" class="social-circle"><i
-                                class="fab fa-instagram"></i></a> @endif
-                        @if($data->wattsLink) <a href="{{ $data->wattsLink }}" class="social-circle"><i
-                                class="fab fa-whatsapp"></i></a> @endif
-                    </div>
-                </div>
+@include('footer')
 
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="mb-4">معلومات التواصل</h4>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-3"><i class="fas fa-map-marker-alt text-danger me-2"></i>
-                            {{ $data->address ?? 'مكة المكرمة، المملكة العربية السعودية' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
-                            {{ $data->phone1 ?? '+966 50 123 4567' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-phone text-danger me-2"></i>
-                            {{ $data->phone2 ?? '+966 50 123 4567' }}
-                        </li>
-                        <li class="mb-3"><i class="fas fa-envelope text-danger me-2"></i>
-                            {{ $data->email ?? 'info@royalview.com' }}
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-4 col-md-12" data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="mb-4">روابط سريعة</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i
-                                    class="fas fa-angle-left text-danger me-2"></i> الأسئلة الشائعة</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i
-                                    class="fas fa-angle-left text-danger me-2"></i> سياسة الخصوصية</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i
-                                    class="fas fa-angle-left text-danger me-2"></i> الشروط والأحكام</a></li>
-                        <li><a href="#about" class="text-muted text-decoration-none mb-2 d-block"><i
-                                    class="fas fa-angle-left text-danger me-2"></i> اكتشف قصتنا</a></li>
-                    </ul>
-                </div>
-
-            </div>
-            <hr class="border-secondary mt-5">
-            <div class="text-center text-muted py-3">
-                <small>
-                    © {{ date('Y') }} {{ $data->name ?? 'Royal View' }}. جميع الحقوق محفوظة. تصميم:
-                    <a href="https://wa.me/966560637609" target="_blank"
-                        style="text-decoration: none; color: inherit;">
-                        Elegance
-                    </a>
-                </small>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
-
-    <script>
-        // تهيئة مكتبة الأنيميشن
-        AOS.init({
-            offset: 100,
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-        });
-
-        // تأثير 3D للصور والعناصر
-        VanillaTilt.init(document.querySelectorAll(".tilt-element"), {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.1,
-            /* تم تخفيف الـ Glare ليتناسب مع الخلفية الفاتحة */
-        });
-
-        // تغيير النافبار عند السكرول (تم التعديل ليتناسب مع الوضع الفاتح)
-        window.onscroll = function() {
-            var navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                // عند النزول، اجعله أبيض بالكامل
-                navbar.style.background = "rgba(255, 255, 255, 0.9)"; // زيادة العتامة قليلاً
-                navbar.style.padding = "10px 0";
-                navbar.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.1)";
-            } else {
-                // في الأعلى، ابقيه شفافاً قليلاً فوق صورة الهيرو
-                navbar.style.background = "rgba(255, 255, 255, 0.75)";
-                navbar.style.padding = "20px 0";
-                navbar.style.boxShadow = "none";
-            }
-        };
-    </script>
+    
 </body>
 
 </html>
