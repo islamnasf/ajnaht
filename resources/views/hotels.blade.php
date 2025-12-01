@@ -725,7 +725,7 @@
                             </div>
 
                             <div class="d-flex justify-content-start">
-                                <a href="{{ route('hotelDetails', $hotel->id)" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
+                                <a href="{{ route('hotelDetails', $hotel->id)}}" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
                                         class="fas fa-chevron-left me-1"></i></a>
                             </div>
                         </div>
