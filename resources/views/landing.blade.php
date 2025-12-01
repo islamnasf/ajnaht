@@ -50,7 +50,7 @@
             color: #fff;
         }
         .navbar {
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 5px 0;
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
