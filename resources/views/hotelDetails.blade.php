@@ -581,8 +581,8 @@
                     @php
                         // بيانات وهمية للاختبار
                         $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
-                        $price = $priceItem->price  ?? غير معرف حاليا ;
-                        $roomAvailable = $priceItem->roomAvailable ??  غير معرف حاليا ;
+                        $price = $priceItem->price  ?? null ;
+                        $roomAvailable = $priceItem->roomAvailable ?? null ;
                         $roomName = $i == 1 ? 'جناح ملكي ' : ($i == 2 ? 'غرفة مزدوجة ' : 'غرفة عائلية ' . $i . ' أسرّة');
                     @endphp
 
