@@ -1,5 +1,17 @@
     <footer class="footer">
         <div class="container">
+            <div class="row mb-5 footer-map">
+                <div class="col-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold mb-2" style="color: var(--dark-text);">تفضل بزيارتنا </h2>
+                </div>
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <iframe
+                        src="{{$data->location ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15334.821035210212!2d39.8166667!3d21.4225211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c21b21235b3f17%3A0x6b4a5d8f6f59b9c9!2z2KjYp9iz2YrYqSDYqtmE2Ykg2YjYutiv2YXYtNin2YUg2YjYstmK2LE!5e0!3m2!1sar!2ssa!4v1700742514457!5m2!1sar!2ssa'}}"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
             <div class="row gy-5 pt-5 border-top border-secondary-subtle">
                 <div class="col-lg-4 col-md-6">
                     <h3 class="mb-4 fw-bold">{{ $data->name ?? 'Royal View' }}</h3>
