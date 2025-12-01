@@ -556,7 +556,7 @@
                     <li class="nav-item"><a class="nav-link " href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
 
-                    <li class="nav-item"><a class="nav-link active" href="route('hotels')">الفنادق</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{route('hotels')}}">الفنادق</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a></li>
                     <li class="nav-item dropdown">
@@ -725,7 +725,7 @@
                             </div>
 
                             <div class="d-flex justify-content-start">
-                                <a href="#" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
+                                <a href="{{ route('hotelDetails', $hotel->id)" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
                                         class="fas fa-chevron-left me-1"></i></a>
                             </div>
                         </div>

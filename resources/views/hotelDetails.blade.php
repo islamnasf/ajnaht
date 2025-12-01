@@ -581,8 +581,8 @@
                     @php
                         // بيانات وهمية للاختبار
                         $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
-                        $price = $priceItem->price ?? ($i * 500);
-                        $roomAvailable = $priceItem->roomAvailable ?? (10 - $i);
+                        $price = $priceItem->price ;
+                        $roomAvailable = $priceItem->roomAvailable ;
                         $roomName = $i == 1 ? 'جناح ملكي ' : ($i == 2 ? 'غرفة مزدوجة ' : 'غرفة عائلية ' . $i . ' أسرّة');
                     @endphp
 
@@ -601,9 +601,6 @@
                                 <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
                                 <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
                             </p>
-
-
-
                         </div>
                     </div>
                     @endif
