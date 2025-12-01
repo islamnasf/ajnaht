@@ -540,9 +540,9 @@
                             </a>
 
                             {{-- زر الموقع على الخريطة --}}
-                            <a href="{{ $hotel->location }}" target="_blank" class="btn btn-outline-dark w-100" style="border-radius: 30px;">
+                            <!-- <a href="{{ $hotel->location }}" target="_blank" class="btn btn-outline-dark w-100" style="border-radius: 30px;">
                                 <i class="fa fa-location-dot me-2"></i> عرض الموقع على الخريطة
-                            </a>
+                            </a> -->
                         </div>
                     </div>
 
