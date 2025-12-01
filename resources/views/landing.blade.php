@@ -544,6 +544,52 @@
             }
 
         }
+
+
+        /* تحديد مظهر أزرار التحكم في الكاروسيل */
+#hotelCarousel .carousel-control-prev,
+#hotelCarousel .carousel-control-next {
+    /* لون الخلفية: لون داكن شبه شفاف (يمكنك تغيير الكود) */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* لزيادة حجم المنطقة القابلة للنقر */
+    width: 40px;
+    height: 40px;
+    /* لتوسيط الزر عمودياً */
+    top: 50%;
+    transform: translateY(-50%);
+    /* لجعله دائرياً */
+    border-radius: 50%;
+    /* لضبط موضعه داخل شريط الكاروسيل */
+    opacity: 0.8; /* لتقليل الشفافية قليلاً */
+    transition: opacity 0.2s ease;
+}
+
+/* زيادة شفافية الخلفية عند التحويم (Hover) */
+#hotelCarousel .carousel-control-prev:hover,
+#hotelCarousel .carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* تعديل لون أيقونات الأسهم إلى الأبيض (لجعلها مرئية على الخلفية الداكنة) */
+#hotelCarousel .carousel-control-prev-icon,
+#hotelCarousel .carousel-control-next-icon {
+    /* استخدام فلتر CSS لقلب الألوان وجعل الأيقونة بيضاء */
+    filter: invert(100%);
+    /* لضمان رؤية الأيقونة في حالة عدم تغيير لونها افتراضياً */
+}
+
+/* تخصيص موضع الأزرار (اختياري) */
+#hotelCarousel .carousel-control-prev {
+    /* تحريك الزر الأيسر (السابق) للداخل قليلاً */
+    right: 15px; /* للعرض من اليمين لليسار (RTL) */
+    left: auto;
+}
+
+#hotelCarousel .carousel-control-next {
+    /* تحريك الزر الأيمن (التالي) للداخل قليلاً */
+    left: 15px; /* للعرض من اليمين لليسار (RTL) */
+    right: auto;
+}
     
     </style>
 </head>
