@@ -649,7 +649,8 @@
             <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                 <div class="search-glass">
                     <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
-                    <form  action="{{ route('newReser') }}" method="GET">
+                    <!-- <form  action="{{ route('newReser') }}" method="GET"> -->
+                    <form  action="#" method="GET">
                         <div class="row gy-3 gx-3 align-items-end">
 
                             <!-- اختيار الفندق -->
