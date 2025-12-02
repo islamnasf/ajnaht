@@ -166,8 +166,8 @@
         /* --- Hero Section (Showcase) --- */
         .hero {
             position: relative;
-            height: 100vh;
-            min-height: 700px;
+            height: 60vh;
+            min-height: 400px;
             display: flex;
             align-items: center;
             /* وضع المحتوى في منتصف الهيرو */

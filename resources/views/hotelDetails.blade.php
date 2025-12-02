@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>رومانس  | {{ $hotel->name ?? 'تفاصيل الفندق' }}</title>
+    <title>رومانس | {{ $hotel->name ?? 'تفاصيل الفندق' }}</title>
     <link rel="icon" type="image/png" href="{{ asset($data->logo ?? 'default-logo.png') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
@@ -19,14 +17,18 @@
 
     <style>
         :root {
-            --primary-red: #c6842f; /* اللون الأساسي: تم الاحتفاظ به */
+            --primary-red: #c6842f;
+            /* اللون الأساسي: تم الاحتفاظ به */
             --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
             --gold: #D4AF37;
-            --light-bg: #f5f5f5; /* لون خلفية أفتح قليلاً لمظهر أكثر احترافية */
-            --dark-text: #1a1a1a; /* لون نص أدكن قليلاً لتحسين القراءة */
+            --light-bg: #f5f5f5;
+            /* لون خلفية أفتح قليلاً لمظهر أكثر احترافية */
+            --dark-text: #1a1a1a;
+            /* لون نص أدكن قليلاً لتحسين القراءة */
             --card-bg: #ffffff;
             --text-light: #6c757d;
-            --secondary-color: #343a40; /* لون ثانوي للنصوص الفرعية */
+            --secondary-color: #343a40;
+            /* لون ثانوي للنصوص الفرعية */
         }
 
         body {
@@ -35,14 +37,28 @@
             color: var(--dark-text);
             overflow-x: hidden;
             line-height: 1.6;
-            padding-top: 80px; /* لترك مساحة للنافبار الثابت */
+            padding-top: 80px;
+            /* لترك مساحة للنافبار الثابت */
         }
 
         /* --- Scrollbar and Selection --- */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #e9ecef; }
-        ::-webkit-scrollbar-thumb { background: var(--primary-red); border-radius: 5px; }
-        ::selection { background: var(--primary-red); color: #fff; }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e9ecef;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-red);
+            border-radius: 5px;
+        }
+
+        ::selection {
+            background: var(--primary-red);
+            color: #fff;
+        }
 
         /* --- Navbar Styles --- */
         .navbar {
@@ -55,7 +71,12 @@
             z-index: 1050;
         }
 
-        .navbar-brand { font-weight: 800; color: var(--dark-text) !important; font-size: 1.7rem; letter-spacing: 0.5px; }
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--dark-text) !important;
+            font-size: 1.7rem;
+            letter-spacing: 0.5px;
+        }
 
         .nav-link {
             color: var(--dark-text) !important;
@@ -65,7 +86,10 @@
             transition: color 0.3s;
         }
 
-        .nav-link:hover, .nav-link.active { color: var(--primary-red) !important; }
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-red) !important;
+        }
 
         .nav-link::after {
             content: "";
@@ -76,7 +100,10 @@
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
 
         /* --- Luxury Button --- */
         .btn-luxury {
@@ -118,7 +145,11 @@
         }
 
         /* User Dropdown Custom Styles */
-        .user-dropdown { position: relative; display: inline-block; }
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
         .user-dropdown .menu {
             position: absolute;
             top: 100%;
@@ -134,7 +165,13 @@
             transform: translateY(10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .user-dropdown .menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        .user-dropdown .menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
         .user-dropdown .menu button {
             width: 100%;
             padding: 8px 15px;
@@ -146,7 +183,11 @@
             border-radius: 5px;
             transition: background-color 0.2s, color 0.2s;
         }
-        .user-dropdown .menu button:hover { background-color: var(--primary-red); color: white; }
+
+        .user-dropdown .menu button:hover {
+            background-color: var(--primary-red);
+            color: white;
+        }
 
         /* --- Footer Styles (محتوى غير مطلوب في هذا التعديل) --- */
         .footer {
@@ -157,7 +198,11 @@
             color: var(--dark-text);
         }
 
-        .footer h3, .footer h4 { color: var(--dark-text); font-weight: 700; }
+        .footer h3,
+        .footer h4 {
+            color: var(--dark-text);
+            font-weight: 700;
+        }
 
         .social-circle {
             width: 45px;
@@ -189,15 +234,18 @@
         .hotel-hero {
             position: relative;
             /* ارتفاع مرن ومناسب لعرض متجاور */
-            height: 100%; /* اجعل ارتفاعها يملأ الحاوية (مهم لتناسق الأعمدة) */
-            min-height: 450px; /* الحد الأدنى للارتفاع */
-            max-height: 750px; /* الحد الأقصى للارتفاع */
-            
+            height: 100%;
+            /* اجعل ارتفاعها يملأ الحاوية (مهم لتناسق الأعمدة) */
+            min-height: 450px;
+            /* الحد الأدنى للارتفاع */
+            max-height: 750px;
+            /* الحد الأقصى للارتفاع */
+
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            /* تم إزالة الهامش العلوي (margin-top: 90px;) من هنا ليتم التعامل معه في الهيكل */
         }
+
         /* **************************************************** */
 
         .hotel-image-full {
@@ -208,7 +256,7 @@
         }
 
         .hotel-hero:hover .hotel-image-full {
-             transform: scale(1.03);
+            transform: scale(1.03);
         }
 
         .hotel-info-overlay {
@@ -353,12 +401,18 @@
             background-color: rgba(255, 255, 255, 0.1);
             border: none;
         }
-        .modal-backdrop.show { opacity: 0.9; background-color: rgba(0, 0, 0, 0.9); }
+
+        .modal-backdrop.show {
+            opacity: 0.9;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
         .lightbox-img {
             width: 100%;
             max-height: 90vh;
             object-fit: contain;
         }
+
         .modal-header .btn-close {
             filter: invert(1);
             opacity: 1;
@@ -366,7 +420,11 @@
 
         /* Media Queries for Responsiveness */
         @media (max-width: 991.98px) {
-            body { padding-top: 70px; } /* تعديل بسيط ليتناسب مع النافبار */
+            body {
+                padding-top: 70px;
+            }
+
+            /* تعديل بسيط ليتناسب مع النافبار */
 
             .navbar-collapse {
                 background-color: var(--card-bg);
@@ -375,18 +433,30 @@
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
                 margin-top: 10px;
             }
-            .nav-link { margin: 5px 0; padding: 10px 15px; }
-            .nav-link::after { width: 0 !important; }
+
+            .nav-link {
+                margin: 5px 0;
+                padding: 10px 15px;
+            }
+
+            .nav-link::after {
+                width: 0 !important;
+            }
 
             /* ******* تعديل ريسبونسيف للـ Hero Image ******* */
             .hotel-hero {
-                height: 45vh; /* تقليل الارتفاع على الشاشات الصغيرة */
+                height: 45vh;
+                /* تقليل الارتفاع على الشاشات الصغيرة */
                 min-height: 300px;
-                margin-top: 20px; /* هامش علوي بسيط للفصل بعد النافبار في الجوال */
+                margin-top: 20px;
+                /* هامش علوي بسيط للفصل بعد النافبار في الجوال */
             }
+
             /* ********************************************* */
 
-            .hotel-info-overlay h1 { font-size: 2.2rem; }
+            .hotel-info-overlay h1 {
+                font-size: 2.2rem;
+            }
 
             .hotel-info-card {
                 margin-top: 20px;
@@ -397,9 +467,18 @@
         }
 
         @media (max-width: 767.98px) {
-            .hotel-hero { height: 35vh; min-height: 250px; }
-            .hotel-info-overlay h1 { font-size: 1.8rem; }
-            .gallery-img { height: 180px; }
+            .hotel-hero {
+                height: 35vh;
+                min-height: 250px;
+            }
+
+            .hotel-info-overlay h1 {
+                font-size: 1.8rem;
+            }
+
+            .gallery-img {
+                height: 180px;
+            }
         }
     </style>
 
@@ -477,8 +556,8 @@
             const modalElement = document.getElementById('imageModal');
             // تأكد من تهيئة Modal بعد إضافة Bootstrap JS
             if (modalElement) {
-                 const modal = new bootstrap.Modal(modalElement);
-                 const modalImage = document.getElementById('modalImage');
+                const modal = new bootstrap.Modal(modalElement);
+                const modalImage = document.getElementById('modalImage');
 
                 galleryImages.forEach(img => {
                     img.addEventListener('click', () => {
@@ -493,23 +572,39 @@
 
 
     {{-- ***************************************************************** --}}
-    {{-- ******* تم تعديل ترتيب الأعمدة هنا لعرض الصورة على اليسار ******** --}}
+    {{-- ******* تم تعديل ترتيب الأعمدة هنا لعرض الصورة على اليمين ******** --}}
+    {{-- ******* ولتظهر أولاً في الجوال (حسب الترتيب الطبيعي للكود) ******* --}}
     {{-- ***************************************************************** --}}
 
     <div class="container hotel-details-section">
 
         <div class="row g-4 mb-5 pt-5 pt-lg-0">
 
-            {{-- 1. العمود الأيمن (للمعلومات والحجز - يأخذ أولوية الظهور في RTL) --}}
-            <div class="col-lg-5 order-lg-1">
-                <div class="row g-4 h-100">
+            {{-- 1. العمود الأيمن (صورة البطل) - نستخدم order-lg-1 لجعله يظهر على اليمين في تخطيط RTL --}}
+            <div class="col-lg-7 order-lg-1" data-aos="zoom-in" data-aos-delay="100">
+                <div class="hotel-hero m-lg-0">
+                    {{--  --}}
+                    <img src="{{ asset($hotel->image) }}" class="hotel-image-full" alt="{{ $hotel->name }}">
+                    <div class="hotel-info-overlay">
+                        <h1 class="text-white">{{ $hotel->name }}</h1>
+                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}</p>
+                        <p class="rating mb-3">
+                            @for($i=1; $i <= 5; $i++)
+                                @if($i <= $hotel->rate)
+                                    <i class="fa fa-star"></i>
+                                @endif
+                                @endfor
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-                    {{-- بطاقة المعلومات الرئيسية للفندق --}}
+            {{-- 2. العمود الأيسر (للمعلومات والحجز) - نستخدم order-lg-2 لجعله يظهر على اليسار في تخطيط RTL --}}
+            <div class="col-lg-5 order-lg-2">
+                <div class="row g-4 h-100">
                     <div class="col-lg-12" data-aos="fade-right" data-aos-delay="200">
                         <div class="hotel-info-card">
                             <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة على الفندق</h3>
-
-                            {{-- إضافة عدد الغرف والأسرة الكلي --}}
                             <div class="row g-3 mb-4 text-center">
                                 <div class="col-6">
                                     <div class="feature-box">
@@ -540,30 +635,9 @@
                             </a>
 
                             {{-- زر الموقع على الخريطة --}}
-                            <!-- <a href="{{ $hotel->location }}" target="_blank" class="btn btn-outline-dark w-100" style="border-radius: 30px;">
-                                <i class="fa fa-location-dot me-2"></i> عرض الموقع على الخريطة
-                            </a> -->
-                        </div>
+                            </div>
                     </div>
 
-                </div>
-            </div>
-
-            {{-- 2. العمود الأيسر (صورة البطل - يظهر ثانياً في RTL) --}}
-            <div class="col-lg-7 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-                <div class="hotel-hero m-lg-0">
-                    <img src="{{ asset($hotel->image) }}" class="hotel-image-full" alt="{{ $hotel->name }}">
-                    <div class="hotel-info-overlay">
-                        <h1 class="text-white">{{ $hotel->name }}</h1>
-                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}</p>
-                        <p class="rating mb-3">
-                            @for($i=1; $i <= 5; $i++)
-                                @if($i <= $hotel->rate)
-                                    <i class="fa fa-star"></i>
-                                     @endif
-                            @endfor
-                        </p>
-                    </div>
                 </div>
             </div>
 
@@ -581,12 +655,13 @@
                     @php
                         // بيانات وهمية للاختبار
                         $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
-                        $price = $priceItem->price  ?? 0 ;
+                        $price = $priceItem->price ?? 0 ;
                         $roomAvailable = $priceItem->roomAvailable ?? 0 ;
                         $roomName = $i == 1 ? 'جناح ملكي ' : ($i == 2 ? 'غرفة مزدوجة ' : 'غرفة عائلية ' . $i . ' أسرّة');
                     @endphp
 
-                    @if($roomAvailable > 0) {{-- عرض الغرف المتاحة فقط --}}
+                    @if($roomAvailable > 0)
+                    {{-- عرض الغرف المتاحة فقط --}}
                     <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
                         <div class="price-card">
                             <h4 class="mb-3">{{ $roomName }}</h4>
@@ -612,14 +687,14 @@
         <hr class="my-5">
 
         {{-- معرض الصور --}}
-        <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up"><i class="fa fa-images me-2"></i>   صور الفندق </h2>
+        <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up"><i class="fa fa-images me-2"></i> صور الفندق </h2>
 
 
         <div class="row g-3">
             @foreach($hotel->files as $file)
-                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
-                    <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}" data-bs-toggle="modal" data-bs-target="#imageModal">
-                </div>
+            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
+                <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}" data-bs-toggle="modal" data-bs-target="#imageModal">
+            </div>
             @endforeach
         </div>
 
@@ -627,16 +702,16 @@
 
     {{-- Lightbox Modal --}}
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center p-0">
-            <img src="" id="modalImage" class="lightbox-img" alt="صورة مكبرة">
-          </div>
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-0">
+                    <img src="" id="modalImage" class="lightbox-img" alt="صورة مكبرة">
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     {{-- نهاية Lightbox Modal --}}
 

@@ -238,7 +238,7 @@
             display: flex;
             align-items: stretch;
             /* **تبسيط الفصل بين العناصر** */
-            margin-bottom: 30px; 
+            /* margin-bottom: 10px;  */
             background-color: var(--card-bg);
             border-radius: 10px; /* إضافة حواف دائرية بسيطة */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* ظل ناعم فقط */
@@ -678,11 +678,11 @@
             <div class="row g-5 justify-content-center">
                 @foreach($hotels as $hotel)
                 {{-- نمط التناوب: 'reverse' إذا كان رقم العنصر زوجياً (بدأنا من 0) --}}
-                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
                     <div class="row g-0 hotel-item {{ $loop->index % 2 != 0 ? 'reverse' : '' }}">
 
                         {{-- عمود الصورة --}}
-                        <div class="col-lg-3 hotel-image-col">
+                        <div class="col-lg-4 hotel-image-col">
                             @if($hotel->image)
                             <img src="{{ asset($hotel->image) }}" class="hotel-image" alt="{{ $hotel->name }}">
                             @else
