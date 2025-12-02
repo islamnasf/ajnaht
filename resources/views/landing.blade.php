@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ $data->name ?? 'رويال فيو' }} | فخامة الإقامة</title>
-<link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
+    <link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -28,7 +28,7 @@
 
         body {
             font-family: "IBM Plex Sans Arabic", sans-serif;
-              background-color: var(--light-bg);
+            background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
         }
@@ -45,10 +45,12 @@
             background: var(--primary-red);
             border-radius: 5px;
         }
+
         ::selection {
             background: var(--primary-red);
             color: #fff;
         }
+
         .navbar {
             background-color: rgba(255, 255, 255, 0.95);
             padding: 5px 0;
@@ -66,6 +68,7 @@
             letter-spacing: 1px;
             text-shadow: none;
         }
+
         .nav-link {
             color: var(--dark-text) !important;
             font-weight: 500;
@@ -73,10 +76,12 @@
             position: relative;
             transition: 0.3s;
         }
+
         .nav-link:hover,
         .nav-link.active {
             color: var(--primary-red) !important;
         }
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -343,7 +348,8 @@
             padding-top: 80px;
             padding-bottom: 30px;
             border-top: 5px solid var(--primary-red);
-            color: var(--dark-text);        }
+            color: var(--dark-text);
+        }
 
         .footer h3,
         .footer h4 {
@@ -393,43 +399,44 @@
         /* -------------------------------------- */
 
 
-                 .user-dropdown {
-                        position: relative;
-                        display: inline-block;
-                    }
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-                    .user-dropdown .menu {
-                        display: none;
-                        position: absolute;
-                        right: 0;
-                        background: #fff;
-                        min-width: 150px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border-radius: 8px;
-                        z-index: 999;
-                    }
+        .user-dropdown .menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: #fff;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            z-index: 999;
+        }
 
-                    .user-dropdown .menu.show {
-                        display: block;
-                    }
+        .user-dropdown .menu.show {
+            display: block;
+        }
 
-                    .user-dropdown .menu a,
-                    .user-dropdown .menu button {
-                        display: block;
-                        width: 100%;
-                        padding: 10px 15px;
-                        text-align: right;
-                        border: none;
-                        background: transparent;
-                        text-decoration: none;
-                        color: #333;
-                    }
+        .user-dropdown .menu a,
+        .user-dropdown .menu button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            text-align: right;
+            border: none;
+            background: transparent;
+            text-decoration: none;
+            color: #333;
+        }
 
-                    .user-dropdown .menu a:hover,
-                    .user-dropdown .menu button:hover {
-                        background: #f3f3f3;
-                        cursor: pointer;
-                    }
+        .user-dropdown .menu a:hover,
+        .user-dropdown .menu button:hover {
+            background: #f3f3f3;
+            cursor: pointer;
+        }
+
         @media (max-width: 992px) {
 
             .hero {
@@ -546,42 +553,44 @@
         }
 
 
-#hotelCarousel .carousel-control-prev,
-#hotelCarousel .carousel-control-next {
-    background-color: #c6842f;
-    width: 50px;
-    height: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 20%;
-    opacity: 0.7; /* لتقليل الشفافية قليلاً */
-    transition: opacity 0.2s ease;
-}
+        #hotelCarousel .carousel-control-prev,
+        #hotelCarousel .carousel-control-next {
+            background-color: #c6842f;
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 20%;
+            opacity: 0.7;
+            /* لتقليل الشفافية قليلاً */
+            transition: opacity 0.2s ease;
+        }
 
-#hotelCarousel .carousel-control-prev:hover,
-#hotelCarousel .carousel-control-next:hover {
-    opacity: 1;
-}
+        #hotelCarousel .carousel-control-prev:hover,
+        #hotelCarousel .carousel-control-next:hover {
+            opacity: 1;
+        }
 
-/* تعديل لون أيقونات الأسهم إلى الأبيض (لجعلها مرئية على الخلفية الداكنة) */
-#hotelCarousel .carousel-control-prev-icon,
-#hotelCarousel .carousel-control-next-icon {
-    filter: invert(100%);
-}
+        /* تعديل لون أيقونات الأسهم إلى الأبيض (لجعلها مرئية على الخلفية الداكنة) */
+        #hotelCarousel .carousel-control-prev-icon,
+        #hotelCarousel .carousel-control-next-icon {
+            filter: invert(100%);
+        }
 
-/* تخصيص موضع الأزرار (اختياري) */
-#hotelCarousel .carousel-control-prev {
-    /* تحريك الزر الأيسر (السابق) للداخل قليلاً */
-    right: 15px; /* للعرض من اليمين لليسار (RTL) */
-    left: auto;
-}
+        /* تخصيص موضع الأزرار (اختياري) */
+        #hotelCarousel .carousel-control-prev {
+            /* تحريك الزر الأيسر (السابق) للداخل قليلاً */
+            right: 15px;
+            /* للعرض من اليمين لليسار (RTL) */
+            left: auto;
+        }
 
-#hotelCarousel .carousel-control-next {
-    /* تحريك الزر الأيمن (التالي) للداخل قليلاً */
-    left: 15px; /* للعرض من اليمين لليسار (RTL) */
-    right: auto;
-}
-    
+        #hotelCarousel .carousel-control-next {
+            /* تحريك الزر الأيمن (التالي) للداخل قليلاً */
+            left: 15px;
+            /* للعرض من اليمين لليسار (RTL) */
+            right: auto;
+        }
     </style>
 </head>
 
@@ -680,64 +689,56 @@
         </div>
     </section>
 
-  <div class="container-fluid py-0 search-form-container">
+ <div class="container-fluid py-0 search-form-container">
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                 <div class="search-glass">
                     <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
-                    <!-- <form  action="{{ route('newReser') }}" method="GET"> -->
-                    <form  action="#" method="GET">
+                    <form action="{{ route('newReser') }}" method="GET">
                         <div class="row gy-3 gx-3 align-items-end">
+                             <!-- اختيار الفندق -->
+                            <div class="col-lg-4">
+                                <label class="small text-muted mb-1">وجهتك  </label>
+                                <select class="form-control form-control-custom" name="hotel_id" required>
+                                        <option selected>مكة</option>
+                                </select>
+                            </div>
 
                             <!-- اختيار الفندق -->
-                          <div class="col-lg-4">
-    <label class="small text-muted mb-1">اختر الفندق</label>
-
-    <select class="form-control form-control-custom" name="hotel_id" required>
-        <option value="">اختر الفندق</option>
-
-        @foreach($hotels as $hotel)
-            <option value="{{ $hotel->id }}">
-                {{ $hotel->name }}
-            </option>
-        @endforeach
-
-    </select>
-</div>
-
-
-                            <!-- تاريخ الوصول -->
                             <div class="col-lg-4">
-                                <label class="small text-muted mb-1">الوصول</label>
-                                <input type="date" class="form-control form-control-custom"  name="start"  required>
+                                <label class="small text-muted mb-1">اختر الفندق</label>
+                                <select class="form-control form-control-custom" name="hotel_id" required>
+                                    <option value="">اختر الفندق</option>
+                                    @foreach($hotels as $hotel)
+                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            <!-- تاريخ المغادرة -->
+                            <!-- اختيار الفترة (Range Picker) -->
                             <div class="col-lg-4">
-                                <label class="small text-muted mb-1">المغادرة</label>
-                                <input type="date" class="form-control form-control-custom"  name="end"  required>
+                                <label class="small text-muted mb-1">اختر الفترة</label>
+                                <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                <!-- Hidden inputs لإرسال start و end -->
+                                <input type="hidden" name="start" id="start_date">
+                                <input type="hidden" name="end" id="end_date">
                             </div>
 
-                            <!-- عدد الغرف -->
-                            <!-- <div class="col-lg-3">
-                                <label class="small text-muted mb-1">عدد الغرف</label>
-                                <input type="number" class="form-control form-control-custom" min="1" value="1">
-                            </div> -->
+                      
 
                             <div class="col-12 mt-4">
+                                @guest
+                                    <a href="{{ route('login') }}" class="btn btn-luxury w-100 py-3">
+                                        يجب التسجيل اولا لانشاء حجز
+                                    </a>
+                                @endguest
 
-   @guest
-                    <a href="{{ route('login') }}" class="btn btn-luxury w-100 py-3">
-يجب  التسجيل اولا لانشاء حجز                     </a>
-                    @endguest
-
-                    @auth
-                                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الان </button>
-
-                    @endauth
-
+                                @auth
+                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
+                                @endauth
                             </div>
+
                         </div>
                     </form>
                 </div>
@@ -745,6 +746,10 @@
         </div>
     </div>
 </div>
+
+<!-- Flatpickr -->
+
+
 
 
 
@@ -784,63 +789,78 @@
         </div>
     </section>
 
-<section class="hotels-section py-5" id="hotels">
-    <div class="container">
-        <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
-            اكتشف فنادقنا المميزة
-        </h2>
+    <section class="hotels-section py-5" id="hotels">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
+                اكتشف فنادقنا المميزة
+            </h2>
 
-        <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-            <div class="carousel-inner">
-                {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
-                @php
+            <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
+                    @php
                     $chunks = $hotels->chunk(3); // تقسيم مجموعة الفنادق إلى مجموعات تحتوي كل منها على 4
                     $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
-                @endphp
+                    @endphp
 
-                @foreach($chunks as $chunk)
-                {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
-                <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
-                    <div class="row g-4 justify-content-center">
-                        @foreach($chunk as $hotel)
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card h-100 shadow-sm">
-                                @if($hotel->image)
+                    @foreach($chunks as $chunk)
+                    {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
+                    <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
+                        <div class="row g-4 justify-content-center">
+                            @foreach($chunk as $hotel)
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card h-100 shadow-sm">
+                                    @if($hotel->image)
                                     <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}" style="width: 100%; height: 250px; object-fit: cover; object-position: center; border-radius: 8px;">
-                                @else
+                                    @else
                                     <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top" alt="{{ $hotel->name }}">
-                                @endif
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
-                                    <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
-                                    <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p>
-                                    <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p>
-                                    <p class="mb-2">⭐ {{ $hotel->rate }}</p>
-<a href="{{ route('hotelDetails', $hotel->id) }}" class="btn btn-luxury mt-auto">عرض</a>
+                                    @endif
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
+                                        <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
+                                        <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p>
+                                        <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p>
+                                        <p class="mb-2">⭐ {{ $hotel->rate }}</p>
+                                        <a href="{{ route('hotelDetails', $hotel->id) }}" class="btn btn-luxury mt-auto">عرض</a>
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
+
+                {{-- أزرار التحكم (السابق/التالي) --}}
+                @if(count($chunks) > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">السابق</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">التالي</span>
+                </button>
+                @endif
             </div>
-
-            {{-- أزرار التحكم (السابق/التالي) --}}
-            @if(count($chunks) > 1)
-            <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">السابق</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">التالي</span>
-            </button>
-            @endif
         </div>
-    </div>
-</section>
-@include('footer')
-
+    </section>
+    @include('footer')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#date_range", {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        onChange: function(selectedDates) {
+            if(selectedDates.length === 2) {
+                document.getElementById('start_date').value = selectedDates[0].toISOString().slice(0,10);
+                document.getElementById('end_date').value = selectedDates[1].toISOString().slice(0,10);
+            }
+        }
+    });
+</script>
 </body>
+
 </html>
