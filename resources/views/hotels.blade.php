@@ -655,7 +655,7 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <!-- <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
@@ -663,12 +663,11 @@
                 <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
                     <h1 class="hero-title">
                         الفنادق <br>
-                        <!-- <span> فنادقنا</span> -->
                     </h1>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 
     <section class="hotels-section py-5" id="hotels">
