@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\ReserDetail;
+use App\Models\Reservation;
 use App\Models\SiteData;
 use Illuminate\Http\Request;
 
 class SiteDataController extends Controller
 {
-        public function index()
+    public function index()
     {
         $data = SiteData::first(); // عرض أول عنصر فقط
 
         return view('admin/siteData', compact('data'));
     }
-            public function hotels()
+    public function hotels()
     {
-            $hotels = Category::all();
+        $hotels = Category::all();
 
         $data = SiteData::first(); // عرض أول عنصر فقط
 
@@ -24,124 +26,183 @@ class SiteDataController extends Controller
     }
 
     public function updateSiteData(Request $request)
-{
-    // Validate
-    $validated = $request->validate([
-        'name'        => 'nullable|string|max:255',
-        'description' => 'nullable|string|max:255',
-        'textarea'    => 'nullable|string',
+    {
+        // Validate
+        $validated = $request->validate([
+            'name'        => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'textarea'    => 'nullable|string',
 
-        // الروابط
-        'faceLink'  => 'nullable|string',
-        'instaLink' => 'nullable|string',
-        'wattsLink' => 'nullable|string',
+            // الروابط
+            'faceLink'  => 'nullable|string',
+            'instaLink' => 'nullable|string',
+            'wattsLink' => 'nullable|string',
 
-        // الاتصالات
-        'phone1'   => 'nullable|string|max:20',
-        'phone2'   => 'nullable|string|max:20',
-        'email'    => 'nullable|email',
-        'location' => 'nullable|string',
-        'address'  => 'nullable|string|max:255',
+            // الاتصالات
+            'phone1'   => 'nullable|string|max:20',
+            'phone2'   => 'nullable|string|max:20',
+            'email'    => 'nullable|email',
+            'location' => 'nullable|string',
+            'address'  => 'nullable|string|max:255',
 
-        // الصور
-        'logo'        => 'nullable|image|mimes:jpg,jpeg,png,webp',
-        'imageHeader' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-        'aboutImage'  => 'nullable|image|mimes:jpg,jpeg,png,webp',
-    ]);
+            // الصور
+            'logo'        => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'imageHeader' => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'aboutImage'  => 'nullable|image|mimes:jpg,jpeg,png,webp',
+        ]);
 
-    // نجيب أول سجل
-    $data = SiteData::first();
+        // نجيب أول سجل
+        $data = SiteData::first();
 
-    if (!$data) {
-        $data = new SiteData(); // لو مفيش عنصر اتوماتيك ينشئه
-    }
-
-    // Update النصوص
-    $data->name        = $validated['name']        ?? $data->name;
-    $data->description = $validated['description'] ?? $data->description;
-    $data->textarea    = $validated['textarea']    ?? $data->textarea;
-
-    $data->faceLink  = $validated['faceLink']  ?? $data->faceLink;
-    $data->instaLink = $validated['instaLink'] ?? $data->instaLink;
-    $data->wattsLink = $validated['wattsLink'] ?? $data->wattsLink;
-
-    $data->phone1   = $validated['phone1']   ?? $data->phone1;
-    $data->phone2   = $validated['phone2']   ?? $data->phone2;
-    $data->email    = $validated['email']    ?? $data->email;
-    $data->location = $validated['location'] ?? $data->location;
-    $data->address  = $validated['address']  ?? $data->address;
-
-    // ==========================
-    //  معالجة الصور
-    // ==========================
-
-    // LOGO
-    if ($request->hasFile('logo')) {
-        if ($data->logo && file_exists(public_path($data->logo))) {
-            unlink(public_path($data->logo));
+        if (!$data) {
+            $data = new SiteData(); // لو مفيش عنصر اتوماتيك ينشئه
         }
 
-        $fileName = 'logo_' . time() . '.' . $request->logo->getClientOriginalExtension();
-        $request->logo->move(public_path('uploads'), $fileName);
-        $data->logo = 'uploads/' . $fileName;
-    }
+        // Update النصوص
+        $data->name        = $validated['name']        ?? $data->name;
+        $data->description = $validated['description'] ?? $data->description;
+        $data->textarea    = $validated['textarea']    ?? $data->textarea;
 
-    // Image Header
-    if ($request->hasFile('imageHeader')) {
-        if ($data->imageHeader && file_exists(public_path($data->imageHeader))) {
-            unlink(public_path($data->imageHeader));
+        $data->faceLink  = $validated['faceLink']  ?? $data->faceLink;
+        $data->instaLink = $validated['instaLink'] ?? $data->instaLink;
+        $data->wattsLink = $validated['wattsLink'] ?? $data->wattsLink;
+
+        $data->phone1   = $validated['phone1']   ?? $data->phone1;
+        $data->phone2   = $validated['phone2']   ?? $data->phone2;
+        $data->email    = $validated['email']    ?? $data->email;
+        $data->location = $validated['location'] ?? $data->location;
+        $data->address  = $validated['address']  ?? $data->address;
+
+        // ==========================
+        //  معالجة الصور
+        // ==========================
+
+        // LOGO
+        if ($request->hasFile('logo')) {
+            if ($data->logo && file_exists(public_path($data->logo))) {
+                unlink(public_path($data->logo));
+            }
+
+            $fileName = 'logo_' . time() . '.' . $request->logo->getClientOriginalExtension();
+            $request->logo->move(public_path('uploads'), $fileName);
+            $data->logo = 'uploads/' . $fileName;
         }
 
-        $fileName = 'header_' . time() . '.' . $request->imageHeader->getClientOriginalExtension();
-        $request->imageHeader->move(public_path('uploads'), $fileName);
-        $data->imageHeader = 'uploads/' . $fileName;
-    }
+        // Image Header
+        if ($request->hasFile('imageHeader')) {
+            if ($data->imageHeader && file_exists(public_path($data->imageHeader))) {
+                unlink(public_path($data->imageHeader));
+            }
 
-    // About Image
-    if ($request->hasFile('aboutImage')) {
-        if ($data->aboutImage && file_exists(public_path($data->aboutImage))) {
-            unlink(public_path($data->aboutImage));
+            $fileName = 'header_' . time() . '.' . $request->imageHeader->getClientOriginalExtension();
+            $request->imageHeader->move(public_path('uploads'), $fileName);
+            $data->imageHeader = 'uploads/' . $fileName;
         }
 
-        $fileName = 'about_' . time() . '.' . $request->aboutImage->getClientOriginalExtension();
-        $request->aboutImage->move(public_path('uploads'), $fileName);
-        $data->aboutImage = 'uploads/' . $fileName;
+        // About Image
+        if ($request->hasFile('aboutImage')) {
+            if ($data->aboutImage && file_exists(public_path($data->aboutImage))) {
+                unlink(public_path($data->aboutImage));
+            }
+
+            $fileName = 'about_' . time() . '.' . $request->aboutImage->getClientOriginalExtension();
+            $request->aboutImage->move(public_path('uploads'), $fileName);
+            $data->aboutImage = 'uploads/' . $fileName;
+        }
+
+        // Save
+        $data->save();
+
+        toastr()->success('تم تحديث بيانات الموقع بنجاح');
+        return back();
     }
 
-    // Save
-    $data->save();
+    public function landing()
+    {
+        // جلب أول 4 فنادق فقط
+        $hotels = Category::get();
 
-    toastr()->success('تم تحديث بيانات الموقع بنجاح');
-    return back();
-}
+        $data = SiteData::first();
 
-public function landing()
-{
-    // جلب أول 4 فنادق فقط
-    $hotels = Category::get();
-
-    $data = SiteData::first();
-
-    return view('landing', compact('data', 'hotels'));
-}
-public function newReser(Request $request)
-{
-    $hotel= Category::where('id',$request->hotel_id)->with('prices')->first();
-$start = $request->start;
-$end = $request->end;
-    $data = SiteData::first();
-    return view('newReser', compact('data', 'hotel','start','end'));
-}
+        return view('landing', compact('data', 'hotels'));
+    }
+    public function newReser(Request $request)
+    {
+        $hotel = Category::where('id', $request->hotel_id)->with('prices')->first();
+        $start = $request->start;
+        $end = $request->end;
+        $data = SiteData::first();
+        return view('newReser', compact('data', 'hotel', 'start', 'end'));
+    }
 
 
 
-public function hotelDetails( $hotel)
-{
-    $hotel = Category::with(['prices', 'files'])->findOrFail($hotel);
-    $data = SiteData::first();
+    public function hotelDetails($hotel)
+    {
+        $hotel = Category::with(['prices', 'files'])->findOrFail($hotel);
+        $data = SiteData::first();
 
-    return view('hotelDetails', compact('data','hotel'));
-}
+        return view('hotelDetails', compact('data', 'hotel'));
+    }
+    //reservation 
+    public function storeReservation(Request $request)
+    {
+        // Validate Request
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'email' => 'required|email',
+            'check_in_date' => 'required|date',
+            'check_out_date' => 'required|date|after_or_equal:check_in_date',
+            'number_of_nights' => 'required|integer|min:1',
+            'rooms' => 'required|array',
+            'hotel_id' => 'required|exists:categories,id',
+        ]);
 
+        // Fetch hotel to get real room prices
+        $hotel = Category::findOrFail($request->hotel_id);
 
+        // حساب الإجمالي بطريقة آمنة
+        $total_price = 0;
+
+        foreach ($request->rooms as $type => $room) {
+
+            // تخطي أي غرفة مافيهاش count أو سعر
+            if (!isset($room['count']) || $room['count'] <= 0) {
+                continue;
+            }
+
+            // السعر الحقيقي من قاعدة البيانات (الأفضل)
+            $room_price = $hotel->prices[$type]['price'] ?? 0;
+
+            $total_price += $room['count'] * $room_price * $request->number_of_nights;
+        }
+
+        // إنشاء الحجز
+        $reservation = Reservation::create([
+            'client'   => $request->full_name,
+            'phone'    => $request->phone,
+            'email'    => $request->email,
+            'start'    => $request->check_in_date,
+            'end'      => $request->check_out_date,
+            'rooms'    => collect($request->rooms)->sum('count'),
+            'price'    => $total_price,
+            'total'    => $total_price,
+            'hotel_id' => $request->hotel_id,
+            'user_id'  => auth()->id(),   // ✔ إضافة المستخدم اللي عامل لوجين
+        ]);
+        foreach ($request->rooms as $type => $room) {
+            if (!isset($room['count']) || $room['count'] <= 0) {
+                continue;
+            }
+            $room_price = $hotel->prices[$type]['price'] ?? 0;
+            ReserDetail::create([
+                'type' => $type + 1,
+                'count' => $room['count'],
+                'price' => $room_price,
+                'reservation_id' => $reservation->id,
+            ]);
+        }
+        return redirect()->back()->with('success', 'تم إنشاء الحجز بنجاح!');
+    }
 }

@@ -40,6 +40,7 @@ class ReservationController extends Controller
             'guest' => 'nullable|string',
             'nationality' => 'nullable|string',
             'phone' => 'nullable|string',
+                        'email' => 'nullable|string',
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
             'rooms' => 'nullable|integer',
@@ -55,6 +56,7 @@ class ReservationController extends Controller
             'guest' => $request->guest,
             'nationality' => $request->nationality,
             'phone' => $request->phone,
+             'email' => $request->email,
             'start' => $request->start,
             'end' => $request->end,
             'rooms' => $request->rooms,
@@ -67,4 +69,16 @@ class ReservationController extends Controller
         return redirect()->back();
 
     }
+
+
+
+public function allReservations()
+{
+    $reservations = Reservation::with(['details', 'category', 'user'])
+        ->orderBy('start', 'desc')
+        ->get();
+
+    return view('admin.userReservation', compact('reservations'));
+}
+
 }

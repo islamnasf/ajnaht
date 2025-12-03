@@ -13,8 +13,4 @@ class ReserDetail extends Model
     {
         return $this->belongsTo(Reservation::class, 'reservation_id');
     }
-
-     public function details(){
-      return $this->hasMany(ReserDetail::class,'hotel_id');
-    }
 }

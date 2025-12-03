@@ -19,6 +19,7 @@ Route::get('/', [SiteDataController::class, 'landing'])->name('website');
 Route::get('/hotels', [SiteDataController::class, 'hotels'])->name('hotels');
 Route::get('/newReser', [SiteDataController::class, 'newReser'])->name('newReser');
 Route::get('/hotelDetails/{hotel}', [SiteDataController::class, 'hotelDetails'])->name('hotelDetails');
+Route::post('/reservations/user/store', [SiteDataController::class, 'storeReservation'])->name('reservations.store.user');
 
 
 
@@ -108,6 +109,8 @@ route::group(['prefix' => 'dashboard/reservation'], function () {
     Route::get('show', [ReservationController::class, 'index'])->name('getReservation');
         Route::get('showReservations/{hotel}', [ReservationController::class, 'showReservations'])->name('showReservations');
 Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/reservations', [ReservationController::class, 'allReservations'])
+    ->name('reservations.all');
 
 });
 

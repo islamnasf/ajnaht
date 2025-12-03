@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('getReservation')}}">
+                        <a href="{{route('reservations.all')}}">
                             <div class="pull-left" style="font-size: 18px;">
                                 <i class="fa fa-cogs" style="font-size: 18px; font-weight: bold;"></i>
                                 <span class="right-nav-text">الحجوزات</span>

@@ -591,6 +591,18 @@
             /* للعرض من اليمين لليسار (RTL) */
             right: auto;
         }
+        .is-invalid {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 6px rgba(220, 53, 69, 0.3);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
     </style>
 </head>
 
@@ -695,14 +707,18 @@
             <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
                 <div class="search-glass">
                     <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
-                    <form action="{{ route('newReser') }}" method="GET">
+
+                    <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
                         <div class="row gy-3 gx-3 align-items-end">
-                             <!-- اختيار الفندق -->
+
+                            <!-- وجهتك -->
                             <div class="col-lg-4">
-                                <label class="small text-muted mb-1">وجهتك  </label>
-                                <select class="form-control form-control-custom" name="hotel_id" required>
-                                        <option selected>مكة</option>
+                                <label class="small text-muted mb-1">وجهتك</label>
+                                <select class="form-control form-control-custom" name="destination" required>
+                                    <option value="">اختر الوجهة</option>
+                                    <option selected>مكة</option>
                                 </select>
+                                <div class="error-message">هذا الحقل مطلوب</div>
                             </div>
 
                             <!-- اختيار الفندق -->
@@ -714,33 +730,25 @@
                                         <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                                     @endforeach
                                 </select>
+                                <div class="error-message">هذا الحقل مطلوب</div>
                             </div>
 
-                            <!-- اختيار الفترة (Range Picker) -->
+                            <!-- اختيار الفترة -->
                             <div class="col-lg-4">
                                 <label class="small text-muted mb-1">اختر الفترة</label>
                                 <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
-                                <!-- Hidden inputs لإرسال start و end -->
                                 <input type="hidden" name="start" id="start_date">
                                 <input type="hidden" name="end" id="end_date">
+                                <div class="error-message">برجاء اختيار الفترة</div>
                             </div>
 
-                      
-
                             <div class="col-12 mt-4">
-                                @guest
-                                    <a href="{{ route('login') }}" class="btn btn-luxury w-100 py-3">
-                                        يجب التسجيل اولا لانشاء حجز
-                                    </a>
-                                @endguest
-
-                                @auth
-                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
-                                @endauth
+                                <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
                             </div>
 
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -861,6 +869,30 @@
         }
     });
 </script>
+<script>
+document.getElementById('reserveForm').addEventListener('submit', function (e) {
+    let valid = true;
+
+    // كل الحقول المطلوبة
+    const requiredFields = document.querySelectorAll('.form-control-custom[required]');
+
+    requiredFields.forEach(field => {
+        const error = field.parentElement.querySelector('.error-message');
+
+        if (!field.value.trim()) {
+            valid = false;
+            field.classList.add('is-invalid');
+            if (error) error.style.display = 'block';
+        } else {
+            field.classList.remove('is-invalid');
+            if (error) error.style.display = 'none';
+        }
+    });
+
+    if (!valid) e.preventDefault();
+});
+</script>
+
 </body>
 
 </html>

@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('reser_details', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->nullable();
+            $table->integer('count')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->foreign('reservation_id')
+                ->references('id')
+                ->on('reservations')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

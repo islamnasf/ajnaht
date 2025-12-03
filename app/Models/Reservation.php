@@ -12,9 +12,12 @@ class Reservation extends Model
     public function category(){
       return $this->belongsTo(Category::class,'hotel_id');
     }
-
+    public function user(){
+      return $this->belongsTo(User::class,'user_id');
+    }
     
      public function details(){
-      return $this->hasMany(ReserDetail::class,'hotel_id');
+      return $this->hasMany(ReserDetail::class,'reservation_id');
     }
+   
 }
