@@ -769,20 +769,20 @@
         </div>
     </section>
 
-    <div class="container-fluid py-0 search-form-container">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                    <div class="search-glass">
+  <div class="container-fluid py-0 search-form-container">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+<div class="search-glass">
+                <div class="d-flex flex-column flex-lg-row gap-4">
 
-                        <!-- عنوان -->
-                        <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
+                    <!-- فورم الحجز -->
+                    <div class="flex-fill p-4    shadow-sm">
+                        <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
 
-                        <!-- فورم الحجز -->
                         <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
-                            <div class="row gy-3 gx-3 align-items-end">
+                            <div class="row gy-3">
 
-                                <!-- الوجهة -->
                                 <div class="col-lg-4">
                                     <label class="small text-muted mb-1">وجهتك</label>
                                     <select class="form-control form-control-custom" name="destination" required>
@@ -792,7 +792,6 @@
                                     <div class="error-message">هذا الحقل مطلوب</div>
                                 </div>
 
-                                <!-- الفندق -->
                                 <div class="col-lg-4">
                                     <label class="small text-muted mb-1">اختر الفندق</label>
                                     <select class="form-control form-control-custom" name="hotel_id" required>
@@ -804,7 +803,6 @@
                                     <div class="error-message">هذا الحقل مطلوب</div>
                                 </div>
 
-                                <!-- الفترة -->
                                 <div class="col-lg-4">
                                     <label class="small text-muted mb-1">اختر الفترة</label>
                                     <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
@@ -813,40 +811,43 @@
                                     <div class="error-message">برجاء اختيار الفترة</div>
                                 </div>
 
-                                <div class="col-12 mt-4">
+                                <div class="col-12 mt-3">
                                     <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
                                 </div>
 
                             </div>
                         </form>
+                    </div>
 
-                        <!-- خط فاصل بسيط -->
-                        <hr class="my-5" style="border: 2px solid #ff9101ff;">
+                    <!-- فورم البحث -->
+                    <div class="flex-fill p-4    shadow-sm">
+                        <h5 class="mb-4 text-center">بحث عن حجوزات سابقة</h5>
 
-                        <h4 class="mb-4 text-center">بحث عن حجوزات سابقة</h4>
                         <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations" novalidate>
-                            <div class="row gy-3 gx-3 align-items-end">
+                            <div class="row gy-3">
 
-                                <!-- رقم الهاتف -->
-                                <div class="col-lg-9">
+                                <div class="col-lg-12">
                                     <label class="small text-muted mb-1">رقم الهاتف</label>
                                     <input type="text" name="phone" class="form-control form-control-custom"
                                         placeholder="أدخل رقم الهاتف للبحث" required>
                                     <div class="error-message">يرجى إدخال رقم الهاتف</div>
                                 </div>
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-12">
                                     <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
                                 </div>
 
                             </div>
                         </form>
-
                     </div>
-                </div>
+
+                </div><!-- /d-flex -->
+            </div>
+
             </div>
         </div>
     </div>
+</div>
 
 
     <!-- Flatpickr -->
