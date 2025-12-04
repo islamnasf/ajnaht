@@ -351,13 +351,7 @@
 
     {{-- Navbar (Original) --}}
     <nav class="navbar navbar-expand-lg fixed-top">
-         <div class="w-100 bg-light py-1 top-info-bar d-none d-md-block" style="border-bottom: 1px solid #eee; transition: 0.3s;">
-        <div class="container d-flex justify-content-end small text-muted">
-            <span class="ms-4"><i class="fas fa-phone-alt ms-1"></i> {{ $data->phone1 ?? '000-000-0000' }}</span>
-            <span class="ms-4"><i class="fas fa-phone-alt ms-1"></i> {{ $data->phone2 ?? '111-111-1111' }}</span>
-            <span><i class="fas fa-envelope ms-1"></i> {{ $data->email ?? 'info@example.com' }}</span>
-        </div>
-    </div>
+        
         <div class="container">
             <a class="navbar-brand" href="#">
                 @if($data->logo ?? false)
