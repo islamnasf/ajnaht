@@ -77,6 +77,23 @@
             easing: 'ease-in-out',
             once: true,
         });
+let lastScroll = 0;
+const topBar = document.querySelector('.top-info-bar');
+
+window.addEventListener('scroll', function () {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > lastScroll) {
+        // down
+        topBar.style.transform = "translateY(-100%)";
+    } else {
+        // up
+        topBar.style.transform = "translateY(0)";
+    }
+
+    lastScroll = currentScroll;
+});
+
         
         // إعداد الحد الأدنى لتاريخ الوصول وتاريخ المغادرة
         document.addEventListener('DOMContentLoaded', () => {

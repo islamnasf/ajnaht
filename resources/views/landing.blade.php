@@ -555,20 +555,23 @@
 
         #hotelCarousel .carousel-control-prev,
         #hotelCarousel .carousel-control-next {
-            background-color: #c6842f;
+            background-color: #ffffff;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: #c6842f 2px;
             width: 50px;
             height: 50px;
             top: 50%;
             transform: translateY(-50%);
-            border-radius: 20%;
-            opacity: 0.7;
+            border-radius: 100%;
+            opacity: 1;
             /* لتقليل الشفافية قليلاً */
             transition: opacity 0.2s ease;
         }
 
         #hotelCarousel .carousel-control-prev:hover,
         #hotelCarousel .carousel-control-next:hover {
-            opacity: 1;
+            opacity: .9;
         }
 
         /* تعديل لون أيقونات الأسهم إلى الأبيض (لجعلها مرئية على الخلفية الداكنة) */
@@ -580,35 +583,86 @@
         /* تخصيص موضع الأزرار (اختياري) */
         #hotelCarousel .carousel-control-prev {
             /* تحريك الزر الأيسر (السابق) للداخل قليلاً */
-            right: 15px;
+            /* right: 15px; */
             /* للعرض من اليمين لليسار (RTL) */
             left: auto;
         }
 
         #hotelCarousel .carousel-control-next {
             /* تحريك الزر الأيمن (التالي) للداخل قليلاً */
-            left: 15px;
+            /* left: 15px; */
             /* للعرض من اليمين لليسار (RTL) */
             right: auto;
         }
+
         .is-invalid {
-    border-color: #dc3545 !important;
-    box-shadow: 0 0 6px rgba(220, 53, 69, 0.3);
-}
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 6px rgba(220, 53, 69, 0.3);
+        }
 
-.error-message {
-    color: #dc3545;
-    font-size: 12px;
-    margin-top: 4px;
-    display: none;
-}
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
 
+        .top-bar {
+            height: 40px;
+            /* تحديد ارتفاع الشريط */
+            background-color: #c6842f;
+            /* خلفية داكنة */
+            color: #ffffff;
+            /* نص أبيض */
+            line-height: 40px;
+            /* لضبط محاذاة النص عمودياً */
+            transition: transform 0.3s ease-in-out;
+            /* حركة سلسة عند الاختفاء */
+            z-index: 1040;
+            /* أعلى من الـ navbar (الذي هو 1030) */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            direction: rtl;
+            /* للتوافق مع اللغة العربية */
+            font-size: 0.9rem;
+        }
+
+        /* قم بتعديل الهامش العلوي للـ navbar ليكون أسفل شريط الأدوات العلوي */
+        .navbar.fixed-top {
+            /* هذا تم ضبطه مباشرة في السطر 40px في HTML/Blade */
+            transition: margin-top 0.3s ease-in-out;
+            z-index: 1030;
+        }
+
+        /* التنسيق للروابط داخل الشريط العلوي (اختياري) */
+        .top-bar a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .top-bar .container {
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
+<div class="top-bar fixed-top d-none d-md-block" id="top-bar">
+    <div class="container d-flex justify-content-center align-items-center">
+        <span class="me-3">
+            <i class="fas fa-phone-alt me-1"></i> {{ $data->phone1 ?? '+966 50 123 4567' }}
+        </span>
+        <span class="me-3">
+            <i class="fas fa-phone-alt me-1"></i> {{ $data->phone2 ?? '+966 50 123 4567' }}
+        </span>
+        <span class="me-3">
+            <i class="fas fa-envelope me-1"></i> {{ $data->email ?? 'info@royalview.com' }}
+        </span>
+    </div>
+</div>
+
+
+    <nav class="navbar navbar-expand-lg fixed-top" style="margin-top: 40px;">
         <div class="container connav">
             <a class="navbar-brand" href="#">
                 @if($data->logo)
@@ -616,8 +670,6 @@
                 @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-                <!-- <span> فنادق رومانس </span> -->
-
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -657,7 +709,6 @@
                     </button>
 
                     <div id="userMenu" class="menu">
-                        <!-- تسجيل الخروج GET -->
                         <form method="GET" action="{{ route('logout') }}">
                             <button type="submit">تسجيل الخروج</button>
                         </form>
@@ -686,6 +737,23 @@
         </div>
     </nav>
 
+    <script>
+        // JavaScript لإخفاء شريط الأدوات العلوي عند التمرير
+        window.addEventListener('scroll', function() {
+            const topBar = document.getElementById('top-bar');
+            const navbar = document.querySelector('.navbar');
+
+            // إذا كان التمرير أكبر من ارتفاع شريط الأدوات العلوي، قم بإخفائه
+            if (window.scrollY > topBar.offsetHeight) {
+                topBar.style.transform = 'translateY(-100%)';
+                navbar.style.marginTop = '0'; // ارجع الـ navbar للأعلى
+            } else {
+                topBar.style.transform = 'translateY(0)';
+                navbar.style.marginTop = topBar.offsetHeight + 'px'; // حرك الـ navbar للأسفل
+            }
+        });
+    </script>
+
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
@@ -701,61 +769,87 @@
         </div>
     </section>
 
- <div class="container-fluid py-0 search-form-container">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                <div class="search-glass">
-                    <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
+    <div class="container-fluid py-0 search-form-container">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                    <div class="search-glass">
 
-                    <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
-                        <div class="row gy-3 gx-3 align-items-end">
+                        <!-- عنوان -->
+                        <h4 class="mb-4 text-center">خطط لإقامتك القادمة</h4>
 
-                            <!-- وجهتك -->
-                            <div class="col-lg-4">
-                                <label class="small text-muted mb-1">وجهتك</label>
-                                <select class="form-control form-control-custom" name="destination" required>
-                                    <option value="">اختر الوجهة</option>
-                                    <option selected>مكة</option>
-                                </select>
-                                <div class="error-message">هذا الحقل مطلوب</div>
-                            </div>
+                        <!-- فورم الحجز -->
+                        <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
+                            <div class="row gy-3 gx-3 align-items-end">
 
-                            <!-- اختيار الفندق -->
-                            <div class="col-lg-4">
-                                <label class="small text-muted mb-1">اختر الفندق</label>
-                                <select class="form-control form-control-custom" name="hotel_id" required>
-                                    <option value="">اختر الفندق</option>
-                                    @foreach($hotels as $hotel)
+                                <!-- الوجهة -->
+                                <div class="col-lg-4">
+                                    <label class="small text-muted mb-1">وجهتك</label>
+                                    <select class="form-control form-control-custom" name="destination" required>
+                                        <option value="">اختر الوجهة</option>
+                                        <option selected>مكة</option>
+                                    </select>
+                                    <div class="error-message">هذا الحقل مطلوب</div>
+                                </div>
+
+                                <!-- الفندق -->
+                                <div class="col-lg-4">
+                                    <label class="small text-muted mb-1">اختر الفندق</label>
+                                    <select class="form-control form-control-custom" name="hotel_id" required>
+                                        <option value="">اختر الفندق</option>
+                                        @foreach($allHotels as $hotel)
                                         <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="error-message">هذا الحقل مطلوب</div>
+                                        @endforeach
+                                    </select>
+                                    <div class="error-message">هذا الحقل مطلوب</div>
+                                </div>
+
+                                <!-- الفترة -->
+                                <div class="col-lg-4">
+                                    <label class="small text-muted mb-1">اختر الفترة</label>
+                                    <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                    <input type="hidden" name="start" id="start_date">
+                                    <input type="hidden" name="end" id="end_date">
+                                    <div class="error-message">برجاء اختيار الفترة</div>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
+                                </div>
+
                             </div>
+                        </form>
 
-                            <!-- اختيار الفترة -->
-                            <div class="col-lg-4">
-                                <label class="small text-muted mb-1">اختر الفترة</label>
-                                <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
-                                <input type="hidden" name="start" id="start_date">
-                                <input type="hidden" name="end" id="end_date">
-                                <div class="error-message">برجاء اختيار الفترة</div>
+                        <!-- خط فاصل بسيط -->
+                        <hr class="my-5" style="border: 2px solid #ff9101ff;">
+
+                        <h4 class="mb-4 text-center">بحث عن حجوزات سابقة</h4>
+                        <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations" novalidate>
+                            <div class="row gy-3 gx-3 align-items-end">
+
+                                <!-- رقم الهاتف -->
+                                <div class="col-lg-9">
+                                    <label class="small text-muted mb-1">رقم الهاتف</label>
+                                    <input type="text" name="phone" class="form-control form-control-custom"
+                                        placeholder="أدخل رقم الهاتف للبحث" required>
+                                    <div class="error-message">يرجى إدخال رقم الهاتف</div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
+                                </div>
+
                             </div>
+                        </form>
 
-                            <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
-                            </div>
-
-                        </div>
-                    </form>
-
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Flatpickr -->
+
+    <!-- Flatpickr -->
 
 
 
@@ -816,19 +910,19 @@
                     <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
                         <div class="row g-4 justify-content-center">
                             @foreach($chunk as $hotel)
-                            <div class="col-lg-3 col-md-6">
-                                <div class="card h-100 shadow-sm">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card h-20 shadow-sm">
                                     @if($hotel->image)
-                                    <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}" style="width: 100%; height: 250px; object-fit: cover; object-position: center; border-radius: 8px;">
+                                    <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}" style="width: 100%; height: 220px; object-fit: cover; object-position: center; border-radius: 8px;">
                                     @else
                                     <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top" alt="{{ $hotel->name }}">
                                     @endif
                                     <div class="card-body d-flex flex-column">
                                         <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
                                         <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
-                                        <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p>
-                                        <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p>
-                                        <p class="mb-2">⭐ {{ $hotel->rate }}</p>
+                                        <!-- <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p> -->
+                                        <!-- <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p> -->
+                                        <!-- <p class="mb-2">⭐ {{ $hotel->rate }}</p> -->
                                         <a href="{{ route('hotelDetails', $hotel->id) }}" class="btn btn-luxury mt-auto">عرض</a>
                                     </div>
                                 </div>
@@ -854,44 +948,62 @@
         </div>
     </section>
     @include('footer')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-    flatpickr("#date_range", {
-        mode: "range",
-        dateFormat: "Y-m-d",
-        minDate: "today",
-        onChange: function(selectedDates) {
-            if(selectedDates.length === 2) {
-                document.getElementById('start_date').value = selectedDates[0].toISOString().slice(0,10);
-                document.getElementById('end_date').value = selectedDates[1].toISOString().slice(0,10);
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date_range", {
+            mode: "range",
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            onChange: function(selectedDates, dateStr, instance) {
+
+                if (selectedDates.length === 2) {
+
+                    const start = instance.formatDate(selectedDates[0], "Y-m-d");
+                    const end = instance.formatDate(selectedDates[1], "Y-m-d");
+
+                    document.getElementById('start_date').value = start;
+                    document.getElementById('end_date').value = end;
+                }
             }
-        }
-    });
-</script>
-<script>
-document.getElementById('reserveForm').addEventListener('submit', function (e) {
-    let valid = true;
+        });
+    </script>
 
-    // كل الحقول المطلوبة
-    const requiredFields = document.querySelectorAll('.form-control-custom[required]');
 
-    requiredFields.forEach(field => {
-        const error = field.parentElement.querySelector('.error-message');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-        if (!field.value.trim()) {
-            valid = false;
-            field.classList.add('is-invalid');
-            if (error) error.style.display = 'block';
-        } else {
-            field.classList.remove('is-invalid');
-            if (error) error.style.display = 'none';
-        }
-    });
+            // IDs الفورمز اللي عايزين نعمل لهم validation
+            const formIds = ['reserveForm', 'searchOldReservations'];
 
-    if (!valid) e.preventDefault();
-});
-</script>
+            formIds.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (!form) return;
+
+                form.addEventListener('submit', function(e) {
+                    let valid = true;
+                    const requiredFields = form.querySelectorAll('.form-control-custom[required]');
+
+                    requiredFields.forEach(field => {
+                        const error = field.parentElement.querySelector('.error-message');
+
+                        if (!field.value.trim()) {
+                            valid = false;
+                            field.classList.add('is-invalid');
+                            if (error) error.style.display = 'block';
+                        } else {
+                            field.classList.remove('is-invalid');
+                            if (error) error.style.display = 'none';
+                        }
+                    });
+
+                    if (!valid) e.preventDefault();
+                });
+            });
+
+        });
+    </script>
+
 
 </body>
 

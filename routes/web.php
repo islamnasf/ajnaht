@@ -21,6 +21,7 @@ Route::get('/newReser', [SiteDataController::class, 'newReser'])->name('newReser
 Route::get('/hotelDetails/{hotel}', [SiteDataController::class, 'hotelDetails'])->name('hotelDetails');
 Route::post('/reservations/user/store', [SiteDataController::class, 'storeReservation'])->name('reservations.store.user');
 
+Route::get('/searchOldReser', [SiteDataController::class, 'searchOldReser'])->name('searchOldReser');
 
 
 

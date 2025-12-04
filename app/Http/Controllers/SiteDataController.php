@@ -121,10 +121,15 @@ class SiteDataController extends Controller
     {
         // جلب أول 4 فنادق فقط
         $hotels = Category::get();
+$allHotels = Category::with('prices')
+    ->whereHas('prices', function ($q) {
+        $q->where('roomAvailable', '>', 0);
+    })
+    ->get();
 
         $data = SiteData::first();
 
-        return view('landing', compact('data', 'hotels'));
+        return view('landing', compact('data', 'hotels','allHotels'));
     }
     public function newReser(Request $request)
     {
@@ -204,5 +209,11 @@ class SiteDataController extends Controller
             ]);
         }
         return redirect()->back()->with('success', 'تم إنشاء الحجز بنجاح!');
+    }
+    public function searchOldReser(Request $request)
+    {
+        $reservations = Reservation::where('phone', $request->phone)->with('details')->get();
+        $data = SiteData::first();
+        return view('searchOldReser', compact('data', 'reservations'));
     }
 }
