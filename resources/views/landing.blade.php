@@ -664,7 +664,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top" style="margin-top: 40px;">
         <div class="container connav">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
                 <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
                 @else

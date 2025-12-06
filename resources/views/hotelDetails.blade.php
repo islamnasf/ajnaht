@@ -488,7 +488,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
                 <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}" style="border-radius: 5px;">
                 @else

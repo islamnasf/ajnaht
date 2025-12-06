@@ -1,4 +1,4 @@
-    <footer class="footer">
+    <footer class="footer" id="contact">
         <div class="container">
             <div class="row mb-5 footer-map">
                 <div class="col-12 text-center mb-5" data-aos="fade-up">

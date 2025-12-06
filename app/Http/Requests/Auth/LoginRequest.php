@@ -28,8 +28,6 @@ class LoginRequest extends FormRequest
     {
         return [
             'phone' => ['required', 'string'],
-
-            // 'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
     }
@@ -37,28 +35,22 @@ class LoginRequest extends FormRequest
     /**
      * Attempt to authenticate the request's credentials.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * تم تغيير نوع الإرجاع إلى bool.
+     * @throws \Illuminate\Validation\ValidationException (فقط في حالة تجاوز عدد المحاولات)
      */
-    public function authenticate(): void
+    public function authenticate(): bool // **تم التعديل هنا: الآن تُرجع bool**
     {
         $this->ensureIsNotRateLimited();
 
-        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-        //     RateLimiter::hit($this->throttleKey());
-
-        //     throw ValidationException::withMessages([
-        //         'email' => trans('auth.failed'),
-        //     ]);
-        // }
         if (! Auth::attempt($this->only('phone', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
-                'phone' => trans('auth.failed'),
-            ]);
+            // **تم التعديل هنا:** لا يتم رمي الاستثناء. يتم إرجاع FALSE.
+            return false;
         }
 
         RateLimiter::clear($this->throttleKey());
+        return true; // نرجع TRUE عند النجاح
     }
 
     /**
@@ -77,10 +69,6 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            // 'email' => trans('auth.throttle', [
-            //     'seconds' => $seconds,
-            //     'minutes' => ceil($seconds / 60),
-            // ]),
             'phone' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
@@ -93,8 +81,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        // return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
         return Str::transliterate(Str::lower($this->string('phone')).'|'.$this->ip());
-
     }
 }
