@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>حجوزاتي - Royal View</title>
+    <title>حجوزاتي -  ROMANCE HOTELS</title>
     {{-- لاحظ أن هذا المسار يحتاج إلى تعريف متغير $data في Laravel --}}
     <link rel="icon" type="image/png" href="{{ asset($data->logo ?? 'default-logo.png') }}">
 
