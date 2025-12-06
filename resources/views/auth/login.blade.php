@@ -344,6 +344,40 @@
             animation: fadeIn 0.5s ease-out;
         }
 
+           .footer {
+            background: #e9ecef;
+            padding-top: 80px;
+            padding-bottom: 30px;
+            border-top: 5px solid var(--primary-red);
+            color: var(--dark-text);
+        }
+
+        .footer h3,
+        .footer h4 {
+            color: var(--dark-text);
+            font-weight: 700;
+        }
+
+        .social-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-text);
+            margin: 0 5px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-circle:hover {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-red);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -441,7 +475,8 @@
     
     <div class="auth-container">
         <div class="auth-card">
-            
+                   <h2>                <img src="{{ URL::asset('assets/images/Romance.png ') }}" width="120" style="border-radius: 5px;" alt="الشعار">
+</h2>
             <div class="toggle-buttons">
                 <button type="button" class="toggle-button active" id="show-login-btn">
                     <i class="fas fa-sign-in-alt me-2"></i> تسجيل الدخول
@@ -452,8 +487,7 @@
             </div>
 
             <div id="login-form" class="form-active">
-                <h2>تسجيل الدخول</h2>
-                
+        
                 <div class="status" style="text-align: center;">
                     {{-- مكان رسائل الحالة (مثل رسائل الجلسة) --}}
                 </div>
@@ -489,8 +523,8 @@
             </div>
             
             <div id="register-form">
-                <h2>تسجيل حساب جديد</h2>
-                
+ 
+                                
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
@@ -534,6 +568,11 @@
             </div>
         </div>
     </div>
+
+@include('footer')
+
+
+
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
