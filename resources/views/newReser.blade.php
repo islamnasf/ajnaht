@@ -401,7 +401,7 @@
                             <p class="lead mb-0">نعتذر، لا يوجد غرف متاحة في فندق {{ $hotel->name ?? 'الفندق' }} في الوقت الحالي. يرجى مراجعة صفحة الفنادق واختيار فندق آخر.</p>
                         </div>
                         @else
-                        <form method="POST" action="{{ route('reservations.store.user') }}">
+                        <form method="get" action="{{ route('reservations.store.user') }}">
                             @csrf
 
                             <div class="alert alert-info text-center fw-bold mb-5 border-0 rounded-pill shadow-sm">

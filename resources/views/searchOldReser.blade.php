@@ -400,7 +400,7 @@
 
                     <div id="userMenu" class="menu">
                         {{-- يمكنك إضافة رابط لصفحة الملف الشخصي هنا --}}
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="get" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit">تسجيل الخروج</button>
                         </form>

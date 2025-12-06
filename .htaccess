@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # توجيه أي طلب إلى مجلد public إذا لم يكن موجود مسبقًا
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# تحديد نسخة PHP الصحيحة (8.2)
+<IfModule mime_module>
+    AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
+</IfModule>
+
+# منع عرض محتويات المجلدات
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
