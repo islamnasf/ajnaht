@@ -569,8 +569,18 @@
         </div>
     </div>
 
-@include('footer')
-
+    <footer class="footer" id="contact">
+        <div class="container">
+                   <div class="text-center text-muted py-3">
+                <small>
+                    © {{ date('Y') }} {{ $data->name ?? 'Royal View' }}. جميع الحقوق محفوظة. تصميم:
+                    <a href="https://wa.me/966560637609" target="_blank" style="text-decoration: none; color: inherit;">
+                        Elegance
+                    </a>
+                </small>
+            </div>
+        </div>
+    </footer>
 
 
     
