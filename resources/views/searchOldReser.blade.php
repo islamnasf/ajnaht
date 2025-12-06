@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>حجوزاتي</title>
+    <title>حجوزاتي - Royal View</title>
     {{-- لاحظ أن هذا المسار يحتاج إلى تعريف متغير $data في Laravel --}}
     <link rel="icon" type="image/png" href="{{ asset($data->logo ?? 'default-logo.png') }}">
 
@@ -17,22 +17,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    {{-- مكتبة html2pdf لتوليد ملف PDF --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
-            --primary-red: #c6842f;
-            /* اللون الرئيسي */
-            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
-            /* التدرج اللوني */
+            --primary-red: #c6842f; /* اللون الرئيسي (تم الاحتفاظ به) */
+            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #d8963f 100%);
             --gold: #D4AF37;
             --light-bg: #f8f8f8;
-            /* خلفية فاتحة */
             --dark-text: #212529;
-            /* نص داكن */
             --card-bg: #ffffff;
-            /* خلفية البطاقة */
             --text-light: #495057;
         }
 
@@ -43,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Scrollbar & Selection --- (كود موجود) */
+        /* --- Scrollbar & Selection --- (الاحتفاظ بالكود الأصلي) */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -62,7 +55,7 @@
             color: #fff;
         }
 
-        /* --- Navbar Styles --- (كود موجود) */
+        /* --- Navbar Styles --- (الاحتفاظ بالكود الأصلي) */
         .navbar {
             background-color: rgba(255, 255, 255, 0.75);
             padding: 10px 0;
@@ -130,7 +123,7 @@
             color: white;
         }
 
-        /* --- Button Styles --- (كود موجود) */
+        /* --- Button Styles --- (الاحتفاظ بالكود الأصلي) */
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
@@ -169,7 +162,7 @@
         }
 
 
-        /* --- User Dropdown Styles --- (كود موجود) */
+        /* --- User Dropdown Styles --- (الاحتفاظ بالكود الأصلي) */
         .user-dropdown {
             position: relative;
         }
@@ -212,63 +205,104 @@
             color: var(--primary-red);
         }
 
-        /* --- Reservation Card Styles --- (كود موجود) */
-        .reservation-card {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+        /* 🌟🌟🌟 تحسين أنماط الجدول للتجاوب والتناسق 🌟🌟🌟 */
+        .custom-table-container {
+            background: var(--card-bg); /* خلفية البطاقة */
             border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 25px;
-            background-color: var(--card-bg);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+        }
+        
+        /* Table Header Styling */
+        .table thead {
+            background-color: var(--primary-gradient); /* استخدام اللون الأساسي للهيدر */
+        }
+        
+        .table thead th {
+            font-weight: 700;
+            border: none;
+            padding: 15px;
+            color: #212529; /* نص أبيض ليتناسب مع الخلفية الأساسية */
+            white-space: nowrap;
         }
 
-        .reservation-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-header-custom {
-            background-color: var(--primary-red);
-            color: white;
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
-            padding: 15px 20px;
-        }
-
-        .detail-item {
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--light-bg);
-        }
-
-        .detail-item:last-child {
-            border-bottom: none;
-        }
-
-        .detail-label {
+        /* Table Body Styling */
+        .table td {
+            vertical-align: middle;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef; /* خطوط فاصلة فاتحة */
+            color: var(--dark-text);
             font-weight: 500;
-            color: var(--text-light);
+            font-size: 0.95rem;
         }
 
-        .detail-value {
-            font-weight: 600;
+        .table tbody tr:hover {
+            background-color: #c6842f; /* لون خفيف عند التحويم */
             color: var(--dark-text);
         }
-
-        .total-price {
-            font-size: 1.5rem;
+        
+        .total-price-table {
+            font-size: 1.1rem;
             font-weight: 700;
+            color: #28a745; /* لون مميز للسعر (مثل الأخضر) */
+        }
+        
+        .user-info-cell {
+            font-weight: 600;
+        }
+        
+        .text-primary-red {
             color: var(--primary-red);
         }
 
-        .btn-details {
-            background-color: #17a2b8;
-            border-color: #17a2b8;
+        /* التجاوب: إخفاء بعض الأعمدة على الشاشات الصغيرة لتحسين العرض */
+        @media (max-width: 768px) {
+            .table thead th:nth-child(3), /* تاريخ الوصول */
+            .table tbody td:nth-child(3),
+            .table thead th:nth-child(4), /* عدد الليالي والغرف */
+            .table tbody td:nth-child(4) {
+                display: none;
+            }
+        }
+        /* 🌟🌟🌟 نهاية تحسين أنماط الجدول 🌟🌟🌟 */
+
+        /* --- Modal Styles (Final) --- (الاحتفاظ بالكود الأصلي وتعديل بعض الألوان) */
+        .modal-reservation-details {
+            background-color: #f8f9fa; 
+            padding: 20px;
+            border-radius: 10px;
         }
 
-        .btn-details:hover {
-            background-color: #138496;
-            border-color: #138496;
+        .modal-reservation-details h5 {
+            color: var(--primary-red);
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header.text-white {
+            background-color: var(--primary-red) !important;
         }
 
+        .modal-reservation-details .list-group-item {
+            font-size: 1rem;
+            padding: 10px 15px;
+            border: none;
+            border-bottom: 1px dotted #e9ecef;
+        }
+        
+        .modal-reservation-details .list-group-item i {
+            width: 25px;
+            text-align: center;
+            color: var(--primary-red);
+        }
+        
+        .modal-footer button {
+            transition: background-color 0.3s;
+        }
+
+        /* --- Empty State --- (الاحتفاظ بالكود الأصلي) */
         .empty-state {
             padding: 50px 20px;
             background-color: var(--card-bg);
@@ -276,9 +310,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             margin-top: 50px;
         }
-
-
-        /* --- Footer Styles --- (كود موجود) */
+        
+        /* --- Footer Styles --- (الاحتفاظ بالكود الأصلي) */
         .footer {
             background: #e9ecef;
             padding-top: 80px;
@@ -312,52 +345,20 @@
             color: #fff;
             box-shadow: 0 0 15px var(--primary-red);
         }
-
-        /* --- New/Improved Styles for Modal --- */
-        .modal-reservation-details {
-            background-color: #f8f9fa; /* لون خلفية فاتح للمحتوى داخل المودال */
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .modal-reservation-details h5 {
-            color: var(--primary-red);
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .modal-reservation-details .list-group-item {
-            font-size: 1rem;
-            padding: 10px 15px;
-            border: none;
-            border-bottom: 1px dotted #e9ecef;
-        }
-        
-        .modal-reservation-details .list-group-item i {
-            width: 25px;
-            text-align: center;
-            color: var(--primary-red);
-        }
-        
-        .modal-footer button {
-            transition: background-color 0.3s;
-        }
     </style>
 
 </head>
 
 <body>
 
-    {{-- Navbar (Original) --}}
+    {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg fixed-top">
-        
         <div class="container">
             <a class="navbar-brand" href="#">
                 @if($data->logo ?? false)
                 <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
                 @else
-                <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
+                <i class="fas fa-crown text-primary-red"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -378,7 +379,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#"><i
-                                        class="fas fa-book me-2 text-danger"></i> مقالات</a></li>
+                                        class="fas fa-book me-2 text-primary-red"></i> مقالات</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -412,10 +413,10 @@
     </nav>
 
 
-    {{-- Reservations Section (New Design) --}}
-    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
-        <h2 class="text-center mb-5" data-aos="fade-up">
-            <i class="fas fa-clipboard-list me-2" style="color: var(--primary-red);"></i> سجل الحجوزات
+    {{-- Reservations Section (TABLE Layout) --}}
+    <div class="container" style="padding-top: 120px; padding-bottom: 50px;">
+        <h2 class="text-center mb-5" data-aos="fade-down">
+            <i class="fas fa-table me-2" style="color: var(--primary-red);"></i> سجل الحجوزات
         </h2>
 
         {{-- مثال على متغيرات Laravel: يجب أن يكون $reservations موجوداً ومحمل بالبيانات --}}
@@ -434,214 +435,231 @@
             </div>
         </div>
         @else
-        {{-- Reservations Cards --}}
-        <div class="row">
-            @foreach($reservations as $index => $res)
-            @php
-            $duration = \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end));
-            
-            // تحديد حالة الحجز واللون
-            $status = $res->status ?? 'غير مؤكد';
-            $statusClass = match($status) {
-                'مؤكد' => 'bg-success',
-                'ملغى' => 'bg-danger',
-                'غير مؤكد' => 'bg-warning',
-                default => 'bg-secondary',
-            };
-            @endphp
-            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-                <div class="card reservation-card h-100">
-                    <div class="card-header-custom d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">
-                            حجز رقم #{{ $index + 1 }}
-                        </h5>
-                        <span class="badge rounded-pill bg-light text-dark p-2">
-                            {{ $res->category->name ?? 'فندق غير معروف' }}
-                        </span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title mb-4" style="color: var(--primary-red);">
-                            <i class="fas fa-user-circle me-2"></i> النزيل:{{ $res->client }}
-                        </h4>
-
-                        <div class="row">
-                            {{-- حقل حالة الحجز الجديد --}}
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-info-circle me-2"></i>الحالة:</span>
-                                    <span class="detail-value">
-                                        <span class="badge {{ $statusClass }} text-white p-2">
-                                            {{ $status }}
-                                        </span>
-                                    </span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-phone-alt me-2"></i> الهاتف:</span>
-                                    <span class="detail-value">{{ $res->phone }}</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-calendar-check me-2"></i> الوصول:</span>
-                                    <span class="detail-value">{{ $res->start }}</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-calendar-times me-2"></i> المغادرة:</span>
-                                    <span class="detail-value">{{ $res->end }}</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-moon me-2"></i> عدد الليالي:</span>
-                                    <span class="detail-value text-info">{{ $duration }}</span>
-                                </p>
-                            </div>
-                            <div class="col-sm-6 detail-item">
-                                <p class="mb-0">
-                                    <span class="detail-label"><i class="fas fa-door-open me-2"></i> إجمالي الغرف:</span>
-                                    <span class="detail-value text-info">{{ $res->rooms }}</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-light d-flex justify-content-between align-items-center">
-                        <div>
-                            <span class="total-price">{{ number_format($res->total,2) }}</span>
-                            <span class="text-muted me-1">ريال إجمالي</span>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-details text-white" data-bs-toggle="modal"
-                            data-bs-target="#detailsModal{{$res->id}}">
-                            <i class="fas fa-eye me-1"></i> تفاصيل الحجز
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Modal تفاصيل الحجز (شاملة) --}}
-            <div class="modal fade" id="detailsModal{{$res->id}}" tabindex="-1"
-                aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" id="detailsModalLabel{{$res->id}}">تفاصيل الحجز رقم #{{ $index + 1 }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            {{-- المحتوى الذي سيتم تحويله إلى PDF --}}
-                            <div id="reservationContent{{$res->id}}" class="modal-reservation-details">
-                                <h4 class="text-center mb-4">
-                                    <i class="fas fa-scroll me-2"></i> ملخص الحجز
-                                </h4>
-                                
-                                {{-- 1. بيانات الحجز الأساسية --}}
-                                <h5><i class="fas fa-id-card me-2"></i> بيانات العميل والحجز</h5>
-                                <ul class="list-group list-group-flush mb-4">
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-user me-2"></i> النزيل:</span>
-                                        <span>{{ $res->client }}</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-phone-alt me-2"></i> الهاتف:</span>
-                                        <span>{{ $res->phone }}</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-envelope me-2"></i> الإيميل:</span>
-                                        <span>{{ $res->email }}</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-calendar-alt me-2"></i> مدة الإقامة:</span>
-                                        <span>من{{ $res->start }} إلى{{ $res->end }} ({{ $duration }} ليالي)</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-building me-2"></i>فئة الحجز:</span>
-                                        <span>{{ $res->category->name ?? 'غير محدد' }}</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <span><i class="fas fa-info-circle me-2"></i> الحالة:</span>
-                                        <span class="badge {{ $statusClass }} text-white p-2">{{ $status }}</span>
-                                    </li>
-                                </ul>
-
-                                @if(!empty($res->details) && count($res->details) > 0)
-                                {{-- 2. تفاصيل الغرف المحجوزة --}}
-                                <h5><i class="fas fa-bed me-2"></i> تفاصيل الغرف</h5>
-                                <div class="row">
-                                    @foreach($res->details as $detail)
-                                    @php
-                                    $roomType = match($detail->type) {
-                                        "1" => 'كينج (سرير مزدوج كبير)',
-                                        "2" => '2 سرير (سريرين منفردين)',
-                                        "3" => '3 سرير (3 أسرة منفردة)',
-                                        "4" => '4 سرير (4 أسرة منفردة)',
-                                        "5" => '5 سرير (5 أسرة منفردة)',
-                                        default => $detail->type,
-                                    };
-                                    $colorClass = match($detail->type % 5) {
-                                        0 => 'border-primary',
-                                        1 => 'border-success',
-                                        2 => 'border-info',
-                                        3 => 'border-warning',
-                                        4 => 'border-danger',
-                                        default => 'border-secondary',
-                                    };
-                                    @endphp
-                                    <div class="col-md-6 mb-3">
-                                        <div class="card {{ $colorClass }} shadow-sm border-2">
-                                            <div class="card-header bg-light">
-                                                <h6 class="mb-0 text-dark">نوع الغرف:{{ $roomType }}</h6>
-                                            </div>
-                                            <ul class="list-group list-group-flush">
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span class="text-muted">عدد الغرف المطلوبة:</span>
-                                                    <span class="badge bg-info text-white">{{ $detail->count }}</span>
-                                                </li>
-                                                <li
-                                                    class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span class="text-muted">سعر الغرفة/الليلة:</span>
-                                                    <span class="text-success font-weight-bold">{{ number_format($detail->price, 2) }} ريال</span>
-                                                </li>
-                                            </ul>
-                                        </div>
+        {{-- Reservations Table Structure --}}
+        <div class="custom-table-container" data-aos="fade-up">
+            {{-- **ملاحظة:** تم استخدام .table-responsive-md لإظهار شريط التمرير الأفقي فقط على الشاشات الأصغر من المتوسط (md) --}}
+            <div class="table-responsive-md">
+                <table class="table mb-0 table-hover align-middle">
+                    <thead>
+                        <tr>
+                             <th>رقم الحجز </th>
+                            <th>النزيل </th>
+                            <th>الفندق</th>
+                            <th>الإجمالي</th>
+                            <th>الحالة</th>
+                            <th class="text-center">تفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($reservations as $index => $res)
+                        @php
+                        $duration = \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end));
+                        
+                        // تحديد حالة الحجز واللون
+                        $status = $res->status ?? 'غير مؤكد';
+                        $statusText = match($status) {
+                            'مؤكد' => 'مؤكد',
+                            'cancelled' => 'ملغى',
+                            default => 'غير مؤكد',
+                        };
+                        $statusClass = match($status) {
+                            'مؤكد' => 'bg-success',
+                            'cancelled' => 'bg-danger',
+                            'غير مؤكد' => 'bg-warning text-dark',
+                            default => 'bg-secondary',
+                        };
+                        @endphp
+                        <tr>
+                           {{-- النزيل والفئة --}}
+                            <td class="user-info-cell">
+                                <div class="d-flex align-items-center">
+                                         # {{ $res->id }}  
+                    
+                                </div>
+                            </td>
+                            {{-- النزيل والفئة --}}
+                            <td class="user-info-cell">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-circle me-2 text-primary-red"></i>
+                                    <div>
+                                        <div class="fw-bold text-dark">{{ $res->client }}</div>
+                                  
                                     </div>
-                                    @endforeach
                                 </div>
-                                @else
-                                <div class="alert alert-warning text-center" role="alert">
-                                    لا توجد تفاصيل غرف مسجلة لهذه الحجوزات.
-                                </div>
-                                @endif
-                                
-                                {{-- 3. الإجمالي النهائي --}}
-                                <div class="text-center mt-4 p-3 bg-light border rounded">
-                                    <p class="mb-1 text-muted">الإجمالي الكلي للحجز</p>
-                                    <h3 class="total-price">{{ number_format($res->total,2) }} ريال</h3>
-                                </div>
+                            </td>
 
+                           
+
+                            {{-- المدة والغرف (مخفي على الجوال) --}}
+                            <td class="d-md-table-cell">
+                                                                        <div class="text-dark">{{ $res->category->name ?? 'غير محدد' }}</div>
+    </td>
+
+                            {{-- السعر الإجمالي --}}
+                            <td class="total-price-table">
+                                {{ number_format($res->total, 2) }} <small class="text-muted">ريال</small>
+                            </td>
+
+                            {{-- الحالة --}}
+                            <td>
+                                <span class="badge rounded-pill {{ $statusClass }} px-3 py-2">
+                                    {{ $statusText }}
+                                </span>
+                            </td>
+
+                            {{-- الإجراءات --}}
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                        style="border-color: var(--primary-red); color: var(--primary-red);"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#detailsModal{{$res->id}}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Modals Section (يتم وضعها خارج نطاق الجدول لضمان عرضها بشكل سليم) --}}
+        
+        @foreach($reservations as $index => $res)
+        @php
+        // إعادة تعريف المتغيرات للاستخدام داخل المودال
+        $duration = \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end));
+        $status = $res->status ?? 'غير مؤكد';
+        $statusText = match($status) {
+            'مؤكد' => 'مؤكد',
+            'cancelled' => 'ملغى',
+            default => 'غير مؤكد',
+        };
+        $statusClass = match($status) {
+            'مؤكد' => 'bg-success',
+            'cancelled' => 'bg-danger',
+            'غير مؤكد' => 'bg-warning text-dark',
+            default => 'bg-secondary',
+        };
+        @endphp
+        
+        <div class="modal fade" id="detailsModal{{$res->id}}" tabindex="-1"
+            aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    {{-- استخدام primary-red للهيدر --}}
+                    <div class="modal-header text-white" style="background-color: var(--primary-red) !important;">
+                        <h5 class="modal-title" id="detailsModalLabel{{$res->id}}">تفاصيل الحجز رقم #{{ $index + 1 }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="reservationContent{{$res->id}}" class="modal-reservation-details">
+                            <h4 class="text-center mb-4" style="color: var(--dark-text);">
+                                <i class="fas fa-scroll me-2"></i> ملخص الحجز الكامل
+                            </h4>
+                            
+                            {{-- 1. بيانات الحجز الأساسية --}}
+                            <h5><i class="fas fa-id-card me-2"></i> بيانات العميل والحجز</h5>
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-user me-2"></i> النزيل:</span>
+                                    <span class="fw-bold">{{ $res->client }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-phone-alt me-2"></i> الهاتف:</span>
+                                    <span>{{ $res->phone }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-envelope me-2"></i> الإيميل:</span>
+                                    <span>{{ $res->email }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-calendar-alt me-2"></i> مدة الإقامة:</span>
+                                    <span>من {{ $res->start }} إلى {{ $res->end }} (<span class="text-info">{{ $duration }}</span> ليالي)</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><i class="fas fa-building me-2"></i>فئة الحجز:</span>
+                                    <span class="fw-bold">{{ $res->category->name ?? 'غير محدد' }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span><i class="fas fa-info-circle me-2"></i> الحالة:</span>
+                                    <span class="badge {{ $statusClass }} text-white p-2">{{ $statusText }}</span>
+                                </li>
+                            </ul>
+
+                            @if(!empty($res->details) && count($res->details) > 0)
+                            {{-- 2. تفاصيل الغرف المحجوزة --}}
+                            <h5><i class="fas fa-bed me-2"></i> تفاصيل الغرف</h5>
+                            <div class="row">
+                                @foreach($res->details as $detail)
+                                @php
+                                $roomType = match($detail->type) {
+                                    "1" => 'كينج (سرير مزدوج كبير)',
+                                    "2" => '2 سرير (سريرين منفردين)',
+                                    "3" => '3 سرير (3 أسرة منفردة)',
+                                    "4" => '4 سرير (4 أسرة منفردة)',
+                                    "5" => '5 سرير (5 أسرة منفردة)',
+                                    default => $detail->type,
+                                };
+                                $colorClass = match($detail->type % 5) {
+                                    0 => 'border-primary',
+                                    1 => 'border-success',
+                                    2 => 'border-info',
+                                    3 => 'border-warning',
+                                    4 => 'border-danger',
+                                    default => 'border-secondary',
+                                };
+                                @endphp
+                                <div class="col-md-6 mb-3">
+                                    <div class="card shadow-sm border-2 {{ $colorClass }}">
+                                        <div class="card-header bg-light">
+                                            <h6 class="mb-0 text-dark fw-bold">نوع الغرف: {{ $roomType }}</h6>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span class="text-muted">عدد الغرف المطلوبة:</span>
+                                                <span class="badge bg-info text-white">{{ $detail->count }}</span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span class="text-muted">سعر الغرفة/الليلة:</span>
+                                                <span class="text-success font-weight-bold">{{ number_format($detail->price, 2) }} ريال</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
+                            @else
+                            <div class="alert alert-warning text-center" role="alert">
+                                لا توجد تفاصيل غرف مسجلة لهذا الحجز.
+                            </div>
+                            @endif
+                            
+                            {{-- 3. الإجمالي النهائي --}}
+                            <div class="text-center mt-4 p-3 border rounded" style="background-color: #fcece0;">
+                                <p class="mb-1 text-muted">الإجمالي الكلي للحجز</p>
+                                <h3 class="total-price text-success">{{ number_format($res->total,2) }} ريال</h3>
+                            </div>
+
                         </div>
-                        <div class="modal-footer d-flex justify-content-between">
-                            <!-- <button type="button" class="btn btn-success" onclick="generatePDF('reservationContent{{$res->id}}', 'حجز-رقم-{{ $index + 1 }}-{{ $res->client }}')">
-                                <i class="fas fa-file-pdf me-1"></i> تنزيل PDF
-                            </button> -->
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
                     </div>
                 </div>
             </div>
-
-            @endforeach
         </div>
+        @endforeach
+        {{-- End Modals Section --}}
+
         @endif
     </div>
 
-
     {{-- Footer Inclusion (افترض وجود ملف footer.blade.php) --}}
-    @include('footer')
+     @include('footer') 
+    {{-- (تم حذف الكود المضمن للملخص والاحتفاظ بـ <script>) --}}
 
 
     {{-- Bootstrap JS (Required for Modals and Navbar Toggle) --}}
@@ -672,28 +690,8 @@
                 });
             }
         });
-        
-        /**
-         * دالة لتوليد ملف PDF من محتوى محدد
-         * @param {string} elementId - مُعرف العنصر الذي يحتوي على المحتوى المراد تحويله
-         * @param {string} filename - اسم الملف المراد حفظه
-         */
-        function generatePDF(elementId, filename) {
-            const element = document.getElementById(elementId);
-            
-            // تهيئة إعدادات ملف PDF
-            const opt = {
-                margin: 10,
-                filename: filename + '.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { avoid: '.card, .list-group' } // لمنع قطع البطاقات في منتصف الصفحة
-            };
 
-            // توليد وتحميل ملف PDF
-            html2pdf().set(opt).from(element).save();
-        }
+   
     </script>
 </body>
 </html>

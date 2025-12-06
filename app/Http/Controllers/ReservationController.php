@@ -81,4 +81,15 @@ public function allReservations()
     return view('admin.userReservation', compact('reservations'));
 }
 
+
+public function cancelReservation($id)
+{
+    // البحث عن الحجز
+    $reservation = Reservation::findOrFail($id);
+
+    $reservation->status = 'cancelled'; // أو القيمة التي تستخدمها في قاعدة البيانات مثل 'cancelled'
+    $reservation->save();
+    return redirect()->back()->with('success', 'تم إلغاء الحجز بنجاح');
+}
+
 }

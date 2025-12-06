@@ -35,6 +35,7 @@
                                 <th>عدد الليالي</th>
                                 <th>عدد الغرف</th>
                                 <th>السعر الإجمالي</th>
+                                <th>الحالة</th>
                                 <th>تفاصيل الغرف</th>
                                 <th>العمليات</th>
                             </tr>
@@ -52,14 +53,30 @@
                                 <td>{{ \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end)) }}</td>
                                 <td>{{ $res->rooms }}</td>
                                 <td>{{ number_format($res->total,2) }} ريال</td>
-                                <td>
+<td>
+    @if(is_null($res->status) || $res->status == '')
+        {{-- حالة الـ NULL أو الفراغ --}}
+        <span class="badge badge-warning text-white">غير مؤكد</span>
+    @elseif($res->status == 'cancelled')
+        {{-- حالة الإلغاء --}}
+        <span class="badge badge-danger">ملغي</span>
+    @else
+        {{-- أي حالة أخرى (مثلاً مؤكد) --}}
+        <span class="badge badge-success">مؤكد</span>
+    @endif
+</td>                                <td>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsModal{{$res->id}}">
                                         عرض التفاصيل
                                     </button>
                                 </td>
                                 <td>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal{{$res->id}}" title="إلغاء الحجز">
+                <i class="fa fa-times"></i> إلغاء
+            </button>
                                     </td>
                             </tr>
+
+
 
                             {{-- Modal تفاصيل الغرف - التصميم المحسن --}}
                             <div class="modal fade" id="detailsModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
@@ -126,6 +143,42 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="modal fade" id="cancelModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel{{$res->id}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="cancelModalLabel{{$res->id}}">تأكيد إلغاء الحجز</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+<form action="{{ route('reservations.cancel', $res->id) }}" method="POST">                    {{-- تأكد من وجود الراوت في ملف web.php --}}
+                    @csrf
+                    @method('PUT') 
+
+                    <div class="modal-body text-center">
+                        <div class="py-3">
+                            <i class="fa fa-exclamation-triangle fa-4x text-danger mb-3"></i>
+                            <h5 class="mb-3">هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟</h5>
+                            <p class="text-muted">
+                                العميل: <strong>{{ $res->client }}</strong><br>
+                                التاريخ: {{ $res->start }}
+                            </p>
+                            <p class="text-danger font-weight-bold">لا يمكن التراجع عن تغيير الحالة إلى "ملغي".</p>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
+                        <button type="submit" class="btn btn-danger">نعم، تأكيد الإلغاء</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 
                             @endforeach
                         </tbody>

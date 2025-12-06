@@ -208,11 +208,14 @@ $allHotels = Category::with('prices')
                 'reservation_id' => $reservation->id,
             ]);
         }
-        return redirect()->back()->with('success', 'تم إنشاء الحجز بنجاح!');
+        return redirect()->route('searchOldReser', [
+        'phone' => $request->phone,
+    ])->with('success', 'تم إنشاء الحجز بنجاح!');
+        // return redirect()->back()->with('success', 'تم إنشاء الحجز بنجاح!');
     }
     public function searchOldReser(Request $request)
     {
-        $reservations = Reservation::where('phone', $request->phone)->with('details')->get();
+        $reservations = Reservation::where('phone', $request->phone)->with('details')->orderBy('id','desc')->get();
         $data = SiteData::first();
         return view('searchOldReser', compact('data', 'reservations'));
     }

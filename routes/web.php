@@ -112,6 +112,7 @@ route::group(['prefix' => 'dashboard/reservation'], function () {
 Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/reservations', [ReservationController::class, 'allReservations'])
     ->name('reservations.all');
+    Route::put('reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('reservations.cancel');
 
 });
 

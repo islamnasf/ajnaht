@@ -128,8 +128,9 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('updateusers', $user->id) }}" method="post">
-                                                        @csrf
+                                                    <form action="{{ route('updateusers', $user->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
                                                         <input type="text" name="name" class="form-control" value="{{ $user->name }}">
                                                         <br>
                                                         <input type="email" name="email" class="form-control" value="{{ $user->email }}">
