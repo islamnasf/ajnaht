@@ -500,7 +500,6 @@
                                         <input type="number" class="form-control form-control-custom rooms-input text-center"
                                             name="rooms[{{ $beds }}][count]" min="0" max="{{ $room_info['roomAvailable'] }}"
                                             data-price="{{ $room_info['price'] }}" placeholder="عدد الغرف"
-                                            value="{{ old("rooms.$beds.count", 0) }}"
                                             style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
                                         <span class="input-group-text small"
                                             style="background-color: #e9ecef; color: var(--text-light); border-color: #ced4da;">
