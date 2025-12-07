@@ -55,13 +55,13 @@
 
 
                     <!-- calendar menu item-->
-                    <!-- <li>
-                    <a href="{{route('getSubCategory')}}"  >
-                            <div class="pull-left"><i class="fa fa-sitemap"></i><span
-                                    class="right-nav-text">SubCategory</span></div>
+                     <li>
+                    <a href="{{route('blogs.index')}}"  >
+                            <div class="pull-left" style="font-size: 18px;"><i class="fa fa-sitemap" style="font-size: 18px;"></i><span
+                                    class="right-nav-text"> المقالات </span></div>
                             <div class="clearfix"></div>
                         </a>
-                    </li>  -->
+                    </li>  
                     <!-- <li>
                     <a href="{{route('getVendor')}}">
                             <div class="pull-left"><i class="ti-palette"></i><span

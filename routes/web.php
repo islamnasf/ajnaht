@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
@@ -21,8 +22,9 @@ Route::get('/newReser', [SiteDataController::class, 'newReser'])->name('newReser
 Route::get('/hotelDetails/{hotel}', [SiteDataController::class, 'hotelDetails'])->name('hotelDetails');
 Route::post('/reservations/user/store', [SiteDataController::class, 'storeReservation'])->name('reservations.store.user');
 
-Route::get('/searchOldReser', [SiteDataController::class, 'searchOldReser'])->name('searchOldReser');
-
+Route::get('/searchOldReser', action: [SiteDataController::class, 'searchOldReser'])->name('searchOldReser');
+Route::get('/blogs', action: [SiteDataController::class, 'blogs'])->name('blogs');
+Route::get('/blog/{id}', [SiteDataController::class, 'showPlog'])->name('blog.show');
 
 
 Route::middleware(['auth', 'verified', 'role:مسؤول'])
@@ -114,6 +116,13 @@ Route::get('/reservations', [ReservationController::class, 'allReservations'])
     ->name('reservations.all');
     Route::put('reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('reservations.cancel');
 
+});
+
+route::group(['prefix' => 'dashboard/plog'], function () {
+Route::get('/admin/blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::post('/admin/blogs/store', [BlogController::class, 'store'])->name('blogs.store');
+Route::put('/admin/blogs/update/{id}', [BlogController::class, 'update'])->name('blogs.update');
+Route::post('/admin/blogs/delete/{id}', [BlogController::class, 'delete'])->name('blogs.delete');
 });
 
 

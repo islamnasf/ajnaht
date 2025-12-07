@@ -460,13 +460,11 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
                     <li class="nav-item"><a class="nav-link active" href="#">تسجيل الدخول </a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-list-alt me-1"></i> أقسامنا
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ route('blogs') }}"
+                            aria-expanded="false">
+                            <i class="fas fa-list-alt me-1"></i> مقالات
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-book me-2" style="color: var(--primary-red);"></i> مقالات</a></li>
-                        </ul>
                     </li>
                 </ul>
             </div>

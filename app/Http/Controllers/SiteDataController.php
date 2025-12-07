@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Plog;
 use App\Models\ReserDetail;
 use App\Models\Reservation;
 use App\Models\SiteData;
@@ -219,4 +220,23 @@ $allHotels = Category::with('prices')
         $data = SiteData::first();
         return view('searchOldReser', compact('data', 'reservations'));
     }
+
+
+     public function blogs(Request $request)
+    {
+        $blogs = Plog::get();
+        $data = SiteData::first();
+        return view('blogs', compact('data', 'blogs'));
+    }
+    public function showPlog($id)
+{
+    $blog = Plog::findOrFail($id);
+    $relatedBlogs = Plog::where('id', '!=', $id)
+        ->latest()
+        ->take(5)
+        ->get();
+    $data = SiteData::first();
+    
+    return view('blogDetails', compact('blog', 'relatedBlogs', 'data'));
+}
 }

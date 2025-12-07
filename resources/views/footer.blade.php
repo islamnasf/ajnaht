@@ -47,9 +47,7 @@
                 <div class="col-lg-4 col-md-12">
                     <h4 class="mb-4">روابط سريعة</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left  me-2"></i> الأسئلة الشائعة</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left   me-2"></i> سياسة الخصوصية</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left   me-2"></i> الشروط والأحكام</a></li>
+                        <li><a href="{{ route('blogs') }}" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left   me-2"></i> المقالات </a></li>
                         <li><a href="#about" class="text-muted text-decoration-none mb-2 d-block"><i class="fas fa-angle-left   me-2"></i> اكتشف قصتنا</a></li>
                     </ul>
                 </div>
