@@ -30,26 +30,26 @@ class SiteDataController extends Controller
     {
         // Validate
         $validated = $request->validate([
-            'name'        => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:255',
-            'textarea'    => 'nullable|string',
+            'textarea' => 'nullable|string',
 
             // الروابط
-            'faceLink'  => 'nullable|string',
+            'faceLink' => 'nullable|string',
             'instaLink' => 'nullable|string',
             'wattsLink' => 'nullable|string',
 
             // الاتصالات
-            'phone1'   => 'nullable|string|max:20',
-            'phone2'   => 'nullable|string|max:20',
-            'email'    => 'nullable|email',
+            'phone1' => 'nullable|string|max:20',
+            'phone2' => 'nullable|string|max:20',
+            'email' => 'nullable|email',
             'location' => 'nullable|string',
-            'address'  => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
 
             // الصور
-            'logo'        => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'imageHeader' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-            'aboutImage'  => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'aboutImage' => 'nullable|image|mimes:jpg,jpeg,png,webp',
         ]);
 
         // نجيب أول سجل
@@ -60,19 +60,19 @@ class SiteDataController extends Controller
         }
 
         // Update النصوص
-        $data->name        = $validated['name']        ?? $data->name;
+        $data->name = $validated['name'] ?? $data->name;
         $data->description = $validated['description'] ?? $data->description;
-        $data->textarea    = $validated['textarea']    ?? $data->textarea;
+        $data->textarea = $validated['textarea'] ?? $data->textarea;
 
-        $data->faceLink  = $validated['faceLink']  ?? $data->faceLink;
+        $data->faceLink = $validated['faceLink'] ?? $data->faceLink;
         $data->instaLink = $validated['instaLink'] ?? $data->instaLink;
         $data->wattsLink = $validated['wattsLink'] ?? $data->wattsLink;
 
-        $data->phone1   = $validated['phone1']   ?? $data->phone1;
-        $data->phone2   = $validated['phone2']   ?? $data->phone2;
-        $data->email    = $validated['email']    ?? $data->email;
+        $data->phone1 = $validated['phone1'] ?? $data->phone1;
+        $data->phone2 = $validated['phone2'] ?? $data->phone2;
+        $data->email = $validated['email'] ?? $data->email;
         $data->location = $validated['location'] ?? $data->location;
-        $data->address  = $validated['address']  ?? $data->address;
+        $data->address = $validated['address'] ?? $data->address;
 
         // ==========================
         //  معالجة الصور
@@ -122,15 +122,14 @@ class SiteDataController extends Controller
     {
         // جلب أول 4 فنادق فقط
         $hotels = Category::get();
-$allHotels = Category::with('prices')
-    ->whereHas('prices', function ($q) {
-        $q->where('roomAvailable', '>', 0);
-    })
-    ->get();
-
+        $allHotels = Category::with('prices')
+            ->whereHas('prices', function ($q) {
+                $q->where('roomAvailable', '>', 0);
+            })
+            ->get();
         $data = SiteData::first();
 
-        return view('landing', compact('data', 'hotels','allHotels'));
+        return view('landing', compact('data', 'hotels', 'allHotels'));
     }
     public function newReser(Request $request)
     {
@@ -186,16 +185,16 @@ $allHotels = Category::with('prices')
 
         // إنشاء الحجز
         $reservation = Reservation::create([
-            'client'   => $request->full_name,
-            'phone'    => $request->phone,
-            'email'    => $request->email,
-            'start'    => $request->check_in_date,
-            'end'      => $request->check_out_date,
-            'rooms'    => collect($request->rooms)->sum('count'),
-            'price'    => $total_price,
-            'total'    => $total_price,
+            'client' => $request->full_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'start' => $request->check_in_date,
+            'end' => $request->check_out_date,
+            'rooms' => collect($request->rooms)->sum('count'),
+            'price' => $total_price,
+            'total' => $total_price,
             'hotel_id' => $request->hotel_id,
-            'user_id'  => auth()->id(),   // ✔ إضافة المستخدم اللي عامل لوجين
+            'user_id' => auth()->id(),   // ✔ إضافة المستخدم اللي عامل لوجين
         ]);
         foreach ($request->rooms as $type => $room) {
             if (!isset($room['count']) || $room['count'] <= 0) {
@@ -210,33 +209,33 @@ $allHotels = Category::with('prices')
             ]);
         }
         return redirect()->route('searchOldReser', [
-        'phone' => $request->phone,
-    ])->with('success', 'تم إنشاء الحجز بنجاح!');
+            'phone' => $request->phone,
+        ])->with('success', 'تم إنشاء الحجز بنجاح!');
         // return redirect()->back()->with('success', 'تم إنشاء الحجز بنجاح!');
     }
     public function searchOldReser(Request $request)
     {
-        $reservations = Reservation::where('phone', $request->phone)->with('details')->orderBy('id','desc')->get();
+        $reservations = Reservation::where('phone', $request->phone)->with('details')->orderBy('id', 'desc')->get();
         $data = SiteData::first();
         return view('searchOldReser', compact('data', 'reservations'));
     }
 
 
-     public function blogs(Request $request)
+    public function blogs(Request $request)
     {
         $blogs = Plog::get();
         $data = SiteData::first();
         return view('blogs', compact('data', 'blogs'));
     }
     public function showPlog($id)
-{
-    $blog = Plog::findOrFail($id);
-    $relatedBlogs = Plog::where('id', '!=', $id)
-        ->latest()
-        ->take(5)
-        ->get();
-    $data = SiteData::first();
-    
-    return view('blogDetails', compact('blog', 'relatedBlogs', 'data'));
-}
+    {
+        $blog = Plog::findOrFail($id);
+        $relatedBlogs = Plog::where('id', '!=', $id)
+            ->latest()
+            ->take(5)
+            ->get();
+        $data = SiteData::first();
+
+        return view('blogDetails', compact('blog', 'relatedBlogs', 'data'));
+    }
 }
