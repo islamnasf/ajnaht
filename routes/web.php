@@ -114,8 +114,9 @@ route::group(['prefix' => 'dashboard/reservation'], function () {
 Route::post('/reservations/store', [ReservationController::class, 'store'])->name('reservations.store');
 Route::get('/reservations', [ReservationController::class, 'allReservations'])
     ->name('reservations.all');
-    Route::put('reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('reservations.cancel');
-
+    Route::put('reservations/cancel/{id}', action: [ReservationController::class, 'cancelReservation'])->name('reservations.cancel');
+Route::put('/reservations/{reservation}/status', [ReservationController::class, 'updateStatus'])->name('reservations.update_status');
+Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
 });
 
 route::group(['prefix' => 'dashboard/plog'], function () {

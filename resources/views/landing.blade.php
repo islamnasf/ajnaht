@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -26,11 +28,16 @@
             --text-light: #495057;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: "IBM Plex Sans Arabic", sans-serif;
             background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
+            padding-top: 40px; /* إضافة padding للتعامل مع الشريط الثابت */
         }
 
         ::-webkit-scrollbar {
@@ -51,6 +58,26 @@
             color: #fff;
         }
 
+        /* تحسين الشريط العلوي */
+        .top-bar {
+            height: 40px;
+            background-color: #c6842f;
+            color: #ffffff;
+            line-height: 40px;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1040;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            direction: rtl;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex !important; /* إجبار العرض على جميع الأحجام */
+            align-items: center;
+        }
+
+        /* تعديل الـ navbar ليكون تحت الشريط العلوي */
         .navbar {
             background-color: rgba(255, 255, 255, 0.95);
             padding: 5px 0;
@@ -59,6 +86,11 @@
             transition: all 0.4s ease;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 50px 50px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 40px; /* تبدأ من بعد الشريط العلوي */
+            left: 0;
+            right: 0;
+            z-index: 1030;
         }
 
         .navbar-brand {
@@ -97,7 +129,7 @@
             width: 100%;
         }
 
-        /* تنسيق الـ Dropdown داخل النافبار */
+        /* Dropdown تحسينات */
         .navbar-nav .dropdown-menu {
             border: none;
             border-radius: 10px;
@@ -119,10 +151,7 @@
             color: white;
         }
 
-        /* نهاية تنسيق الـ Dropdown */
-
-
-        /* لا تغيير على الأزرار لأنها تستخدم ألوان العلامة التجارية */
+        /* أزرار */
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
@@ -130,7 +159,6 @@
             padding: 10px 30px;
             border-radius: 0;
             font-weight: 700;
-            /* text-transform: uppercase; */
             letter-spacing: 1px;
             transition: all 0.4s ease;
             position: relative;
@@ -147,7 +175,6 @@
             width: 0%;
             height: 100%;
             background: var(--light-bg);
-            /* البريق بلون الخلفية الفاتحة */
             z-index: -1;
             transition: all 0.4s ease;
             transform: skewX(45deg);
@@ -163,26 +190,24 @@
             border-color: var(--primary-red);
         }
 
-        /* --- Hero Section (Showcase) --- */
+        /* Hero Section */
         .hero {
             position: relative;
             height: 60vh;
             min-height: 400px;
             display: flex;
             align-items: center;
-            /* وضع المحتوى في منتصف الهيرو */
             overflow: hidden;
+            margin-top: 40px; /* تعويض عن ارتفاع الـ navbar */
         }
 
-
         .hero-bg {
-            /* لا تغيير: نحافظ على الصورة الخلفية كما هي */
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('{{ asset($data->imageHeader ?? ' default-hero.jpg') }}') center/cover no-repeat;
+            background: url('{{ asset($data->imageHeader ?? 'default-hero.jpg') }}') center/cover no-repeat;
             z-index: -1;
             animation: zoomBg 10s infinite alternate;
         }
@@ -203,7 +228,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* تخفيف التظليل ليتناسب مع الخلفيات الفاتحة */
             background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.2));
             z-index: 0;
         }
@@ -211,16 +235,13 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            /* النص لا يزال أبيض ليتناقض مع صورة الخلفية الداكنة */
             color: #ffffff;
             font-size: 1.3rem;
-            /* إضافة padding-bottom لدفعه للأعلى قليلاً */
             padding-bottom: 80px;
         }
 
         .hero-title {
             font-size: 3.5rem;
-            /* زيادة حجم الخط قليلاً */
             font-weight: 500;
             line-height: 1.1;
             text-transform: uppercase;
@@ -228,23 +249,18 @@
 
         .hero-title span {
             color: transparent;
-            /* الحفاظ على تأثير الـ stroke الأبيض */
             -webkit-text-stroke: 1.5px #ffffffe0;
-            /* تخفيف الـ stroke قليلاً ليتناسب مع اللون الأبيض */
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            /* إضافة ظل خفيف لتحسين الرؤية على الخلفية */
         }
 
-        /* --- Glassmorphism Search Box (تم تفتيحه ليصبح مناسباً) --- */
+        /* Search Form */
         .search-form-container {
             position: relative;
             z-index: 10;
-            /* رفع الفورم للأعلى بشكل فعال */
             margin-top: -30px;
         }
 
         .search-glass {
-            /* زيادة الشفافية والـ blur لجعله أفتح */
             background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -254,14 +270,12 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             transform: translateY(0);
             transition: transform 0.3s;
-            /* النص داخل الصندوق يصبح داكناً للوضوح على الخلفية الفاتحة */
             color: var(--dark-text);
         }
 
         .search-glass h4 {
             color: var(--dark-text);
             font-weight: 700;
-            /* تثقيل الخط لعنوان الفورم */
         }
 
         .search-glass:hover {
@@ -270,16 +284,14 @@
         }
 
         .form-control-custom {
-            /* تفتيح لون خلفية الحقول */
             background: rgba(255, 255, 255, 0.8);
             border: none;
             border-bottom: 2px solid var(--primary-red);
-            /* النص داخل الحقول داكن */
             color: var(--dark-text);
             border-radius: 0;
             padding: 15px;
-            /* زيادة حجم الخط قليلاً في الحقول */
             font-size: 1.05rem;
+            width: 100%;
         }
 
         .form-control-custom:focus {
@@ -293,12 +305,10 @@
             color: rgba(0, 0, 0, 0.5);
         }
 
-
-        /* --- About Section --- */
+        /* About Section */
         .about-section {
             padding: 100px 0;
             position: relative;
-            /* استخدام الخلفية الفاتحة */
             background-color: var(--light-bg);
         }
 
@@ -309,16 +319,16 @@
 
         .about-img-box img {
             border-radius: 20px;
-            /* تخفيف الـ grayscale قليلاً */
             filter: grayscale(40%);
             transition: 0.5s;
+            width: 100%;
+            height: auto;
         }
 
         .about-img-box:hover img {
             filter: grayscale(0%);
         }
 
-        /* إطار خلفي للصورة باللون الأحمر */
         .about-bg-accent {
             position: absolute;
             top: -20px;
@@ -336,14 +346,8 @@
             right: 20px;
         }
 
-        /* --- Footer (دمج الموقع والمراسلة) --- */
+        /* Footer */
         .footer {
-            /* خلفية فاتحة جداً في التذييل */
-            background: #e9ecef;
-            padding-top: 80px;
-            padding-bottom: 30px;
-            border-top: 5px solid var(--primary-red);
-            /* النص داخل التذييل داكن */
             background: #e9ecef;
             padding-top: 80px;
             padding-bottom: 30px;
@@ -357,11 +361,12 @@
             font-weight: 700;
         }
 
-        /* تنسيق الخريطة داخل التذييل */
         .footer-map iframe {
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            width: 100%;
+            height: 300px;
         }
 
         .footer-map iframe:hover {
@@ -376,7 +381,6 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            /* الأيقونات داكنة */
             color: var(--dark-text);
             margin: 0 5px;
             transition: 0.3s;
@@ -393,12 +397,7 @@
             color: #6c757d !important;
         }
 
-
-        /* -------------------------------------- */
-        /* --- Responsive Enhancements (Mobile) --- */
-        /* -------------------------------------- */
-
-
+        /* User Dropdown */
         .user-dropdown {
             position: relative;
             display: inline-block;
@@ -413,6 +412,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             border-radius: 8px;
             z-index: 999;
+            top: 100%;
         }
 
         .user-dropdown .menu.show {
@@ -437,135 +437,19 @@
             cursor: pointer;
         }
 
-        @media (max-width: 992px) {
-
-            .hero {
-                /* ارتفاع متغير وأصغر على الأجهزة اللوحية */
-                height: 70vh;
-                min-height: 500px;
-                /* تعديل محاذاة النص في الهيرو للأجهزة الأصغر */
-                align-items: flex-end;
-            }
-
-
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            /* تعديل الـ margin-top لرفع الفورم على الأجهزة اللوحية */
-            .search-form-container {
-                margin-top: -20px;
-            }
-
-            .about-img-box {
-                margin-bottom: 40px;
-            }
-
-            /* إخفاء حدود الإحصائيات (لم يتم إدراجها في الكود ولكن ترك التنسيق) */
-            .stat-item {
-                border-bottom: 4px solid var(--primary-red);
-                border-right: none;
-            }
-
-            .row.g-0>div:last-child .stat-item {
-                border-bottom: 4px solid var(--primary-red);
-            }
-
-            .row.g-0>div:nth-child(3n) .stat-item {
-                border-right: none;
-            }
-
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                /* ارتفاع متغير وأصغر على الهواتف */
-                height: 60vh;
-                min-height: 450px;
-            }
-
-            .hero-content {
-                padding-top: 50px;
-                /* زيادة padding-bottom لدفعه للأعلى قليلاً على الهواتف */
-                padding-bottom: 60px;
-            }
-
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            /* رفع الفورم بشكل أكبر على الهواتف */
-            .search-form-container {
-                margin-top: -10px;
-                padding-top: 0;
-            }
-
-            .search-glass {
-                padding: 20px;
-                margin-top: 0;
-            }
-
-            /* إلغاء حدود الإحصائيات على الهواتف */
-            .stat-item {
-                border-right: none !important;
-                border-bottom: 4px solid var(--primary-red);
-            }
-
-            .row.g-0>div:last-child .stat-item {
-                border-bottom: none;
-                /* إزالة الحد من آخر عنصر فقط */
-            }
-
-            .stat-item:hover {
-                transform: translateY(-5px);
-                /* تخفيف الحركة عند Hover على الهواتف */
-            }
-
-            .about-bg-accent {
-                display: none;
-            }
-
-            .about-section .d-flex {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-
-            .about-section .d-flex>div {
-                margin-bottom: 15px;
-                margin-right: 0 !important;
-                margin-left: 0 !important;
-                padding-right: 0 !important;
-                padding-left: 15px !important;
-                border-right: 3px solid var(--primary-red);
-                border-left: none;
-            }
-
-            .footer-map {
-                padding-bottom: 30px;
-            }
-
-            .footer .col-md-6:not(:last-child) {
-                border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-                padding-bottom: 25px !important;
-                margin-bottom: 25px;
-            }
-
-        }
-
-
+        /* Carousel */
         #hotelCarousel .carousel-control-prev,
         #hotelCarousel .carousel-control-next {
             background-color: #ffffff;
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border: #c6842f 2px;
+            border: #c6842f 2px solid;
             width: 50px;
             height: 50px;
             top: 50%;
             transform: translateY(-50%);
             border-radius: 100%;
             opacity: 1;
-            /* لتقليل الشفافية قليلاً */
             transition: opacity 0.2s ease;
         }
 
@@ -574,27 +458,12 @@
             opacity: .9;
         }
 
-        /* تعديل لون أيقونات الأسهم إلى الأبيض (لجعلها مرئية على الخلفية الداكنة) */
         #hotelCarousel .carousel-control-prev-icon,
         #hotelCarousel .carousel-control-next-icon {
             filter: invert(100%);
         }
 
-        /* تخصيص موضع الأزرار (اختياري) */
-        #hotelCarousel .carousel-control-prev {
-            /* تحريك الزر الأيسر (السابق) للداخل قليلاً */
-            /* right: 15px; */
-            /* للعرض من اليمين لليسار (RTL) */
-            left: auto;
-        }
-
-        #hotelCarousel .carousel-control-next {
-            /* تحريك الزر الأيمن (التالي) للداخل قليلاً */
-            /* left: 15px; */
-            /* للعرض من اليمين لليسار (RTL) */
-            right: auto;
-        }
-
+        /* Validation */
         .is-invalid {
             border-color: #dc3545 !important;
             box-shadow: 0 0 6px rgba(220, 53, 69, 0.3);
@@ -607,99 +476,365 @@
             display: none;
         }
 
-        .top-bar {
-            height: 40px;
-            /* تحديد ارتفاع الشريط */
-            background-color: #c6842f;
-            /* خلفية داكنة */
-            color: #ffffff;
-            /* نص أبيض */
-            line-height: 40px;
-            /* لضبط محاذاة النص عمودياً */
-            transition: transform 0.3s ease-in-out;
-            /* حركة سلسة عند الاختفاء */
-            z-index: 1040;
-            /* أعلى من الـ navbar (الذي هو 1030) */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            direction: rtl;
-            /* للتوافق مع اللغة العربية */
-            font-size: 0.9rem;
+        /* =========================================== */
+        /* Responsive Enhancements - تحسينات الاستجابة */
+        /* =========================================== */
+
+        /* Large devices (992px and up) */
+        @media (min-width: 992px) {
+            .top-bar .container {
+                justify-content: center !important;
+            }
         }
 
-        /* قم بتعديل الهامش العلوي للـ navbar ليكون أسفل شريط الأدوات العلوي */
-        .navbar.fixed-top {
-            /* هذا تم ضبطه مباشرة في السطر 40px في HTML/Blade */
-            transition: margin-top 0.3s ease-in-out;
-            z-index: 1030;
+        /* Medium devices (tablets, 768px to 991px) */
+        @media (max-width: 991px) {
+            .hero {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .search-form-container {
+                margin-top: -20px;
+            }
+
+            .search-glass {
+                padding: 20px;
+            }
+
+            .hero-content {
+                padding-bottom: 40px;
+            }
+
+            .navbar-collapse {
+                background-color: rgba(255, 255, 255, 0.98);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .user-dropdown {
+                margin-top: 10px;
+                display: block;
+                text-align: center;
+            }
         }
 
-        /* التنسيق للروابط داخل الشريط العلوي (اختياري) */
-        .top-bar a {
-            color: #ffffff;
-            text-decoration: none;
+        /* Small devices (phones, 576px to 767px) */
+        @media (max-width: 767px) {
+            body {
+                padding-top: 35px; /* تقليل الـ padding للهواتف */
+            }
+
+            .top-bar {
+                height: 35px;
+                line-height: 35px;
+                font-size: 0.8rem;
+            }
+
+            .navbar {
+                top: 35px; /* تعديل حسب ارتفاع الشريط العلوي الجديد */
+            }
+
+            .hero {
+                height: 40vh;
+                min-height: 300px;
+                margin-top: 35px; /* تعديل حسب ارتفاع الـ navbar الجديد */
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-content {
+                padding-bottom: 30px;
+            }
+
+            .search-form-container {
+                margin-top: -10px;
+                padding: 0 15px;
+            }
+
+            .search-glass {
+                padding: 15px;
+                margin: 0;
+            }
+
+            .about-section {
+                padding: 50px 0;
+            }
+
+            .about-bg-accent {
+                display: none;
+            }
+
+            .navbar-brand img {
+                width: 150px !important;
+            }
+
+            /* تحسين عرض الفورم على الموبايل */
+            .search-glass .d-flex {
+                flex-direction: column;
+            }
+
+            .search-glass .flex-fill {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .search-glass .flex-fill:last-child {
+                margin-bottom: 0;
+            }
+
+            /* تحسين الكاروسيل على الموبايل */
+            #hotelCarousel .carousel-control-prev,
+            #hotelCarousel .carousel-control-next {
+                width: 40px;
+                height: 40px;
+            }
+
+            .footer-map iframe {
+                height: 250px;
+            }
         }
 
-        .top-bar .container {
-            height: 100%;
+        /* Extra small devices (phones, less than 576px) */
+        @media (max-width: 575px) {
+            body {
+                padding-top: 30px;
+            }
+
+            .top-bar {
+                height: 30px;
+                line-height: 30px;
+                font-size: 0.75rem;
+                justify-content: center;
+            }
+
+            .navbar {
+                top: 30px;
+            }
+
+            .hero {
+                height: 35vh;
+                min-height: 250px;
+                margin-top: 30px; /* تعديل حسب ارتفاع الـ navbar الجديد */
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .display-5 {
+                font-size: 2rem;
+            }
+
+            .btn-luxury {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* إخفاء بعض العناصر على الهواتف الصغيرة */
+            .top-bar span.me-3:nth-child(1),
+            .top-bar span.me-3:nth-child(3) {
+                display: none !important;
+            }
+
+            .top-bar .container {
+                justify-content: center;
+            }
+
+            /* تحسين الـ form controls */
+            .form-control-custom {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            /* تحسين الكروت */
+            .card {
+                margin-bottom: 15px;
+            }
+
+            .card-img-top {
+                height: 180px !important;
+            }
+
+            /* تحسين الهيدر */
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .navbar-brand img {
+                width: 120px !important;
+            }
+        }
+
+        /* تحسينات عامة للاستجابة */
+        @media (max-width: 991px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .row {
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+
+            .col-lg-4,
+            .col-md-6,
+            .col-lg-6,
+            .col-lg-12 {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        }
+
+        /* تحسينات للشاشات الصغيرة جداً */
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-content {
+                font-size: 1rem;
+            }
+
+            .btn-luxury {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+
+            .navbar-toggler {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* تحسينات للاتجاه RTL على جميع الأجهزة */
+        [dir="rtl"] .carousel-control-prev {
+            left: auto;
+            right: 10px;
+        }
+
+        [dir="rtl"] .carousel-control-next {
+            right: auto;
+            left: 10px;
+        }
+
+        /* تحسينات لشاشات اللمس */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-luxury:hover::before {
+                width: 0;
+            }
+
+            .nav-link:hover::after {
+                width: 0;
+            }
+
+            .search-glass:hover {
+                transform: none;
+            }
+
+            .about-img-box:hover .about-bg-accent {
+                top: -20px;
+                right: -20px;
+            }
+
+            .about-img-box:hover img {
+                filter: grayscale(40%);
+            }
+        }
+
+        /* تحسين الأداء على الموبايل */
+        @media (max-width: 767px) {
+            .hero-bg {
+                animation: none; /* إيقاف الأنيميشن على الموبايل لتحسين الأداء */
+            }
+
+            .search-glass {
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+        }
+
+        /* إصلاح مشكلة الـ overflow على الموبايل */
+        @media (max-width: 767px) {
+            html, body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .container-fluid {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .container-fluid .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="top-bar fixed-top d-none d-md-block" id="top-bar">
+<div class="top-bar fixed-top d-md-flex" id="top-bar">
     <div class="container d-flex justify-content-center align-items-center">
-        <span class="me-3">
+        <span class="me-3 d-none d-md-inline">
             <i class="fas fa-phone-alt me-1"></i> {{ $data->phone1 ?? '+966 50 123 4567' }}
         </span>
         <span class="me-3">
             <i class="fas fa-phone-alt me-1"></i> {{ $data->phone2 ?? '+966 50 123 4567' }}
         </span>
-        <span class="me-3">
+        <span class="me-3 d-none d-md-inline">
             <i class="fas fa-envelope me-1"></i> {{ $data->email ?? 'info@royalview.com' }}
         </span>
     </div>
 </div>
 
-
-    <nav class="navbar navbar-expand-lg fixed-top" style="margin-top: 40px;">
-        <div class="container connav">
-            <a class="navbar-brand" href="{{ route('website') }}">
-                @if($data->logo)
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container connav">
+        <a class="navbar-brand" href="{{ route('website') }}">
+            @if($data->logo)
                 <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
-                @else
+            @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
-                @endif
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{{ route('website') }}">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">القصة</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">الموقع وتواصل</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ route('blogs') }}"
-                            aria-expanded="false">
-                            <i class="fas fa-list-alt me-1"></i> مقالات
-                        </a>
-                    </li>
-                </ul>
-                @php
+            @endif
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="{{ route('website') }}">الرئيسية</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">القصة</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">الموقع وتواصل</a></li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
+                        <i class="fas fa-list-alt me-1"></i> مقالات
+                    </a>
+                </li>
+            </ul>
+            @php
                 $user = auth()->user();
-                @endphp
+            @endphp
 
-
-                <div class="user-dropdown">
-                    @guest
+            <div class="user-dropdown">
+                @guest
                     <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
                         التسجيل الآن
                     </a>
-                    @endguest
+                @endguest
 
-                    @auth
+                @auth
                     <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
                         {{ auth()->user()->name }} ▾
                     </button>
@@ -709,299 +844,326 @@
                             <button type="submit">تسجيل الخروج</button>
                         </form>
                     </div>
-                    @endauth
-                </div>
-
-                <script>
-                    const btn = document.getElementById('userBtn');
-                    const menu = document.getElementById('userMenu');
-
-                    if (btn && menu) {
-                        btn.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            menu.classList.toggle('show');
-                        });
-
-                        document.addEventListener('click', function() {
-                            menu.classList.remove('show');
-                        });
-                    }
-                </script>
-
-
+                @endauth
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <script>
-        // JavaScript لإخفاء شريط الأدوات العلوي عند التمرير
-        window.addEventListener('scroll', function() {
-            const topBar = document.getElementById('top-bar');
-            const navbar = document.querySelector('.navbar');
-
-            // إذا كان التمرير أكبر من ارتفاع شريط الأدوات العلوي، قم بإخفائه
-            if (window.scrollY > topBar.offsetHeight) {
-                topBar.style.transform = 'translateY(-100%)';
-                navbar.style.marginTop = '0'; // ارجع الـ navbar للأعلى
-            } else {
-                topBar.style.transform = 'translateY(0)';
-                navbar.style.marginTop = topBar.offsetHeight + 'px'; // حرك الـ navbar للأسفل
-            }
-        });
-    </script>
-
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <div class="row align-items-center text-center">
-                <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
-                    <!-- <h1 class="hero-title">
-                        {{ $data->name ?? 'LUXURY' }} <br>
-                        <span>ROMANCE HOTELS</span>
-                    </h1> -->
-                </div>
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <div class="row align-items-center text-center">
+            <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
+                <!-- <h1 class="hero-title">
+                    {{ $data->name ?? 'LUXURY' }} <br>
+                    <span>ROMANCE HOTELS</span>
+                </h1> -->
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-  <div class="container-fluid py-0 search-form-container">
+<div class="container-fluid py-0 search-form-container">
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-<div class="search-glass">
-                <div class="d-flex flex-column flex-lg-row gap-4">
+                <div class="search-glass">
+                    <div class="d-flex flex-column flex-lg-row gap-4">
 
-                    <!-- فورم الحجز -->
-                    <div class="flex-fill p-4    shadow-sm">
-                        <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
+                        <!-- فورم الحجز -->
+                        <div class="flex-fill p-4 shadow-sm">
+                            <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
 
-                        <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
-                            <div class="row gy-3">
+                            <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
+                                <div class="row gy-3">
 
-                                <div class="col-lg-4">
-                                    <label class="small text-muted mb-1">وجهتك</label>
-                                    <select class="form-control form-control-custom" name="destination" required>
-                                        <option value="">اختر الوجهة</option>
-                                        <option selected>مكة</option>
-                                    </select>
-                                    <div class="error-message">هذا الحقل مطلوب</div>
+                                    <div class="col-lg-4">
+                                        <label class="small text-muted mb-1">وجهتك</label>
+                                        <select class="form-control form-control-custom" name="destination"
+                                            required>
+                                            <option value="">اختر الوجهة</option>
+                                            <option selected>مكة</option>
+                                        </select>
+                                        <div class="error-message">هذا الحقل مطلوب</div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label class="small text-muted mb-1">اختر الفندق</label>
+                                        <select class="form-control form-control-custom" name="hotel_id" required>
+                                            <option value="">اختر الفندق</option>
+                                            @foreach($allHotels as $hotel)
+                                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="error-message">هذا الحقل مطلوب</div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label class="small text-muted mb-1">اختر الفترة</label>
+                                        <input type="text" id="date_range" class="form-control form-control-custom"
+                                            placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                        <input type="hidden" name="start" id="start_date">
+                                        <input type="hidden" name="end" id="end_date">
+                                        <div class="error-message">برجاء اختيار الفترة</div>
+                                    </div>
+
+                                    <div class="col-12 mt-3">
+                                        <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
+                                    </div>
+
                                 </div>
+                            </form>
+                        </div>
 
-                                <div class="col-lg-4">
-                                    <label class="small text-muted mb-1">اختر الفندق</label>
-                                    <select class="form-control form-control-custom" name="hotel_id" required>
-                                        <option value="">اختر الفندق</option>
-                                        @foreach($allHotels as $hotel)
-                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="error-message">هذا الحقل مطلوب</div>
+                        <!-- فورم البحث -->
+                        <div class="flex-fill p-4 shadow-sm">
+                            <h5 class="mb-4 text-center">بحث عن حجوزات سابقة</h5>
+
+                            <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations"
+                                novalidate>
+                                <div class="row gy-3">
+
+                                    <div class="col-lg-12">
+                                        <label class="small text-muted mb-1">رقم الهاتف</label>
+                                        <input type="text" name="phone" class="form-control form-control-custom"
+                                            placeholder="أدخل رقم الهاتف للبحث" required>
+                                        <div class="error-message">يرجى إدخال رقم الهاتف</div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
+                                    </div>
+
                                 </div>
+                            </form>
+                        </div>
 
-                                <div class="col-lg-4">
-                                    <label class="small text-muted mb-1">اختر الفترة</label>
-                                    <input type="text" id="date_range" class="form-control form-control-custom" placeholder="اختر تاريخ الوصول والمغادرة" required>
-                                    <input type="hidden" name="start" id="start_date">
-                                    <input type="hidden" name="end" id="end_date">
-                                    <div class="error-message">برجاء اختيار الفترة</div>
-                                </div>
-
-                                <div class="col-12 mt-3">
-                                    <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- فورم البحث -->
-                    <div class="flex-fill p-4    shadow-sm">
-                        <h5 class="mb-4 text-center">بحث عن حجوزات سابقة</h5>
-
-                        <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations" novalidate>
-                            <div class="row gy-3">
-
-                                <div class="col-lg-12">
-                                    <label class="small text-muted mb-1">رقم الهاتف</label>
-                                    <input type="text" name="phone" class="form-control form-control-custom"
-                                        placeholder="أدخل رقم الهاتف للبحث" required>
-                                    <div class="error-message">يرجى إدخال رقم الهاتف</div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-
-                </div><!-- /d-flex -->
-            </div>
+                    </div><!-- /d-flex -->
+                </div>
 
             </div>
         </div>
     </div>
 </div>
 
-
-    <!-- Flatpickr -->
-
-
-
-
-
-
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                    <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
-                    <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
-                            style="color: var(--primary-red);">الشغف</span>
-                        والتميز</h2>
-                    <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
-                        {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
-                    </div>
-
-                    <div class="d-flex align-items-center mt-4">
-                        <div class="border-start border-danger border-3 ps-3 ms-3">
-                            <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">أفضل موقع</h5>
-                            <small class="text-muted">مباشرة أمام الحرم</small>
-                        </div>
-                        <div class="border-start border-danger border-3 ps-3">
-                            <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">واي فاي</h5>
-                            <small class="text-muted">عالي السرعة مجاني</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
-                    <div class="about-img-box tilt-element">
-                        <div class="about-bg-accent"></div>
-                        <img src="{{ asset($data->aboutImage ?? 'default-about.jpg') }}" class="img-fluid w-100 shadow-lg"
-                            alt="About Us">
-                    </div>
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+                <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
+                <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
+                        style="color: var(--primary-red);">الشغف</span>
+                    والتميز</h2>
+                <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
+                    {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
                 </div>
 
+                <div class="d-flex align-items-center mt-4">
+                    <div class="border-start border-danger border-3 ps-3 ms-3">
+                        <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">أفضل موقع</h5>
+                        <small class="text-muted">مباشرة أمام الحرم</small>
+                    </div>
+                    <div class="border-start border-danger border-3 ps-3">
+                        <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">واي فاي</h5>
+                        <small class="text-muted">عالي السرعة مجاني</small>
+                    </div>
+                </div>
             </div>
+            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                <div class="about-img-box tilt-element">
+                    <div class="about-bg-accent"></div>
+                    <img src="{{ asset($data->aboutImage ?? 'default-about.jpg') }}"
+                        class="img-fluid w-100 shadow-lg" alt="About Us">
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="hotels-section py-5" id="hotels">
-        <div class="container">
-            <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
-                اكتشف فنادقنا المميزة
-            </h2>
+<section class="hotels-section py-5" id="hotels">
+    <div class="container">
+        <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
+            اكتشف فنادقنا المميزة
+        </h2>
 
-            <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-                <div class="carousel-inner">
-                    {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
-                    @php
+        <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+            <div class="carousel-inner">
+                {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
+                @php
                     $chunks = $hotels->chunk(3); // تقسيم مجموعة الفنادق إلى مجموعات تحتوي كل منها على 4
                     $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
-                    @endphp
+                @endphp
 
-                    @foreach($chunks as $chunk)
+                @foreach($chunks as $chunk)
                     {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
                     <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
                         <div class="row g-4 justify-content-center">
                             @foreach($chunk as $hotel)
-                            <div class="col-lg-4 col-md-6">
-                                <div class="card h-20 shadow-sm">
-                                    @if($hotel->image)
-                                    <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}" style="width: 100%; height: 220px; object-fit: cover; object-position: center; border-radius: 8px;">
-                                    @else
-                                    <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top" alt="{{ $hotel->name }}">
-                                    @endif
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
-                                        <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ $hotel->address }}</p>
-                                        <!-- <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p> -->
-                                        <!-- <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p> -->
-                                        <!-- <p class="mb-2">⭐ {{ $hotel->rate }}</p> -->
-                                        <a href="{{ route('hotelDetails', $hotel->id) }}" class="btn btn-luxury mt-auto">عرض</a>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card h-20 shadow-sm">
+                                        @if($hotel->image)
+                                            <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}"
+                                                style="width: 100%; height: 220px; object-fit: cover; object-position: center; border-radius: 8px;">
+                                        @else
+                                            <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top"
+                                                alt="{{ $hotel->name }}">
+                                        @endif
+                                        <div class="card-body d-flex flex-column">
+                                            <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
+                                            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i>
+                                                {{ $hotel->address }}</p>
+                                            <!-- <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p> -->
+                                            <!-- <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p> -->
+                                            <!-- <p class="mb-2">⭐ {{ $hotel->rate }}</p> -->
+                                            <a href="{{ route('hotelDetails', $hotel->id) }}"
+                                                class="btn btn-luxury mt-auto">عرض</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
-                    @endforeach
-                </div>
+                @endforeach
+            </div>
 
-                {{-- أزرار التحكم (السابق/التالي) --}}
-                @if(count($chunks) > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+            {{-- أزرار التحكم (السابق/التالي) --}}
+            @if(count($chunks) > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel"
+                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">السابق</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel"
+                    data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">التالي</span>
                 </button>
-                @endif
-            </div>
+            @endif
         </div>
-    </section>
-    @include('footer')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        flatpickr("#date_range", {
-            mode: "range",
-            dateFormat: "Y-m-d",
-            minDate: "today",
-            onChange: function(selectedDates, dateStr, instance) {
+    </div>
+</section>
+@include('footer')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-                if (selectedDates.length === 2) {
-
-                    const start = instance.formatDate(selectedDates[0], "Y-m-d");
-                    const end = instance.formatDate(selectedDates[1], "Y-m-d");
-
-                    document.getElementById('start_date').value = start;
-                    document.getElementById('end_date').value = end;
-                }
-            }
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
-            // IDs الفورمز اللي عايزين نعمل لهم validation
-            const formIds = ['reserveForm', 'searchOldReservations'];
-
-            formIds.forEach(formId => {
-                const form = document.getElementById(formId);
-                if (!form) return;
-
-                form.addEventListener('submit', function(e) {
-                    let valid = true;
-                    const requiredFields = form.querySelectorAll('.form-control-custom[required]');
-
-                    requiredFields.forEach(field => {
-                        const error = field.parentElement.querySelector('.error-message');
-
-                        if (!field.value.trim()) {
-                            valid = false;
-                            field.classList.add('is-invalid');
-                            if (error) error.style.display = 'block';
-                        } else {
-                            field.classList.remove('is-invalid');
-                            if (error) error.style.display = 'none';
-                        }
-                    });
-
-                    if (!valid) e.preventDefault();
-                });
+<script>
+    // إدارة الشريط العلوي
+    document.addEventListener('DOMContentLoaded', function() {
+        const topBar = document.getElementById('top-bar');
+        const navbar = document.querySelector('.navbar');
+        
+        if (topBar && navbar) {
+            // ضبط الـ top الأولي للـ navbar
+            navbar.style.top = topBar.offsetHeight + 'px';
+            
+            // تحديث عند تغيير حجم النافذة
+            window.addEventListener('resize', function() {
+                navbar.style.top = topBar.offsetHeight + 'px';
             });
-
+            
+            // إخفاء الشريط العلوي عند التمرير
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // التمرير للأسفل - إخفاء
+                    topBar.style.transform = 'translateY(-100%)';
+                    navbar.style.top = '0';
+                } else {
+                    // التمرير للأعلى - إظهار
+                    topBar.style.transform = 'translateY(0)';
+                    navbar.style.top = topBar.offsetHeight + 'px';
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+        }
+        
+        // إدارة القائمة المنسدلة للمستخدم
+        const userBtn = document.getElementById('userBtn');
+        const userMenu = document.getElementById('userMenu');
+        
+        if (userBtn && userMenu) {
+            userBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userMenu.classList.toggle('show');
+            });
+            
+            document.addEventListener('click', function() {
+                userMenu.classList.remove('show');
+            });
+        }
+        
+        // Flatpickr لتحديد التاريخ
+        if (document.getElementById('date_range')) {
+            flatpickr("#date_range", {
+                mode: "range",
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                locale: "ar",
+                onChange: function(selectedDates, dateStr, instance) {
+                    if (selectedDates.length === 2) {
+                        const start = instance.formatDate(selectedDates[0], "Y-m-d");
+                        const end = instance.formatDate(selectedDates[1], "Y-m-d");
+                        
+                        document.getElementById('start_date').value = start;
+                        document.getElementById('end_date').value = end;
+                    }
+                }
+            });
+        }
+        
+        // التحقق من صحة الفورم
+        const formIds = ['reserveForm', 'searchOldReservations'];
+        
+        formIds.forEach(formId => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+            
+            form.addEventListener('submit', function(e) {
+                let valid = true;
+                const requiredFields = form.querySelectorAll('.form-control-custom[required]');
+                
+                requiredFields.forEach(field => {
+                    const error = field.parentElement.querySelector('.error-message');
+                    
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.classList.add('is-invalid');
+                        if (error) error.style.display = 'block';
+                    } else {
+                        field.classList.remove('is-invalid');
+                        if (error) error.style.display = 'none';
+                    }
+                });
+                
+                if (!valid) {
+                    e.preventDefault();
+                    // إضافة اهتزاز للفورم غير الصالح
+                    form.classList.add('shake');
+                    setTimeout(() => form.classList.remove('shake'), 500);
+                }
+            });
         });
-    </script>
-
+        
+        // تأثير اهتزاز للفورم
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% {transform: translateX(0);}
+                10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+                20%, 40%, 60%, 80% {transform: translateX(5px);}
+            }
+            .shake {
+                animation: shake 0.5s ease-in-out;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
 
 </body>
-
 </html>

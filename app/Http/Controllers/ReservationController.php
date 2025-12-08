@@ -91,5 +91,27 @@ public function cancelReservation($id)
     $reservation->save();
     return redirect()->back()->with('success', 'تم إلغاء الحجز بنجاح');
 }
+public function updateStatus(Request $request, Reservation $reservation)
+    {
+        $request->validate([
+            'status' => 'required|in:confirmed,cancelled,', // الفراغ هنا يمثل حالة 'غير مؤكد'
+        ]);
+
+        // إذا كانت الحالة المرسلة فارغة، قم بتعيين قيمة NULL
+        $status = $request->status === '' ? null : $request->status;
+
+        $reservation->status = $status;
+        $reservation->save();
+
+        return redirect()->back()->with('success', 'تم تعديل حالة الحجز بنجاح.');
+    }
+
+    // دالة لحذف الحجز بالكامل
+    public function destroy(Reservation $reservation)
+    {
+        $reservation->delete();
+        
+        return redirect()->back()->with('success', 'تم حذف الحجز بنجاح.');
+    }
 
 }

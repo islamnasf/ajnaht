@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>حجوزاتي -  ROMANCE HOTELS</title>
-    {{-- لاحظ أن هذا المسار يحتاج إلى تعريف متغير $data في Laravel --}}
     <link rel="icon" type="image/png" href="{{ asset($data->logo ?? 'default-logo.png') }}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
@@ -23,7 +22,6 @@
     <style>
         :root {
             --primary-red: #c6842f;
-            /* اللون الرئيسي (تم الاحتفاظ به) */
             --primary-gradient: linear-gradient(135deg, #c6842f 0%, #d8963f 100%);
             --gold: #D4AF37;
             --light-bg: #f8f8f8;
@@ -39,7 +37,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Scrollbar & Selection --- (الاحتفاظ بالكود الأصلي) */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -58,7 +55,6 @@
             color: #fff;
         }
 
-        /* --- Navbar Styles --- (الاحتفاظ بالكود الأصلي) */
         .navbar {
             background-color: rgba(255, 255, 255, 0.75);
             padding: 10px 0;
@@ -126,7 +122,6 @@
             color: white;
         }
 
-        /* --- Button Styles --- (الاحتفاظ بالكود الأصلي) */
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
@@ -165,7 +160,6 @@
         }
 
 
-        /* --- User Dropdown Styles --- (الاحتفاظ بالكود الأصلي) */
         .user-dropdown {
             position: relative;
         }
@@ -174,7 +168,6 @@
             display: none;
             position: absolute;
             left: 0;
-            /* Align right for RTL */
             right: auto;
             top: 100%;
             background-color: var(--card-bg);
@@ -208,20 +201,16 @@
             color: var(--primary-red);
         }
 
-        /* 🌟🌟🌟 تحسين أنماط الجدول للتجاوب والتناسق 🌟🌟🌟 */
         .custom-table-container {
             background: var(--card-bg);
-            /* خلفية البطاقة */
             border-radius: 15px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             border: 1px solid #dee2e6;
         }
 
-        /* Table Header Styling */
         .table thead {
             background-color: var(--primary-gradient);
-            /* استخدام اللون الأساسي للهيدر */
         }
 
         .table thead th {
@@ -229,16 +218,13 @@
             border: none;
             padding: 15px;
             color: #212529;
-            /* نص أبيض ليتناسب مع الخلفية الأساسية */
             white-space: nowrap;
         }
 
-        /* Table Body Styling */
         .table td {
             vertical-align: middle;
             padding: 15px;
             border-bottom: 1px solid #e9ecef;
-            /* خطوط فاصلة فاتحة */
             color: var(--dark-text);
             font-weight: 500;
             font-size: 0.95rem;
@@ -246,7 +232,6 @@
 
         .table tbody tr:hover {
             background-color: #fcece0;
-            /* لون خفيف عند التحويم */
             color: var(--dark-text);
         }
 
@@ -254,7 +239,6 @@
             font-size: 1.1rem;
             font-weight: 700;
             color: #28a745;
-            /* لون مميز للسعر (مثل الأخضر) */
         }
 
         .user-info-cell {
@@ -265,22 +249,16 @@
             color: var(--primary-red);
         }
 
-        /* التجاوب: إخفاء بعض الأعمدة على الشاشات الصغيرة لتحسين العرض */
         @media (max-width: 768px) {
 
             .table thead th:nth-child(3),
-            /* تاريخ الوصول */
             .table tbody td:nth-child(3),
             .table thead th:nth-child(4),
-            /* عدد الليالي والغرف */
             .table tbody td:nth-child(4) {
                 display: none;
             }
         }
 
-        /* 🌟🌟🌟 نهاية تحسين أنماط الجدول 🌟🌟🌟 */
-
-        /* --- Modal Styles (Final) --- (الاحتفاظ بالكود الأصلي وتعديل بعض الألوان) */
         .modal-reservation-details {
             background-color: #f8f9fa;
             padding: 20px;
@@ -315,21 +293,14 @@
             transition: background-color 0.3s;
         }
 
-        /* 🌟🌟🌟 نمط زر تحميل PDF 🌟🌟🌟 */
         .btn-pdf {
             background-color: #dc3545;
-            /* أحمر */
             color: white;
         }
-
         .btn-pdf:hover {
             background-color: #c82333;
             color: white;
         }
-
-        /* 🌟🌟🌟 نهاية نمط زر تحميل PDF 🌟🌟🌟 */
-
-        /* --- Empty State --- (الاحتفاظ بالكود الأصلي) */
         .empty-state {
             padding: 50px 20px;
             background-color: var(--card-bg);
@@ -337,8 +308,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             margin-top: 50px;
         }
-
-        /* --- Footer Styles --- (الاحتفاظ بالكود الأصلي) */
         .footer {
             background: #e9ecef;
             padding-top: 80px;
@@ -373,12 +342,8 @@
             box-shadow: 0 0 15px var(--primary-red);
         }
     </style>
-
 </head>
-
 <body>
-
-    {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
@@ -405,7 +370,6 @@
                         </a>
                     </li>
                 </ul>
-
                 @php
                     $user = auth()->user() ?? null;
                 @endphp
@@ -415,14 +379,11 @@
                             التسجيل الآن
                         </a>
                     @endguest
-
                     @auth
                         <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
                             {{ auth()->user()->name }} ▾
                         </button>
-
                         <div id="userMenu" class="menu">
-                            {{-- يمكنك إضافة رابط لصفحة الملف الشخصي هنا --}}
                             <form method="get" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit">تسجيل الخروج</button>
@@ -433,17 +394,11 @@
             </div>
         </div>
     </nav>
-
-
-    {{-- Reservations Section (TABLE Layout) --}}
     <div class="container" style="padding-top: 120px; padding-bottom: 50px;">
         <h2 class="text-center mb-5" data-aos="fade-down">
             <i class="fas fa-table me-2" style="color: var(--primary-red);"></i> سجل الحجوزات
         </h2>
-
-        {{-- مثال على متغيرات Laravel: يجب أن يكون $reservations موجوداً ومحمل بالبيانات --}}
         @if(empty($reservations) || (is_countable($reservations) && count($reservations) === 0))
-            {{-- Empty State Message --}}
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="empty-state text-center" data-aos="zoom-in">
@@ -457,10 +412,7 @@
                 </div>
             </div>
         @else
-            {{-- Reservations Table Structure --}}
             <div class="custom-table-container" data-aos="fade-up">
-                {{-- **ملاحظة:** تم استخدام .table-responsive-md لإظهار شريط التمرير الأفقي فقط على الشاشات الأصغر من
-                المتوسط (md) --}}
                 <div class="table-responsive-md">
                     <table class="table mb-0 table-hover align-middle">
                         <thead>
@@ -477,30 +429,28 @@
                             @foreach($reservations as $index => $res)
                                 @php
                                     $duration = \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end));
-
-                                    // تحديد حالة الحجز واللون
                                     $status = $res->status ?? 'غير مؤكد';
                                     $statusText = match ($status) {
                                         'مؤكد' => 'مؤكد',
                                         'cancelled' => 'ملغى',
                                         default => 'غير مؤكد',
+                                        'confirmed' => 'مؤكد',
+
                                     };
                                     $statusClass = match ($status) {
-                                        'مؤكد' => 'bg-success',
+                                        'confirmed' => 'bg-success',
                                         'cancelled' => 'bg-danger',
                                         'غير مؤكد' => 'bg-warning text-dark',
                                         default => 'bg-secondary',
                                     };
                                 @endphp
                                 <tr>
-                                    {{-- النزيل والفئة --}}
                                     <td class="user-info-cell">
                                         <div class="d-flex align-items-center">
                                             # {{ $res->id }}  
 
                                         </div>
                                     </td>
-                                    {{-- النزيل والفئة --}}
                                     <td class="user-info-cell">
                                         <div class="d-flex align-items-center">
                                             <i class="fas fa-user-circle me-2 text-primary-red"></i>
@@ -510,27 +460,17 @@
                                             </div>
                                         </div>
                                     </td>
-
-
-
-                                    {{-- المدة والغرف (مخفي على الجوال) --}}
                                     <td class="d-md-table-cell">
                                         <div class="text-dark">{{ $res->category->name ?? 'غير محدد' }}</div>
                                     </td>
-
-                                    {{-- السعر الإجمالي --}}
                                     <td class="total-price-table">
                                         {{ number_format($res->total, 2) }} <small class="text-muted">ريال</small>
                                     </td>
-
-                                    {{-- الحالة --}}
                                     <td>
                                         <span class="badge rounded-pill {{ $statusClass }} px-3 py-2">
                                             {{ $statusText }}
                                         </span>
                                     </td>
-
-                                    {{-- الإجراءات --}}
                                     <td class="text-center">
                                         <button type="button" class="btn btn-sm btn-outline-secondary"
                                             style="border-color: var(--primary-red); color: var(--primary-red);"
@@ -538,9 +478,9 @@
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <button type="button" class="btn btn-pdf"
-                                    onclick="generatePDF('reservationContent{{$res->id}}', 'Reservation-{{$res->id}}')">
-                                      PDF
-                                </button>
+                                            onclick="generatePDF('reservationContent{{$res->id}}', 'Reservation-{{$res->id}}')">
+                                            PDF
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -548,21 +488,19 @@
                     </table>
                 </div>
             </div>
-
-            {{-- Modals Section (يتم وضعها خارج نطاق الجدول لضمان عرضها بشكل سليم) --}}
-
             @foreach($reservations as $index => $res)
                 @php
-                    // إعادة تعريف المتغيرات للاستخدام داخل المودال
                     $duration = \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end));
                     $status = $res->status ?? 'غير مؤكد';
                     $statusText = match ($status) {
                         'مؤكد' => 'مؤكد',
                         'cancelled' => 'ملغى',
                         default => 'غير مؤكد',
+                        'confirmed' => 'مؤكد',
+
                     };
                     $statusClass = match ($status) {
-                        'مؤكد' => 'bg-success',
+                        'confirmed' => 'bg-success',
                         'cancelled' => 'bg-danger',
                         'غير مؤكد' => 'bg-warning text-dark',
                         default => 'bg-secondary',
@@ -573,7 +511,6 @@
                     aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
-                            {{-- استخدام primary-red للهيدر --}}
                             <div class="modal-header text-white" style="background-color: var(--primary-red) !important;">
                                 <h5 class="modal-title" id="detailsModalLabel{{$res->id}}">تفاصيل الحجز رقم #{{ $res->id }}</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -583,8 +520,6 @@
                                     <h4 class="text-center mb-4" style="color: var(--dark-text);">
                                         <i class="fas fa-scroll me-2"></i> ملخص الحجز الكامل
                                     </h4>
-
-                                    {{-- 1. بيانات الحجز الأساسية --}}
                                     <h5><i class="fas fa-id-card me-2"></i> بيانات العميل والحجز</h5>
                                     <ul class="list-group list-group-flush mb-4">
                                         <li class="list-group-item d-flex justify-content-between">
@@ -615,7 +550,6 @@
                                     </ul>
 
                                     @if(!empty($res->details) && count($res->details) > 0)
-                                        {{-- 2. تفاصيل الغرف المحجوزة --}}
                                         <h5><i class="fas fa-bed me-2"></i> تفاصيل الغرف</h5>
                                         <div class="row">
                                             @foreach($res->details as $detail)
@@ -665,8 +599,6 @@
                                             لا توجد تفاصيل غرف مسجلة لهذا الحجز.
                                         </div>
                                     @endif
-
-                                    {{-- 3. الإجمالي النهائي --}}
                                     <div class="text-center mt-4 p-3 border rounded" style="background-color: #fcece0;">
                                         <p class="mb-1 text-muted">الإجمالي الكلي للحجز</p>
                                         <h3 class="total-price text-success">{{ number_format($res->total, 2) }} ريال</h3>
@@ -685,154 +617,127 @@
                     </div>
                 </div>
             @endforeach
-            {{-- End Modals Section --}}
-
         @endif
     </div>
 
-    {{-- Footer Inclusion (افترض وجود ملف footer.blade.php) --}}
     @include('footer')
-    {{-- (تم حذف الكود المضمن للملخص والاحتفاظ بـ
-    <script>)--}}
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     {{-- AOS JS --}}
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800, // global duration for animations
-        once: true // animations only happen once
+        
+            AOS.init({
+                duration: 800, // global duration for animations
+            once: true // animations only happen once
         });
 
         // User Dropdown (Original Logic)
         document.addEventListener('DOMContentLoaded', () => {
             const btn = document.getElementById('userBtn');
-        const menu = document.getElementById('userMenu');
+            const menu = document.getElementById('userMenu');
 
-        if (btn && menu) {
-            btn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                menu.classList.toggle('show');
-            });
+            if (btn && menu) {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    menu.classList.toggle('show');
+                });
 
-        document.addEventListener('click', function(e) {
+            document.addEventListener('click', function(e) {
                     if (!btn.contains(e.target) && !menu.contains(e.target)) {
-            menu.classList.remove('show');
+                menu.classList.remove('show');
                     }
                 });
             }
         });
-
-        // 🌟🌟🌟 دالة تصدير PDF 🌟🌟🌟
-        /**
-         * تحول عنصر HTML محدد إلى ملف PDF وتنزله.
-         * يتم ذلك عبر التقاط صورة للعنصر (html2canvas) ثم تحويلها لـ PDF (jsPDF).
-         * @param {string} elementId - مُعرف الـ div الذي يحتوي على المحتوى المطلوب تحويله (في حالتنا هو div.modal-reservation-details).
-        * @param {string} filename - اسم ملف PDF المراد تنزيله.
-        */
-       // 🌟🌟🌟 دالة تصدير PDF محسنة 🌟🌟🌟
-function generatePDF(elementId, filename) {
+            function generatePDF(elementId, filename) {
     const element = document.getElementById(elementId);
-    if (!element) {
-        console.error('Element not found:', elementId);
-        return;
+            if (!element) {
+                console.error('Element not found:', elementId);
+            return;
     }
 
-    // الحصول على المودال المرتبط
-    const modalElement = element.closest('.modal');
-    if (!modalElement) {
-        console.error('Modal element not found');
-        return;
+            const modalElement = element.closest('.modal');
+            if (!modalElement) {
+                console.error('Modal element not found');
+            return;
     }
 
-    // حفظ حالة المودال الحالية
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    const originalDisplay = modalElement.style.display;
-    
-    // إظهار المودال بالكامل بدون تأثيرات للتقاط الصورة
-    modalElement.classList.remove('fade');
-    modalElement.style.display = 'block';
-    document.body.classList.add('modal-open');
-    document.body.style.overflow = 'hidden';
-    document.body.style.paddingRight = '0px';
-    
-    // إضافة backdrop مؤقت
-    const backdrop = document.createElement('div');
-    backdrop.className = 'modal-backdrop fade show';
-    document.body.appendChild(backdrop);
-
-    // الانتظار لضمان عرض المودال بالكامل
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            const originalDisplay = modalElement.style.display;
+            modalElement.classList.remove('fade');
+            modalElement.style.display = 'block';
+            document.body.classList.add('modal-open');
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = '0px';
+            const backdrop = document.createElement('div');
+            backdrop.className = 'modal-backdrop fade show';
+            document.body.appendChild(backdrop);
     setTimeout(() => {
-        html2canvas(element, {
-            scale: 2,
-            useCORS: true,
-            backgroundColor: '#ffffff',
-            logging: false
-        }).then(canvas => {
-            // إعادة حالة المودال لما كانت عليه
-            modalElement.classList.add('fade');
-            modalElement.style.display = originalDisplay;
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-            
-            // إزالة backdrop
-            if (backdrop.parentNode) {
-                backdrop.parentNode.removeChild(backdrop);
-            }
-            
-            // إذا كان المودال مخفيًا، إعادة إظهاره باستخدام Bootstrap
-            if (modal && originalDisplay === 'none') {
-                modal.show();
-            }
+                html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff',
+                    logging: false
+                }).then(canvas => {
+                    // إعادة حالة المودال لما كانت عليه
+                    modalElement.classList.add('fade');
+                    modalElement.style.display = originalDisplay;
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
 
-            const { jsPDF } = window.jspdf;
-            const imgData = canvas.toDataURL('image/png', 1.0);
-            const pdf = new jsPDF('p', 'mm', 'a4');
+                    // إزالة backdrop
+                    if (backdrop.parentNode) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
 
-            const imgWidth = 190;
-            const pageHeight = 277;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    // إذا كان المودال مخفيًا، إعادة إظهاره باستخدام Bootstrap
+                    if (modal && originalDisplay === 'none') {
+                        modal.show();
+                    }
 
-            let heightLeft = imgHeight;
-            let position = 10;
+                    const { jsPDF } = window.jspdf;
+                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    const pdf = new jsPDF('p', 'mm', 'a4');
 
-            pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
+                    const imgWidth = 190;
+                    const pageHeight = 277;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight + 10;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
+                    let heightLeft = imgHeight;
+                    let position = 10;
 
-            pdf.save(`${filename}.pdf`);
-        }).catch(error => {
-            console.error('Error generating PDF:', error);
-            
-            // استعادة حالة المودال في حالة الخطأ
-            modalElement.classList.add('fade');
-            modalElement.style.display = originalDisplay;
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
-            
-            if (backdrop.parentNode) {
-                backdrop.parentNode.removeChild(backdrop);
-            }
-            
-            if (modal && originalDisplay === 'none') {
-                modal.show();
-            }
-            
-            alert('حدث خطأ أثناء توليد ملف PDF. يرجى المحاولة مرة أخرى.');
-        });
-    }, 300); // تأخير 300ms لضمان عرض المودال
+                    pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight + 10;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    pdf.save(`${filename}.pdf`);
+                }).catch(error => {
+                    console.error('Error generating PDF:', error);
+
+                    // استعادة حالة المودال في حالة الخطأ
+                    modalElement.classList.add('fade');
+                    modalElement.style.display = originalDisplay;
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+
+                    if (backdrop.parentNode) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
+
+                    if (modal && originalDisplay === 'none') {
+                        modal.show();
+                    }
+
+                    alert('حدث خطأ أثناء توليد ملف PDF. يرجى المحاولة مرة أخرى.');
+                });
+    }, 300); 
 }
-// 🌟🌟🌟 نهاية دالة تصدير PDF محسنة 🌟🌟🌟
     </script>
 </body>
-
 </html>

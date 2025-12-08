@@ -53,34 +53,49 @@
                                 <td>{{ \Carbon\Carbon::parse($res->start)->diffInDays(\Carbon\Carbon::parse($res->end)) }}</td>
                                 <td>{{ $res->rooms }}</td>
                                 <td>{{ number_format($res->total,2) }} ريال</td>
-<td>
-    @if(is_null($res->status) || $res->status == '')
-        {{-- حالة الـ NULL أو الفراغ --}}
-        <span class="badge badge-warning text-white">غير مؤكد</span>
-    @elseif($res->status == 'cancelled')
-        {{-- حالة الإلغاء --}}
-        <span class="badge badge-danger">ملغي</span>
-    @else
-        {{-- أي حالة أخرى (مثلاً مؤكد) --}}
-        <span class="badge badge-success">مؤكد</span>
-    @endif
-</td>                                <td>
+                                <td>
+                                    @if(is_null($res->status) || $res->status == '')
+                                        {{-- حالة الـ NULL أو الفراغ --}}
+                                        <span class="badge badge-warning text-dark">غير مؤكد</span>
+                                    @elseif($res->status == 'cancelled')
+                                        {{-- حالة الإلغاء --}}
+                                        <span class="badge badge-danger">ملغي</span>
+                                    @elseif($res->status == 'confirmed')
+                                        {{-- حالة التأكيد --}}
+                                        <span class="badge badge-success">مؤكد</span>
+                                    @else
+                                        {{-- أي حالة أخرى --}}
+                                        <span class="badge badge-secondary">{{ $res->status }}</span>
+                                    @endif
+                                </td>
+                                <td>
                                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailsModal{{$res->id}}">
                                         عرض التفاصيل
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal{{$res->id}}" title="إلغاء الحجز">
-                <i class="fa fa-times"></i> إلغاء
-            </button>
-                                    </td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="operationsDropdown{{$res->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            العمليات
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="operationsDropdown{{$res->id}}">
+                                            {{-- زر تعديل حالة الحجز (تأكيد/إلغاء) --}}
+                                            <a class="dropdown-item text-primary" href="#" data-toggle="modal" data-target="#editStatusModal{{$res->id}}">
+                                                <i class="fa fa-pencil-square-o"></i> تعديل الحالة
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            {{-- زر حذف الحجز --}}
+                                            <a class="dropdown-item text-danger" href="#" data-toggle="modal" data-target="#deleteModal{{$res->id}}">
+                                                <i class="fa fa-trash"></i> حذف الحجز
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
 
-
-
-                            {{-- Modal تفاصيل الغرف - التصميم المحسن --}}
+                            {{-- Modal تفاصيل الغرف - التصميم المحسن (بدون تغيير) --}}
                             <div class="modal fade" id="detailsModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> {{-- تم تغيير الحجم إلى modal-lg --}}
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> 
                                     <div class="modal-content">
                                         <div class="modal-header bg-info text-white">
                                             <h5 class="modal-title" id="detailsModalLabel{{$res->id}}">تفاصيل الغرف - {{ $res->client }}</h5>
@@ -110,7 +125,7 @@
                                                         default => 'border-secondary',
                                                     };
                                                 @endphp
-                                                <div class="col-md-6 mb-3"> {{-- جعل كل تفصيلة في عمود لتنسيق أفضل --}}
+                                                <div class="col-md-6 mb-3"> 
                                                     <div class="card {{ $colorClass }} shadow-sm">
                                                         <div class="card-header bg-light">
                                                             <h6 class="mb-0 text-dark">نوع الغرفة: {{ $roomType }}</h6>
@@ -144,41 +159,88 @@
                                 </div>
                             </div>
 
-                            <div class="modal fade" id="cancelModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel{{$res->id}}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="cancelModalLabel{{$res->id}}">تأكيد إلغاء الحجز</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-<form action="{{ route('reservations.cancel', $res->id) }}" method="POST">                    {{-- تأكد من وجود الراوت في ملف web.php --}}
-                    @csrf
-                    @method('PUT') 
+                            {{-- Modal تعديل حالة الحجز (تأكيد/إلغاء) --}}
+                            <div class="modal fade" id="editStatusModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="editStatusModalLabel{{$res->id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title" id="editStatusModalLabel{{$res->id}}">تعديل حالة الحجز - {{ $res->client }}</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        
+                                        <form action="{{ route('reservations.update_status', $res->id) }}" method="POST"> 
+                                            @csrf
+                                            @method('PUT') 
 
-                    <div class="modal-body text-center">
-                        <div class="py-3">
-                            <i class="fa fa-exclamation-triangle fa-4x text-danger mb-3"></i>
-                            <h5 class="mb-3">هل أنت متأكد من رغبتك في إلغاء هذا الحجز؟</h5>
-                            <p class="text-muted">
-                                العميل: <strong>{{ $res->client }}</strong><br>
-                                التاريخ: {{ $res->start }}
-                            </p>
-                            <p class="text-danger font-weight-bold">لا يمكن التراجع عن تغيير الحالة إلى "ملغي".</p>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-footer justify-content-center">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
-                        <button type="submit" class="btn btn-danger">نعم، تأكيد الإلغاء</button>
-                    </div>
-                </form>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="reservation_status">اختر حالة الحجز الجديدة:</label>
+                                                    <select class="form-control" id="reservation_status" name="status" required>
+                                                        <option value="confirmed" {{ $res->status == 'confirmed' ? 'selected' : '' }}>مؤكد</option>
+                                                        <option value="cancelled" {{ $res->status == 'cancelled' ? 'selected' : '' }}>ملغي</option>
+                                                        <option value="" {{ is_null($res->status) || $res->status == '' ? 'selected' : '' }}>غير مؤكد</option>
+                                                    </select>
+                                                </div>
+                                                <p class="mt-3 text-info">
+                                                    الحالة الحالية: 
+                                                    @if(is_null($res->status) || $res->status == '')
+                                                        <span class="badge badge-warning text-dark">غير مؤكد</span>
+                                                    @elseif($res->status == 'cancelled')
+                                                        <span class="badge badge-danger">ملغي</span>
+                                                    @else
+                                                        <span class="badge badge-success">مؤكد</span>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+                                                <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                                            </div>
+                                        </form>
 
-            </div>
-        </div>
-    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Modal حذف الحجز (تعديل على Modal الإلغاء السابقة) --}}
+                            <div class="modal fade" id="deleteModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{$res->id}}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title" id="deleteModalLabel{{$res->id}}">تأكيد حذف الحجز</h5>
+                                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        
+                                        <form action="{{ route('reservations.destroy', $res->id) }}" method="POST"> 
+                                            @csrf
+                                            @method('DELETE') {{-- استخدام DELETE للحذف --}}
+
+                                            <div class="modal-body text-center">
+                                                <div class="py-3">
+                                                    <i class="fa fa-trash fa-4x text-danger mb-3"></i>
+                                                    <h5 class="mb-3">هل أنت متأكد من رغبتك في حذف هذا الحجز بالكامل؟</h5>
+                                                    <p class="text-muted">
+                                                        العميل: <strong>{{ $res->client }}</strong><br>
+                                                        التاريخ: {{ $res->start }}
+                                                    </p>
+                                                    <p class="text-danger font-weight-bold">لا يمكن التراجع عن عملية الحذف.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="modal-footer justify-content-center">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">تراجع</button>
+                                                <button type="submit" class="btn btn-danger">نعم، تأكيد الحذف</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
 
                             @endforeach
                         </tbody>
