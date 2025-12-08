@@ -36,7 +36,7 @@
             color: var(--dark-text);
             overflow-x: hidden;
             line-height: 1.6;
-            padding-top: 80px;
+            padding-top: 100px; /* زيادة الـ padding لاستيعاب النافبار */
         }
 
         /* --- Scrollbar and Selection --- */
@@ -68,6 +68,10 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             z-index: 1030;
+            position: fixed; /* إضافة fixed هنا */
+            top: 0; /* إضافة top: 0 */
+            left: 0;
+            right: 0;
         }
 
         .navbar-brand {
@@ -137,6 +141,10 @@
 
         /* القائمة المنسدلة في الجوال - الحل النهائي */
         @media (max-width: 991.98px) {
+            body {
+                padding-top: 80px; /* تقليل الـ padding للجوال */
+            }
+            
             .navbar-collapse {
                 position: fixed !important;
                 top: 70px !important;
@@ -360,7 +368,7 @@
 
         /* --- Hotel Details Custom Styles --- */
         .hotel-details-section {
-            padding-top: 50px;
+            padding-top: 30px;
             padding-bottom: 50px;
         }
 
@@ -640,7 +648,7 @@
         /* تحسينات الريسبونسيف */
         @media (max-width: 991.98px) {
             body {
-                padding-top: 70px;
+                padding-top: 80px;
             }
             
             .hotel-hero {
@@ -664,6 +672,10 @@
         }
 
         @media (max-width: 767.98px) {
+            body {
+                padding-top: 70px;
+            }
+            
             .hotel-hero {
                 height: 35vh;
                 min-height: 280px;
@@ -694,6 +706,10 @@
         }
 
         @media (max-width: 575.98px) {
+            body {
+                padding-top: 70px;
+            }
+            
             .gallery-container {
                 grid-template-columns: 1fr;
                 gap: 10px;
