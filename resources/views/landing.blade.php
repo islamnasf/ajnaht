@@ -873,7 +873,7 @@
                     <div class="d-flex flex-column flex-lg-row gap-4">
 
                         <!-- فورم الحجز -->
-                        <div class="flex-fill p-4 shadow-sm">
+                        <div class="flex-fill p-4 ">
                             <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
 
                             <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
@@ -918,7 +918,7 @@
                         </div>
 
                         <!-- فورم البحث -->
-                        <div class="flex-fill p-4 shadow-sm">
+                        <div class="flex-fill p-4 ">
                             <h5 class="mb-4 text-center">بحث عن حجوزات سابقة</h5>
 
                             <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations"
