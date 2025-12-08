@@ -670,7 +670,7 @@
             }
 
             .navbar-brand img {
-                width: 120px !important;
+                width: 175px !important;
             }
         }
 
