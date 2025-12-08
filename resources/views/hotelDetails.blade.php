@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {{-- مكتبة Date Range Picker CSS --}}
@@ -62,29 +60,28 @@
 
         /* --- Navbar Styles --- */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px 0;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.4s ease;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1050;
         }
 
         .navbar-brand {
-            font-weight: 900;
+            font-weight: 800;
             color: var(--dark-text) !important;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            text-shadow: none;
+            font-size: 1.7rem;
+            letter-spacing: 0.5px;
         }
 
         .nav-link {
             color: var(--dark-text) !important;
             font-weight: 500;
-            margin: 0 10px;
-            position: relative;
-            transition: 0.3s;
+            margin: 0 12px;
+            padding: 8px 0;
+            transition: color 0.3s;
         }
 
         .nav-link:hover,
@@ -93,41 +90,18 @@
         }
 
         .nav-link::after {
-            content: '';
-            position: absolute;
+            content: "";
+            display: block;
             width: 0;
-            height: 2px;
-            bottom: 0;
-            right: 0;
+            height: 3px;
             background-color: var(--primary-red);
-            transition: width 0.3s;
+            transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
         }
-
-        .navbar-nav .dropdown-menu {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background-color: var(--card-bg);
-            padding: 0;
-        }
-
-        .navbar-nav .dropdown-item {
-            color: var(--dark-text);
-            padding: 10px 0px;
-            transition: background-color 0.2s, color 0.2s;
-            font-weight: 500;
-        }
-
-        .navbar-nav .dropdown-item:hover,
-        .navbar-nav .dropdown-item:active {
-            background-color: var(--primary-red);
-            color: white;
-        }
-
 
         /* --- Luxury Button --- */
         .btn-luxury {
@@ -397,54 +371,20 @@
             border-color: var(--primary-red);
         }
 
-        /* Gallery Section - تحسين تنسيق الصور */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            height: 250px;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
+        /* Gallery Section */
         .gallery-img {
             width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
         }
 
         .gallery-img:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 15px;
-            color: white;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
+            transform: scale(0.98);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+            opacity: 0.8;
         }
 
         /* Lightbox Modal Custom Style */
@@ -462,19 +402,11 @@
             width: 100%;
             max-height: 90vh;
             object-fit: contain;
-            border-radius: 10px;
         }
 
         .modal-header .btn-close {
             filter: invert(1);
             opacity: 1;
-            position: absolute;
-            left: 15px;
-            top: 15px;
-            z-index: 10;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            padding: 10px;
         }
 
         /* Date Range Picker Styles */
@@ -484,7 +416,7 @@
             text-align: right !important;
         }
 
-        .daterangepicker .calendar-table th,
+        .daterangepicker .calendar-table th, 
         .daterangepicker .calendar-table td {
             font-family: "IBM Plex Sans Arabic", sans-serif !important;
         }
@@ -526,15 +458,73 @@
             display: none;
         }
 
-
+        /* تصحيح مشكلة القائمة في الجوال */
+        .navbar-toggler {
+            border: none;
+            padding: 0.25rem 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28198, 132, 47, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            width: 30px;
+            height: 30px;
+        }
+        
         /* تحسين القائمة المنسدلة في الجوال */
         @media (max-width: 991.98px) {
             body {
                 padding-top: 70px;
-                transition: padding-top 0.3s ease;
             }
 
-
+            .navbar-collapse {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                margin-top: 15px;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                z-index: 1000;
+                max-height: calc(100vh - 100px);
+                overflow-y: auto;
+            }
+            
+            .navbar-nav {
+                padding: 10px 0;
+                margin-bottom: 15px;
+            }
+            
+            .nav-item {
+                margin: 5px 0;
+            }
+            
+            .nav-link {
+                padding: 12px 20px !important;
+                border-radius: 8px;
+                transition: all 0.3s;
+                margin: 0;
+                display: block;
+            }
+            
+            .nav-link:hover,
+            .nav-link.active {
+                background-color: rgba(198, 132, 47, 0.1);
+                padding-right: 25px !important;
+            }
+            
+            .nav-link::after {
+                display: none;
+            }
+            
             .user-dropdown {
                 margin-top: 15px;
                 padding-top: 15px;
@@ -543,13 +533,12 @@
                 display: block;
                 width: 100%;
             }
-
+            
             .user-dropdown .btn-luxury {
                 width: 100%;
                 margin-top: 0;
-                padding: 12px 20px;
             }
-
+            
             .user-dropdown .menu {
                 position: static;
                 margin-top: 10px;
@@ -560,30 +549,10 @@
                 transform: none;
                 display: none;
                 min-width: auto;
-                width: 100%;
             }
-
+            
             .user-dropdown .menu.show {
                 display: block;
-            }
-
-            .user-dropdown .menu button {
-                padding: 12px 20px;
-                text-align: center;
-                border: 1px solid #eee;
-                border-radius: 8px;
-                margin-top: 5px;
-                width: 100%;
-            }
-
-            /* تحسين معرض الصور في الجوال */
-            .gallery-container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 10px;
-            }
-
-            .gallery-item {
-                height: 180px;
             }
         }
 
@@ -597,39 +566,20 @@
                 font-size: 1.8rem;
             }
 
+            .gallery-img {
+                height: 180px;
+            }
+            
             .hotel-info-card {
                 margin-top: 20px;
                 padding: 20px;
                 border-top: none;
                 border-right: 5px solid var(--primary-red);
             }
-
-       
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .gallery-item {
-                height: 160px;
-            }
-
-            .price-card {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .gallery-container {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-item {
-                height: 200px;
-            }
-
-            .hotel-hero {
-                height: 30vh;
-                min-height: 200px;
+            
+            .navbar-collapse {
+                padding: 15px;
+                margin-top: 10px;
             }
         }
     </style>
@@ -637,115 +587,51 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                    <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
+                <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}" style="border-radius: 5px;">
                 @else
-                    <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
+                <i class="fas fa-crown text-primary-red"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" 
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link " href="{{ route('website') }}">الرئيسية</a></li>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
-
-                    <li class="nav-item"><a class="nav-link active" href="{{route('hotels')}}">الفنادق</a></li>
-
-                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
-                            <i class="fas fa-list-alt me-1"></i> مقالات
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">{{ $hotel->name ?? 'تفاصيل الفندق' }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a></li>
                 </ul>
-                @php
-                    $user = auth()->user();
-                @endphp
-
-                <style>
-                    .user-dropdown {
-                        position: relative;
-                        display: inline-block;
-                    }
-
-                    .user-dropdown .menu {
-                        display: none;
-                        position: absolute;
-                        right: 0;
-                        background: #fff;
-                        min-width: 150px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border-radius: 8px;
-                        z-index: 999;
-                    }
-
-                    .user-dropdown .menu.show {
-                        display: block;
-                    }
-
-                    .user-dropdown .menu a,
-                    .user-dropdown .menu button {
-                        display: block;
-                        width: 100%;
-                        padding: 10px 15px;
-                        text-align: right;
-                        border: none;
-                        background: transparent;
-                        text-decoration: none;
-                        color: #333;
-                    }
-
-                    .user-dropdown .menu a:hover,
-                    .user-dropdown .menu button:hover {
-                        background: #f3f3f3;
-                        cursor: pointer;
-                    }
-                </style>
 
                 <div class="user-dropdown">
                     @guest
-                        <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                            التسجيل الآن
-                        </a>
+                    <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
+                        <i class="fa fa-user-plus me-1"></i> التسجيل الآن
+                    </a>
                     @endguest
 
                     @auth
-                        <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                            {{ auth()->user()->name }} ▾
-                        </button>
+                    <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
+                        <i class="fa fa-user me-1"></i> {{ auth()->user()->name }} ▾
+                    </button>
 
-                        <div id="userMenu" class="menu">
-                            <form method="GET" action="{{ route('logout') }}">
-                                <button type="submit">تسجيل الخروج</button>
-                            </form>
-                        </div>
+                    <div id="userMenu" class="menu">
+                        <form method="get" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"> تسجيل الخروج</button>
+                        </form>
+                    </div>
                     @endauth
                 </div>
-
-                <script>
-                    const btn = document.getElementById('userBtn');
-                    const menu = document.getElementById('userMenu');
-
-                    if (btn && menu) {
-                        btn.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            menu.classList.toggle('show');
-                        });
-
-                        document.addEventListener('click', function () {
-                            menu.classList.remove('show');
-                        });
-                    }
-                </script>
-
-
             </div>
         </div>
     </nav>
@@ -759,10 +645,9 @@
                     <img src="{{ asset($hotel->image) }}" class="hotel-image-full" alt="{{ $hotel->name }}">
                     <div class="hotel-info-overlay">
                         <h1 class="text-white">{{ $hotel->name }}</h1>
-                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}
-                        </p>
+                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}</p>
                         <p class="rating mb-3">
-                            @for($i = 1; $i <= 5; $i++)
+                            @for($i=1; $i <= 5; $i++)
                                 @if($i <= $hotel->rate)
                                     <i class="fa fa-star"></i>
                                 @endif
@@ -777,8 +662,7 @@
                 <div class="row g-4 h-100">
                     <div class="col-lg-12" data-aos="fade-right" data-aos-delay="200">
                         <div class="hotel-info-card">
-                            <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة
-                                على الفندق</h3>
+                            <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة على الفندق</h3>
                             <div class="row g-3 mb-4 text-center">
                                 <div class="col-6">
                                     <div class="feature-box">
@@ -804,17 +688,16 @@
                             <h4 class="fw-bold mb-4 text-center section-heading">ابدأ إقامتك الفاخرة</h4>
 
                             @if($hotel->prices->where('roomAvailable', '>', 0)->count() > 0)
-                                <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form"
-                                    id="quickReserveForm">
+                                <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form" id="quickReserveForm">
                                     @csrf
-
+                                    
                                     <div class="row g-3 mb-3">
                                         <div class="col-12">
                                             <label class="small text-muted mb-1">الفترة</label>
-                                            <input type="text" id="quickDateRange" class="form-control form-control-custom"
-                                                placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                            <input type="text" id="quickDateRange" class="form-control form-control-custom" 
+                                                   placeholder="اختر تاريخ الوصول والمغادرة" required>
                                             <div class="error-message" id="dateError">برجاء اختيار الفترة</div>
-
+                                            
                                             <input type="hidden" name="start" id="quickStartDate">
                                             <input type="hidden" name="end" id="quickEndDate">
                                         </div>
@@ -822,14 +705,14 @@
 
                                     <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
                                     <input type="hidden" name="destination" value="مكة">
-
+                                    
                                     <button type="submit" class="btn btn-luxury btn-lg w-100">
                                         <i class="fa fa-calendar-check me-2"></i> احجز إقامتك الآن
                                     </button>
                                 </form>
                             @else
                                 <div class="alert alert-warning text-center mb-0 py-3">
-                                    <i class="fa fa-bed me-2"></i>
+                                    <i class="fa fa-bed me-2"></i> 
                                     <strong>نعتذر</strong><br>
                                     لا توجد غرف متاحة حالياً في هذا الفندق
                                 </div>
@@ -849,7 +732,7 @@
             </h2>
 
             <div class="row g-4">
-                @for($i = 1; $i <= 5; $i++)
+                @for($i=1; $i<=5; $i++)
                     @php
                         $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
                         $price = $priceItem->price ?? 0;
@@ -858,20 +741,20 @@
                     @endphp
 
                     @if($roomAvailable > 0)
-                        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
-                            <div class="price-card">
-                                <h4 class="mb-3">{{ $roomName }}</h4>
-                                <p class="text-secondary flex-grow-1">
-                                    <i class="fa fa-tag me-1 text-success"></i> السعر لليلة الواحدة:
-                                    <br>
-                                    <span class="price-tag">{{ number_format($price, 0) }} ريال</span>
-                                </p>
-                                <p class="availability">
-                                    <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
-                                    <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
-                                </p>
-                            </div>
+                    <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
+                        <div class="price-card">
+                            <h4 class="mb-3">{{ $roomName }}</h4>
+                            <p class="text-secondary flex-grow-1">
+                                <i class="fa fa-tag me-1 text-success"></i> السعر لليلة الواحدة:
+                                <br>
+                                <span class="price-tag">{{ number_format($price, 0) }} ريال</span>
+                            </p>
+                            <p class="availability">
+                                <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
+                                <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
+                            </p>
                         </div>
+                    </div>
                     @endif
                 @endfor
             </div>
@@ -879,20 +762,17 @@
 
         <hr class="my-5">
 
-        {{-- معرض الصور - النسخة المحسنة --}}
-        <h2 class="fw-bold mb-4 text-center section-heading" data-aos="fade-up">
+        {{-- معرض الصور --}}
+        <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
             <i class="fa fa-images me-2"></i> صور الفندق
         </h2>
 
-        <div class="gallery-container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-3">
             @foreach($hotel->files as $file)
-                <div class="gallery-item">
-                    <img src="{{ asset($file->image) }}" class="gallery-img" alt="صورة الفندق {{ $loop->iteration }}"
-                        onclick="openImageModal('{{ asset($file->image) }}')">
-                    <div class="gallery-overlay">
-                        <p class="mb-0 text-white small">صورة {{ $loop->iteration }}</p>
-                    </div>
-                </div>
+            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
+                <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}" 
+                     onclick="openImageModal('{{ asset($file->image) }}')">
+            </div>
             @endforeach
         </div>
     </div>
@@ -900,20 +780,20 @@
     {{-- Lightbox Modal --}}
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content bg-transparent border-0">
+            <div class="modal-content">
                 <div class="modal-header border-0">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center p-1">
+                <div class="modal-body text-center p-0">
                     <img src="" id="modalImage" class="lightbox-img" alt="صورة مكبرة">
                 </div>
             </div>
         </div>
     </div>
+    @include('footer')
 
     {{-- تضمين مكتبات JavaScript --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
 
@@ -924,21 +804,136 @@
             once: true,
         });
 
+        // حل مشكلة القائمة في الجوال
+        document.addEventListener('DOMContentLoaded', function() {
+            // User Dropdown
+            const userBtn = document.getElementById('userBtn');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (userBtn && userMenu) {
+                userBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('show');
+                });
+
+                document.addEventListener('click', function() {
+                    if (userMenu.classList.contains('show')) {
+                        userMenu.classList.remove('show');
+                    }
+                });
+            }
+
+            // إغلاق القائمة عند النقر على رابط في الجوال
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 992) {
+                        // إغلاق القائمة باستخدام Bootstrap
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                        bsCollapse.hide();
+                        
+                        // إغلاق قائمة المستخدم إذا كانت مفتوحة
+                        if (userMenu && userMenu.classList.contains('show')) {
+                            userMenu.classList.remove('show');
+                        }
+                    }
+                });
+            });
+
+            // تهيئة Date Range Picker
+            if ($('#quickDateRange').length) {
+                const today = moment();
+                const tomorrow = moment().add(1, 'days');
+                const threeDaysLater = moment().add(3, 'days');
+                
+                $('#quickDateRange').daterangepicker({
+                    "locale": {
+                        "format": "YYYY-MM-DD",
+                        "separator": " - ",
+                        "applyLabel": "تأكيد",
+                        "cancelLabel": "إلغاء",
+                        "fromLabel": "من",
+                        "toLabel": "إلى",
+                        "customRangeLabel": "مخصص",
+                        "weekLabel": "أسبوع",
+                        "daysOfWeek": [
+                            "أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"
+                        ],
+                        "monthNames": [
+                            "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
+                            "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                        ],
+                        "firstDay": 6
+                    },
+                    "opens": "right",
+                    "drops": "down",
+                    "minDate": today,
+                    "startDate": tomorrow,
+                    "endDate": threeDaysLater,
+                    "autoApply": true,
+                    "alwaysShowCalendars": true
+                }, function(start, end, label) {
+                    $('#quickStartDate').val(start.format('YYYY-MM-DD'));
+                    $('#quickEndDate').val(end.format('YYYY-MM-DD'));
+                    $('#quickDateRange').val(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
+                    $('#dateError').hide();
+                });
+
+                // تعيين القيم الأولية
+                $('#quickStartDate').val(tomorrow.format('YYYY-MM-DD'));
+                $('#quickEndDate').val(threeDaysLater.format('YYYY-MM-DD'));
+                $('#quickDateRange').val(
+                    tomorrow.format('YYYY/MM/DD') + ' - ' + threeDaysLater.format('YYYY/MM/DD')
+                );
+            }
+
+            // التحقق من صحة النموذج قبل الإرسال
+            $('#quickReserveForm').on('submit', function(e) {
+                const start = $('#quickStartDate').val();
+                const end = $('#quickEndDate').val();
+                const dateError = $('#dateError');
+                
+                if (!start || !end) {
+                    e.preventDefault();
+                    dateError.text('برجاء اختيار تاريخ الوصول والمغادرة').show();
+                    $('#quickDateRange').focus();
+                    return false;
+                }
+                
+                if (new Date(start) >= new Date(end)) {
+                    e.preventDefault();
+                    dateError.text('تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول').show();
+                    $('#quickDateRange').focus();
+                    return false;
+                }
+                
+                dateError.hide();
+                return true;
+            });
+        });
 
         // دالة فتح صورة في المودال
         function openImageModal(imageSrc) {
             const modalImage = document.getElementById('modalImage');
             modalImage.src = imageSrc;
-
+            
             const modal = new bootstrap.Modal(document.getElementById('imageModal'));
             modal.show();
         }
 
-
+        // إصلاح مشكلة Bootstrap مع القائمة في الجوال
+        window.addEventListener('resize', function() {
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
     </script>
 
     {{-- تضمين الفوتر --}}
-    @include('footer')
 
 </body>
 

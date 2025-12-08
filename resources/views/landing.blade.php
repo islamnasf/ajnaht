@@ -953,14 +953,14 @@
         <div class="row align-items-center">
             <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
                 <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
-                <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
+                <!-- <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
                         style="color: var(--primary-red);">الشغف</span>
-                    والتميز</h2>
+                    والتميز</h2> -->
                 <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
                     {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
                 </div>
 
-                <div class="d-flex align-items-center mt-4">
+                <!-- <div class="d-flex align-items-center mt-4">
                     <div class="border-start border-danger border-3 ps-3 ms-3">
                         <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">أفضل موقع</h5>
                         <small class="text-muted">مباشرة أمام الحرم</small>
@@ -969,7 +969,7 @@
                         <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">واي فاي</h5>
                         <small class="text-muted">عالي السرعة مجاني</small>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
                 <div class="about-img-box tilt-element">
