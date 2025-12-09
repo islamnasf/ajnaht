@@ -231,7 +231,7 @@
 
             {{-- Header --}}
             <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title fw-bold  text-white" id="pricesModalLabel{{$category->id}}">
+                <h5 class="modal-title fw-bold text-white" id="pricesModalLabel{{$category->id}}">
                     تحديث أسعار الفندق - {{ $category->name }}
                 </h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -251,12 +251,23 @@
                     </div>
 
                     <div class="row">
+                        @php
+                            $pricesData = [];
+                        @endphp
+                        
                         @for($beds = 1; $beds <= 5; $beds++)
                             @php
                                 $labelName     = ($beds == 1) ? 'كينج' : $beds . ' سرير';
                                 $dbPriceName   = $beds;
                                 $currentPrice  = $category->prices->where('name', $dbPriceName)->first()->price ?? '';
                                 $roomAvailable = $category->prices->where('name', $dbPriceName)->first()->roomAvailable ?? '';
+                                
+                                // تخزين بيانات كل سعر في مصفوفة
+                                $pricesData[$beds] = [
+                                    'price' => $currentPrice,
+                                    'roomAvailable' => $roomAvailable,
+                                    'label' => $labelName
+                                ];
                             @endphp
 
                             <div class="col-md-6 mb-4">
@@ -288,6 +299,14 @@
                                             placeholder="عدد الغرف المتاحة"
                                             value="{{ $roomAvailable }}"
                                             min="0">
+                                    </div>
+
+                                    {{-- زر إدارة الفترات لكل نوع غرفة --}}
+                                    <div class="mt-2">
+                                        <a href="{{ route('periods.show', ['categoryId' => $category->id, 'priceId' => $beds]) }}" 
+                                           class="btn btn-info btn-sm btn-block" target="_blank">
+                                            <i class="fa fa-calendar"></i> إدارة فترات {{ $labelName }}
+                                        </a>
                                     </div>
 
                                 </div>

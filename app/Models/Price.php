@@ -12,4 +12,7 @@ class Price extends Model
     public function hotel(){
       return $this->belongsTo(Category::class,'category_id');
     }
+        public function periods(){
+      return $this->hasMany(Period::class,'price_id');
+    }
 }

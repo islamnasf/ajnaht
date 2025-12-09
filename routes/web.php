@@ -72,6 +72,11 @@ route::group(['prefix' => 'dashboard/category/'], function () {
     Route::delete('/files/{id}', [ControllersCategoryController::class, 'deleteFile'])->name('deleteFile');
 
 
+    Route::get('/{categoryId}/{priceId}', [ControllersCategoryController::class, 'showPeriods'])->name('periods.show');
+    Route::post('/{categoryId}/{priceId}', [ControllersCategoryController::class, 'storePeriod'])->name('periods.store');
+    Route::delete('/{periodId}', [ControllersCategoryController::class, 'deletePeriod'])->name('periods.delete');
+
+
 
 });
 //sub category
@@ -137,6 +142,8 @@ route::group(['prefix' => 'dashboard/site'], function () {
 
 
 });
+
+
 
 });
 

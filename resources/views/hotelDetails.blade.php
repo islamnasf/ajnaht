@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {{-- مكتبة Date Range Picker CSS --}}
@@ -416,7 +418,7 @@
             text-align: right !important;
         }
 
-        .daterangepicker .calendar-table th, 
+        .daterangepicker .calendar-table th,
         .daterangepicker .calendar-table td {
             font-family: "IBM Plex Sans Arabic", sans-serif !important;
         }
@@ -464,18 +466,18 @@
             padding: 0.25rem 0.75rem;
             font-size: 1.25rem;
         }
-        
+
         .navbar-toggler:focus {
             box-shadow: none;
             outline: none;
         }
-        
+
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28198, 132, 47, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
             width: 30px;
             height: 30px;
         }
-        
+
         /* تحسين القائمة المنسدلة في الجوال */
         @media (max-width: 991.98px) {
             body {
@@ -497,16 +499,16 @@
                 max-height: calc(100vh - 100px);
                 overflow-y: auto;
             }
-            
+
             .navbar-nav {
                 padding: 10px 0;
                 margin-bottom: 15px;
             }
-            
+
             .nav-item {
                 margin: 5px 0;
             }
-            
+
             .nav-link {
                 padding: 12px 20px !important;
                 border-radius: 8px;
@@ -514,17 +516,17 @@
                 margin: 0;
                 display: block;
             }
-            
+
             .nav-link:hover,
             .nav-link.active {
                 background-color: rgba(198, 132, 47, 0.1);
                 padding-right: 25px !important;
             }
-            
+
             .nav-link::after {
                 display: none;
             }
-            
+
             .user-dropdown {
                 margin-top: 15px;
                 padding-top: 15px;
@@ -533,12 +535,12 @@
                 display: block;
                 width: 100%;
             }
-            
+
             .user-dropdown .btn-luxury {
                 width: 100%;
                 margin-top: 0;
             }
-            
+
             .user-dropdown .menu {
                 position: static;
                 margin-top: 10px;
@@ -550,7 +552,7 @@
                 display: none;
                 min-width: auto;
             }
-            
+
             .user-dropdown .menu.show {
                 display: block;
             }
@@ -569,14 +571,14 @@
             .gallery-img {
                 height: 180px;
             }
-            
+
             .hotel-info-card {
                 margin-top: 20px;
                 padding: 20px;
                 border-top: none;
                 border-right: 5px solid var(--primary-red);
             }
-            
+
             .navbar-collapse {
                 padding: 15px;
                 margin-top: 10px;
@@ -592,44 +594,47 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}" style="border-radius: 5px;">
+                    <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}"
+                        style="border-radius: 5px;">
                 @else
-                <i class="fas fa-crown text-primary-red"></i> {{ $data->name ?? 'Royal View' }}
+                    <i class="fas fa-crown text-primary-red"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
             </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" 
-                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">{{ $hotel->name ?? 'تفاصيل الفندق' }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">{{ $hotel->name ?? 'تفاصيل الفندق' }}</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
+                    </li>
                 </ul>
 
                 <div class="user-dropdown">
                     @guest
-                    <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                        <i class="fa fa-user-plus me-1"></i> التسجيل الآن
-                    </a>
+                        <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
+                            <i class="fa fa-user-plus me-1"></i> التسجيل الآن
+                        </a>
                     @endguest
 
                     @auth
-                    <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                        <i class="fa fa-user me-1"></i> {{ auth()->user()->name }} ▾
-                    </button>
+                        <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
+                            <i class="fa fa-user me-1"></i> {{ auth()->user()->name }} ▾
+                        </button>
 
-                    <div id="userMenu" class="menu">
-                        <form method="get" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit"> تسجيل الخروج</button>
-                        </form>
-                    </div>
+                        <div id="userMenu" class="menu">
+                            <form method="get" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"> تسجيل الخروج</button>
+                            </form>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -645,9 +650,10 @@
                     <img src="{{ asset($hotel->image) }}" class="hotel-image-full" alt="{{ $hotel->name }}">
                     <div class="hotel-info-overlay">
                         <h1 class="text-white">{{ $hotel->name }}</h1>
-                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}</p>
+                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}
+                        </p>
                         <p class="rating mb-3">
-                            @for($i=1; $i <= 5; $i++)
+                            @for($i = 1; $i <= 5; $i++)
                                 @if($i <= $hotel->rate)
                                     <i class="fa fa-star"></i>
                                 @endif
@@ -662,7 +668,8 @@
                 <div class="row g-4 h-100">
                     <div class="col-lg-12" data-aos="fade-right" data-aos-delay="200">
                         <div class="hotel-info-card">
-                            <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة على الفندق</h3>
+                            <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة
+                                على الفندق</h3>
                             <div class="row g-3 mb-4 text-center">
                                 <div class="col-6">
                                     <div class="feature-box">
@@ -681,23 +688,28 @@
                             </div>
                         </div>
                     </div>
-
+                    @php
+                        $isAvailable = $hotel->prices->some(function ($price) {
+                            return $price->periods->isNotEmpty();
+                        });
+                    @endphp
                     {{-- بطاقة الحجز --}}
                     <div class="col-lg-12" data-aos="fade-right" data-aos-delay="300">
                         <div class="hotel-info-card">
                             <h4 class="fw-bold mb-4 text-center section-heading">ابدأ إقامتك الفاخرة</h4>
 
-                            @if($hotel->prices->where('roomAvailable', '>', 0)->count() > 0)
-                                <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form" id="quickReserveForm">
+                            @if($isAvailable)
+                                <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form"
+                                    id="quickReserveForm">
                                     @csrf
-                                    
+
                                     <div class="row g-3 mb-3">
                                         <div class="col-12">
                                             <label class="small text-muted mb-1">الفترة</label>
-                                            <input type="text" id="quickDateRange" class="form-control form-control-custom" 
-                                                   placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                            <input type="text" id="quickDateRange" class="form-control form-control-custom"
+                                                placeholder="اختر تاريخ الوصول والمغادرة" required>
                                             <div class="error-message" id="dateError">برجاء اختيار الفترة</div>
-                                            
+
                                             <input type="hidden" name="start" id="quickStartDate">
                                             <input type="hidden" name="end" id="quickEndDate">
                                         </div>
@@ -705,14 +717,14 @@
 
                                     <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
                                     <input type="hidden" name="destination" value="مكة">
-                                    
+
                                     <button type="submit" class="btn btn-luxury btn-lg w-100">
                                         <i class="fa fa-calendar-check me-2"></i> احجز إقامتك الآن
                                     </button>
                                 </form>
                             @else
                                 <div class="alert alert-warning text-center mb-0 py-3">
-                                    <i class="fa fa-bed me-2"></i> 
+                                    <i class="fa fa-bed me-2"></i>
                                     <strong>نعتذر</strong><br>
                                     لا توجد غرف متاحة حالياً في هذا الفندق
                                 </div>
@@ -732,7 +744,7 @@
             </h2>
 
             <div class="row g-4">
-                @for($i=1; $i<=5; $i++)
+                @for($i = 1; $i <= 5; $i++)
                     @php
                         $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
                         $price = $priceItem->price ?? 0;
@@ -741,20 +753,20 @@
                     @endphp
 
                     @if($roomAvailable > 0)
-                    <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
-                        <div class="price-card">
-                            <h4 class="mb-3">{{ $roomName }}</h4>
-                            <p class="text-secondary flex-grow-1">
-                                <i class="fa fa-tag me-1 text-success"></i> السعر لليلة الواحدة:
-                                <br>
-                                <span class="price-tag">{{ number_format($price, 0) }} ريال</span>
-                            </p>
-                            <p class="availability">
-                                <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
-                                <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
-                            </p>
+                        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
+                            <div class="price-card">
+                                <h4 class="mb-3">{{ $roomName }}</h4>
+                                <p class="text-secondary flex-grow-1">
+                                    <i class="fa fa-tag me-1 text-success"></i> السعر لليلة الواحدة:
+                                    <br>
+                                    <span class="price-tag">{{ number_format($price, 0) }} ريال</span>
+                                </p>
+                                <p class="availability">
+                                    <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
+                                    <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 @endfor
             </div>
@@ -769,10 +781,10 @@
 
         <div class="row g-3">
             @foreach($hotel->files as $file)
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
-                <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}" 
-                     onclick="openImageModal('{{ asset($file->image) }}')">
-            </div>
+                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
+                    <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}"
+                        onclick="openImageModal('{{ asset($file->image) }}')">
+                </div>
             @endforeach
         </div>
     </div>
@@ -805,18 +817,18 @@
         });
 
         // حل مشكلة القائمة في الجوال
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // User Dropdown
             const userBtn = document.getElementById('userBtn');
             const userMenu = document.getElementById('userMenu');
-            
+
             if (userBtn && userMenu) {
-                userBtn.addEventListener('click', function(e) {
+                userBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     userMenu.classList.toggle('show');
                 });
 
-                document.addEventListener('click', function() {
+                document.addEventListener('click', function () {
                     if (userMenu.classList.contains('show')) {
                         userMenu.classList.remove('show');
                     }
@@ -827,14 +839,14 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const navbarToggler = document.querySelector('.navbar-toggler');
             const navbarCollapse = document.querySelector('.navbar-collapse');
-            
+
             navLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function () {
                     if (window.innerWidth < 992) {
                         // إغلاق القائمة باستخدام Bootstrap
                         const bsCollapse = new bootstrap.Collapse(navbarCollapse);
                         bsCollapse.hide();
-                        
+
                         // إغلاق قائمة المستخدم إذا كانت مفتوحة
                         if (userMenu && userMenu.classList.contains('show')) {
                             userMenu.classList.remove('show');
@@ -848,7 +860,7 @@
                 const today = moment();
                 const tomorrow = moment().add(1, 'days');
                 const threeDaysLater = moment().add(3, 'days');
-                
+
                 $('#quickDateRange').daterangepicker({
                     "locale": {
                         "format": "YYYY-MM-DD",
@@ -875,7 +887,7 @@
                     "endDate": threeDaysLater,
                     "autoApply": true,
                     "alwaysShowCalendars": true
-                }, function(start, end, label) {
+                }, function (start, end, label) {
                     $('#quickStartDate').val(start.format('YYYY-MM-DD'));
                     $('#quickEndDate').val(end.format('YYYY-MM-DD'));
                     $('#quickDateRange').val(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
@@ -891,25 +903,25 @@
             }
 
             // التحقق من صحة النموذج قبل الإرسال
-            $('#quickReserveForm').on('submit', function(e) {
+            $('#quickReserveForm').on('submit', function (e) {
                 const start = $('#quickStartDate').val();
                 const end = $('#quickEndDate').val();
                 const dateError = $('#dateError');
-                
+
                 if (!start || !end) {
                     e.preventDefault();
                     dateError.text('برجاء اختيار تاريخ الوصول والمغادرة').show();
                     $('#quickDateRange').focus();
                     return false;
                 }
-                
+
                 if (new Date(start) >= new Date(end)) {
                     e.preventDefault();
                     dateError.text('تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول').show();
                     $('#quickDateRange').focus();
                     return false;
                 }
-                
+
                 dateError.hide();
                 return true;
             });
@@ -919,13 +931,13 @@
         function openImageModal(imageSrc) {
             const modalImage = document.getElementById('modalImage');
             modalImage.src = imageSrc;
-            
+
             const modal = new bootstrap.Modal(document.getElementById('imageModal'));
             modal.show();
         }
 
         // إصلاح مشكلة Bootstrap مع القائمة في الجوال
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', function () {
             const navbarCollapse = document.querySelector('.navbar-collapse');
             if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
                 navbarCollapse.classList.remove('show');

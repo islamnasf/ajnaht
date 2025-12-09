@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكي Excel على الويب</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --excel-green: #217346;
+            --header-bg: #f8f9fa;
+            --cell-border: #d1d1d1;
+            --selected-cell: #cce8ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        .excel-header {
+            background-color: var(--excel-green);
+            color: white;
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .toolbar {
+            background-color: var(--header-bg);
+            border-bottom: 1px solid #ddd;
+            padding: 8px 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .toolbar-group {
+            border-right: 1px solid #ddd;
+            padding-right: 15px;
+            margin-right: 15px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .toolbar-group:last-child {
+            border-right: none;
+        }
+        
+        .formula-bar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .formula-bar label {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .formula-input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 5px 10px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .sheet-container {
+            overflow: auto;
+            background-color: white;
+            border: 1px solid #ddd;
+            margin: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-height: 600px;
+        }
+        
+        .sheet-header {
+            display: flex;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--cell-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .corner-cell {
+            width: 50px;
+            min-width: 50px;
+            height: 30px;
+            border-right: 1px solid var(--cell-border);
+            border-bottom: 1px solid var(--cell-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background-color: var(--header-bg);
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+        
+        .column-headers {
+            display: flex;
+        }
+        
+        .column-header {
+            width: 120px;
+            min-width: 120px;
+            height: 30px;
+            border-right: 1px solid var(--cell-border);
+            border-bottom: 1px solid var(--cell-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background-color: var(--header-bg);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .sheet-body {
+            display: flex;
+        }
+        
+        .row-numbers {
+            width: 50px;
+            min-width: 50px;
+        }
+        
+        .row-number {
+            width: 100%;
+            height: 30px;
+            border-right: 1px solid var(--cell-border);
+            border-bottom: 1px solid var(--cell-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background-color: var(--header-bg);
+            position: sticky;
+            left: 0;
+            z-index: 5;
+        }
+        
+        .cells-container {
+            flex-grow: 1;
+        }
+        
+        .row {
+            display: flex;
+        }
+        
+        .cell {
+            width: 120px;
+            min-width: 120px;
+            height: 30px;
+            border-right: 1px solid var(--cell-border);
+            border-bottom: 1px solid var(--cell-border);
+            padding: 2px 5px;
+            outline: none;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            background-color: white;
+        }
+        
+        .cell.selected {
+            border: 2px solid #1a73e8;
+            background-color: var(--selected-cell);
+            z-index: 1;
+        }
+        
+        .cell.editing {
+            overflow: visible;
+            white-space: normal;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sheet-tabs {
+            background-color: #f1f3f4;
+            border-top: 1px solid #ddd;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sheet-tab {
+            padding: 5px 15px;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background-color: white;
+            border-radius: 5px 5px 0 0;
+            margin-right: 2px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .sheet-tab.active {
+            background-color: white;
+            border-bottom: 2px solid var(--excel-green);
+            font-weight: bold;
+        }
+        
+        .btn-excel {
+            background-color: var(--excel-green);
+            color: white;
+            border: none;
+        }
+        
+        .btn-excel:hover {
+            background-color: #1a5c38;
+            color: white;
+        }
+        
+        .btn-excel:focus {
+            box-shadow: 0 0 0 0.25rem rgba(33, 115, 70, 0.25);
+        }
+        
+        .status-bar {
+            padding: 5px 15px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .font-select {
+            width: 120px;
+        }
+        
+        .font-size-select {
+            width: 70px;
+        }
+        
+        @media (max-width: 768px) {
+            .sheet-container {
+                margin: 5px;
+            }
+            
+            .toolbar {
+                padding: 5px;
+                gap: 5px;
+            }
+            
+            .toolbar-group {
+                padding-right: 8px;
+                margin-right: 8px;
+            }
+            
+            .btn-sm {
+                padding: 3px 6px;
+                font-size: 12px;
+            }
+        }
+        
+        .modal-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- رأس التطبيق -->
+    <header class="excel-header d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-file-earmark-spreadsheet-fill fs-3 me-3"></i>
+            <h1 class="h4 mb-0">محاكي Excel على الويب</h1>
+        </div>
+        <div>
+            <button class="btn btn-excel btn-sm me-2" id="saveBtn">
+                <i class="bi bi-save me-1"></i>حفظ
+            </button>
+            <button class="btn btn-excel btn-sm me-2" id="loadBtn">
+                <i class="bi bi-upload me-1"></i>فتح
+            </button>
+            <button class="btn btn-excel btn-sm" id="newBtn">
+                <i class="bi bi-file-earmark-plus me-1"></i>جديد
+            </button>
+        </div>
+    </header>
+
+    <!-- شريط الأدوات -->
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <select class="form-select form-select-sm font-select" id="fontFamily">
+                <option value="Arial">Arial</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="'Segoe UI'">Segoe UI</option>
+                <option value="'Courier New'">Courier New</option>
+                <option value="Times New Roman">Times New Roman</option>
+            </select>
+            
+            <select class="form-select form-select-sm font-size-select" id="fontSize">
+                <option value="10">10</option>
+                <option value="12" selected>12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="24">24</option>
+            </select>
+            
+            <button class="btn btn-sm btn-outline-secondary" id="boldBtn" title="عريض">
+                <i class="bi bi-type-bold"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="italicBtn" title="مائل">
+                <i class="bi bi-type-italic"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="underlineBtn" title="تحته خط">
+                <i class="bi bi-type-underline"></i>
+            </button>
+        </div>
+        
+        <div class="toolbar-group">
+            <button class="btn btn-sm btn-outline-secondary" id="alignLeftBtn" title="محاذاة لليسار">
+                <i class="bi bi-text-left"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="alignCenterBtn" title="محاذاة للوسط">
+                <i class="bi bi-text-center"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="alignRightBtn" title="محاذاة لليمين">
+                <i class="bi bi-text-right"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="alignJustifyBtn" title="محاذاة كاملة">
+                <i class="bi bi-justify"></i>
+            </button>
+        </div>
+        
+        <div class="toolbar-group">
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <span class="input-group-text" id="colorTextBtn" title="لون النص">
+                    <i class="bi bi-fonts"></i>
+                </span>
+                <input type="color" class="form-control form-control-color" id="textColor" value="#000000" title="اختر لون النص">
+            </div>
+            
+            <div class="input-group input-group-sm" style="width: 150px;">
+                <span class="input-group-text" id="colorFillBtn" title="لون الخلفية">
+                    <i class="bi bi-palette"></i>
+                </span>
+                <input type="color" class="form-control form-control-color" id="fillColor" value="#ffffff" title="اختر لون الخلفية">
+            </div>
+        </div>
+        
+        <div class="toolbar-group">
+            <button class="btn btn-sm btn-outline-secondary" id="mergeBtn" title="دمج الخلايا">
+                <i class="bi bi-layout-sidebar-inset"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="borderBtn" title="حدود">
+                <i class="bi bi-border-all"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="formatNumberBtn" title="تنسيق الأرقام">
+                <i class="bi bi-123"></i>
+            </button>
+        </div>
+        
+        <div class="toolbar-group">
+            <button class="btn btn-sm btn-outline-secondary" id="insertRowBtn" title="إدراج صف">
+                <i class="bi bi-plus-square"></i> صف
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="insertColBtn" title="إدراج عمود">
+                <i class="bi bi-plus-square"></i> عمود
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="deleteRowBtn" title="حذف صف">
+                <i class="bi bi-dash-square"></i> صف
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="deleteColBtn" title="حذف عمود">
+                <i class="bi bi-dash-square"></i> عمود
+            </button>
+        </div>
+    </div>
+
+    <!-- شريط الصيغ -->
+    <div class="formula-bar">
+        <label id="selectedCellLabel">A1</label>
+        <input type="text" class="formula-input" id="formulaInput" placeholder="أدخل قيمة أو صيغة...">
+    </div>
+
+    <!-- ورقة العمل -->
+    <div class="sheet-container">
+        <div class="sheet-header">
+            <div class="corner-cell">
+                <i class="bi bi-grid"></i>
+            </div>
+            <div class="column-headers" id="columnHeaders">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+        </div>
+        
+        <div class="sheet-body">
+            <div class="row-numbers" id="rowNumbers">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+            <div class="cells-container" id="cellsContainer">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- تبويبات الأوراق -->
+    <div class="sheet-tabs">
+        <span class="sheet-tab active">ورقة1</span>
+        <button class="btn btn-sm btn-outline-secondary ms-auto" id="addSheetBtn">
+            <i class="bi bi-plus-lg"></i> إضافة ورقة
+        </button>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar d-flex justify-content-between">
+        <div>
+            <span id="cellCount">0 خلية</span>
+            <span class="ms-3" id="sumValue">المجموع: 0</span>
+        </div>
+        <div>
+            <span>متوافق مع Excel</span>
+        </div>
+    </div>
+
+    <!-- نافذة تنسيق الأرقام -->
+    <div class="modal fade" id="formatModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تنسيق الأرقام</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اختر تنسيق الأرقام:</label>
+                        <div class="list-group">
+                            <button type="button" class="list-group-item list-group-item-action format-option" data-format="general">عام</button>
+                            <button type="button" class="list-group-item list-group-item-action format-option" data-format="number">رقم</button>
+                            <button type="button" class="list-group-item list-group-item-action format-option" data-format="currency">عملة</button>
+                            <button type="button" class="list-group-item list-group-item-action format-option" data-format="percentage">نسبة مئوية</button>
+                            <button type="button" class="list-group-item list-group-item-action format-option" data-format="date">تاريخ</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-excel" id="applyFormatBtn">تطبيق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // تعريف المتغيرات العامة
+        let selectedCell = null;
+        let currentSheet = {};
+        let sheets = {};
+        let currentSheetId = 'sheet1';
+        let rows = 30;
+        let cols = 20;
+        let cellData = {};
+        let cellFormat = {};
+        
+        // تهيئة التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initSheet();
+            setupEventListeners();
+            loadFromLocalStorage();
+        });
+        
+        // تهيئة ورقة العمل
+        function initSheet() {
+            createColumnHeaders();
+            createRowNumbers();
+            createCells();
+            updateStatusBar();
+        }
+        
+        // إنشاء عناوين الأعمدة (A, B, C, ...)
+        function createColumnHeaders() {
+            const columnHeaders = document.getElementById('columnHeaders');
+            columnHeaders.innerHTML = '';
+            
+            for (let col = 0; col < cols; col++) {
+                const columnLetter = numberToColumnLetter(col);
+                const columnHeader = document.createElement('div');
+                columnHeader.className = 'column-header';
+                columnHeader.textContent = columnLetter;
+                columnHeader.dataset.col = col;
+                columnHeaders.appendChild(columnHeader);
+            }
+        }
+        
+        // إنشاء أرقام الصفوف
+        function createRowNumbers() {
+            const rowNumbers = document.getElementById('rowNumbers');
+            rowNumbers.innerHTML = '';
+            
+            for (let row = 0; row < rows; row++) {
+                const rowNumber = document.createElement('div');
+                rowNumber.className = 'row-number';
+                rowNumber.textContent = row + 1;
+                rowNumber.dataset.row = row;
+                rowNumbers.appendChild(rowNumber);
+            }
+        }
+        
+        // إنشاء خلايا ورقة العمل
+        function createCells() {
+            const cellsContainer = document.getElementById('cellsContainer');
+            cellsContainer.innerHTML = '';
+            
+            for (let row = 0; row < rows; row++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'row';
+                rowDiv.dataset.row = row;
+                
+                for (let col = 0; col < cols; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.contentEditable = true;
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.dataset.cellId = `${row}-${col}`;
+                    
+                    // استعادة البيانات من الذاكرة إذا كانت موجودة
+                    const cellId = `${row}-${col}`;
+                    if (cellData[cellId]) {
+                        cell.textContent = cellData[cellId];
+                    }
+                    
+                    // تطبيق التنسيقات إذا كانت موجودة
+                    if (cellFormat[cellId]) {
+                        applyFormatToCell(cell, cellFormat[cellId]);
+                    }
+                    
+                    rowDiv.appendChild(cell);
+                }
+                
+                cellsContainer.appendChild(rowDiv);
+            }
+            
+            // تحديد الخلية الأولى عند التحميل
+            selectCell(0, 0);
+        }
+        
+        // تحويل رقم العمود إلى حرف (0 -> A, 1 -> B, ...)
+        function numberToColumnLetter(num) {
+            let letter = '';
+            while (num >= 0) {
+                letter = String.fromCharCode(65 + (num % 26)) + letter;
+                num = Math.floor(num / 26) - 1;
+            }
+            return letter;
+        }
+        
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // أحداث الخلايا
+            document.getElementById('cellsContainer').addEventListener('click', handleCellClick);
+            document.getElementById('cellsContainer').addEventListener('input', handleCellInput);
+            document.getElementById('cellsContainer').addEventListener('dblclick', handleCellDoubleClick);
+            
+            // أحداث شريط الصيغ
+            document.getElementById('formulaInput').addEventListener('input', handleFormulaInput);
+            document.getElementById('formulaInput').addEventListener('keydown', handleFormulaKeyDown);
+            
+            // أحداث شريط الأدوات
+            document.getElementById('fontFamily').addEventListener('change', applyFontFamily);
+            document.getElementById('fontSize').addEventListener('change', applyFontSize);
+            document.getElementById('boldBtn').addEventListener('click', toggleBold);
+            document.getElementById('italicBtn').addEventListener('click', toggleItalic);
+            document.getElementById('underlineBtn').addEventListener('click', toggleUnderline);
+            document.getElementById('alignLeftBtn').addEventListener('click', () => applyAlignment('left'));
+            document.getElementById('alignCenterBtn').addEventListener('click', () => applyAlignment('center'));
+            document.getElementById('alignRightBtn').addEventListener('click', () => applyAlignment('right'));
+            document.getElementById('alignJustifyBtn').addEventListener('click', () => applyAlignment('justify'));
+            document.getElementById('textColor').addEventListener('input', applyTextColor);
+            document.getElementById('fillColor').addEventListener('input', applyFillColor);
+            
+            // أحداث الأزرار
+            document.getElementById('mergeBtn').addEventListener('click', mergeCells);
+            document.getElementById('borderBtn').addEventListener('click', toggleBorder);
+            document.getElementById('formatNumberBtn').addEventListener('click', showFormatModal);
+            document.getElementById('applyFormatBtn').addEventListener('click', applyNumberFormat);
+            
+            // أحداث إدراج وحذف الصفوف والأعمدة
+            document.getElementById('insertRowBtn').addEventListener('click', insertRow);
+            document.getElementById('insertColBtn').addEventListener('click', insertColumn);
+            document.getElementById('deleteRowBtn').addEventListener('click', deleteRow);
+            document.getElementById('deleteColBtn').addEventListener('click', deleteColumn);
+            
+            // أحداث الملف
+            document.getElementById('saveBtn').addEventListener('click', saveToLocalStorage);
+            document.getElementById('loadBtn').addEventListener('click', loadFromLocalStorage);
+            document.getElementById('newBtn').addEventListener('click', newSheet);
+            
+            // أحداث لوحة المفاتيح
+            document.addEventListener('keydown', handleKeyDown);
+        }
+        
+        // التعامل مع نقر الخلية
+        function handleCellClick(e) {
+            if (e.target.classList.contains('cell')) {
+                const row = parseInt(e.target.dataset.row);
+                const col = parseInt(e.target.dataset.col);
+                selectCell(row, col);
+            }
+        }
+        
+        // التعامل مع إدخال النص في الخلية
+        function handleCellInput(e) {
+            if (e.target.classList.contains('cell')) {
+                const cellId = e.target.dataset.cellId;
+                cellData[cellId] = e.target.textContent;
+                updateFormulaInput(e.target.textContent);
+                updateStatusBar();
+            }
+        }
+        
+        // التعامل مع النقر المزدوج على الخلية
+        function handleCellDoubleClick(e) {
+            if (e.target.classList.contains('cell')) {
+                e.target.classList.add('editing');
+            }
+        }
+        
+        // اختيار خلية محددة
+        function selectCell(row, col) {
+            // إزالة التحديد من الخلية السابقة
+            if (selectedCell) {
+                selectedCell.classList.remove('selected');
+            }
+            
+            // تحديد الخلية الجديدة
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            if (cell) {
+                cell.classList.add('selected');
+                selectedCell = cell;
+                
+                // تحديث تسمية الخلية المحددة
+                const columnLetter = numberToColumnLetter(col);
+                document.getElementById('selectedCellLabel').textContent = `${columnLetter}${row + 1}`;
+                
+                // تحديث شريط الصيغ بقيمة الخلية
+                updateFormulaInput(cell.textContent);
+                
+                // تحديث أدوات التنسيق بناءً على تنسيق الخلية الحالية
+                updateToolbarWithCellFormat(cell);
+            }
+        }
+        
+        // تحديث شريط الصيغ
+        function updateFormulaInput(value) {
+            document.getElementById('formulaInput').value = value;
+        }
+        
+        // التعامل مع إدخال الصيغة
+        function handleFormulaInput(e) {
+            if (selectedCell) {
+                selectedCell.textContent = e.target.value;
+                const cellId = selectedCell.dataset.cellId;
+                cellData[cellId] = e.target.value;
+                updateStatusBar();
+            }
+        }
+        
+        // التعامل مع الضغط على المفاتيح في شريط الصيغ
+        function handleFormulaKeyDown(e) {
+            if (e.key === 'Enter' && selectedCell) {
+                selectedCell.textContent = e.target.value;
+                const cellId = selectedCell.dataset.cellId;
+                cellData[cellId] = e.target.value;
+                updateStatusBar();
+                
+                // الانتقال إلى الخلية التالية
+                const row = parseInt(selectedCell.dataset.row);
+                const col = parseInt(selectedCell.dataset.col);
+                selectCell(row, col + 1);
+                
+                e.preventDefault();
+            }
+        }
+        
+        // تحديث أدوات التنسيق بناءً على تنسيق الخلية الحالية
+        function updateToolbarWithCellFormat(cell) {
+            // خط النص
+            const fontFamily = cell.style.fontFamily || 'Arial';
+            document.getElementById('fontFamily').value = fontFamily.replace(/['"]/g, '');
+            
+            // حجم النص
+            const fontSize = cell.style.fontSize || '12px';
+            document.getElementById('fontSize').value = parseInt(fontSize);
+            
+            // عريض
+            document.getElementById('boldBtn').classList.toggle('active', cell.style.fontWeight === 'bold');
+            
+            // مائل
+            document.getElementById('italicBtn').classList.toggle('active', cell.style.fontStyle === 'italic');
+            
+            // تحته خط
+            document.getElementById('underlineBtn').classList.toggle('active', cell.style.textDecoration.includes('underline'));
+            
+            // محاذاة النص
+            const textAlign = cell.style.textAlign || 'left';
+            resetAlignmentButtons();
+            switch(textAlign) {
+                case 'left': document.getElementById('alignLeftBtn').classList.add('active'); break;
+                case 'center': document.getElementById('alignCenterBtn').classList.add('active'); break;
+                case 'right': document.getElementById('alignRightBtn').classList.add('active'); break;
+                case 'justify': document.getElementById('alignJustifyBtn').classList.add('active'); break;
+            }
+            
+            // لون النص
+            const textColor = cell.style.color || '#000000';
+            document.getElementById('textColor').value = rgbToHex(textColor);
+            
+            // لون الخلفية
+            const fillColor = cell.style.backgroundColor || '#ffffff';
+            document.getElementById('fillColor').value = rgbToHex(fillColor);
+        }
+        
+        // إعادة تعيين أزرار المحاذاة
+        function resetAlignmentButtons() {
+            document.getElementById('alignLeftBtn').classList.remove('active');
+            document.getElementById('alignCenterBtn').classList.remove('active');
+            document.getElementById('alignRightBtn').classList.remove('active');
+            document.getElementById('alignJustifyBtn').classList.remove('active');
+        }
+        
+        // تحويل RGB إلى HEX
+        function rgbToHex(rgb) {
+            if (rgb.startsWith('#')) return rgb;
+            
+            const result = rgb.match(/\d+/g);
+            if (!result) return '#000000';
+            
+            const r = parseInt(result[0]).toString(16).padStart(2, '0');
+            const g = parseInt(result[1]).toString(16).padStart(2, '0');
+            const b = parseInt(result[2]).toString(16).padStart(2, '0');
+            
+            return `#${r}${g}${b}`;
+        }
+        
+        // تطبيق نوع الخط
+        function applyFontFamily() {
+            if (selectedCell) {
+                const fontFamily = document.getElementById('fontFamily').value;
+                selectedCell.style.fontFamily = fontFamily;
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تطبيق حجم الخط
+        function applyFontSize() {
+            if (selectedCell) {
+                const fontSize = document.getElementById('fontSize').value;
+                selectedCell.style.fontSize = `${fontSize}px`;
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تبديل النص العريض
+        function toggleBold() {
+            if (selectedCell) {
+                const isBold = selectedCell.style.fontWeight === 'bold';
+                selectedCell.style.fontWeight = isBold ? 'normal' : 'bold';
+                document.getElementById('boldBtn').classList.toggle('active', !isBold);
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تبديل النص المائل
+        function toggleItalic() {
+            if (selectedCell) {
+                const isItalic = selectedCell.style.fontStyle === 'italic';
+                selectedCell.style.fontStyle = isItalic ? 'normal' : 'italic';
+                document.getElementById('italicBtn').classList.toggle('active', !isItalic);
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تبديل النص تحته خط
+        function toggleUnderline() {
+            if (selectedCell) {
+                const isUnderlined = selectedCell.style.textDecoration.includes('underline');
+                selectedCell.style.textDecoration = isUnderlined ? 'none' : 'underline';
+                document.getElementById('underlineBtn').classList.toggle('active', !isUnderlined);
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تطبيق المحاذاة
+        function applyAlignment(align) {
+            if (selectedCell) {
+                selectedCell.style.textAlign = align;
+                resetAlignmentButtons();
+                document.getElementById(`align${align.charAt(0).toUpperCase() + align.slice(1)}Btn`).classList.add('active');
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تطبيق لون النص
+        function applyTextColor() {
+            if (selectedCell) {
+                const color = document.getElementById('textColor').value;
+                selectedCell.style.color = color;
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // تطبيق لون الخلفية
+        function applyFillColor() {
+            if (selectedCell) {
+                const color = document.getElementById('fillColor').value;
+                selectedCell.style.backgroundColor = color;
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // دمج الخلايا (إصدار مبسط)
+        function mergeCells() {
+            alert('خاصية دمج الخلايا متوفرة في النسخة الكاملة من التطبيق');
+        }
+        
+        // تبديل الحدود (إصدار مبسط)
+        function toggleBorder() {
+            if (selectedCell) {
+                const hasBorder = selectedCell.style.borderWidth === '2px';
+                selectedCell.style.border = hasBorder ? '1px solid #d1d1d1' : '2px solid #333';
+                saveCellFormat(selectedCell);
+            }
+        }
+        
+        // عرض نافذة تنسيق الأرقام
+        function showFormatModal() {
+            const formatModal = new bootstrap.Modal(document.getElementById('formatModal'));
+            formatModal.show();
+        }
+        
+        // تطبيق تنسيق الأرقام
+        function applyNumberFormat() {
+            if (selectedCell) {
+                const selectedFormat = document.querySelector('.format-option.active')?.dataset.format || 'general';
+                let formattedValue = selectedCell.textContent;
+                
+                if (selectedFormat === 'currency') {
+                    formattedValue = parseFloat(formattedValue) || 0;
+                    selectedCell.textContent = `${formattedValue.toFixed(2)} $`;
+                } else if (selectedFormat === 'percentage') {
+                    formattedValue = parseFloat(formattedValue) || 0;
+                    selectedCell.textContent = `${(formattedValue * 100).toFixed(1)}%`;
+                } else if (selectedFormat === 'date') {
+                    const date = new Date();
+                    selectedCell.textContent = date.toLocaleDateString('ar-EG');
+                }
+                
+                // حفظ التنسيق
+                if (!cellFormat[selectedCell.dataset.cellId]) {
+                    cellFormat[selectedCell.dataset.cellId] = {};
+                }
+                cellFormat[selectedCell.dataset.cellId].numberFormat = selectedFormat;
+                
+                // إغلاق النافذة
+                bootstrap.Modal.getInstance(document.getElementById('formatModal')).hide();
+            }
+        }
+        
+        // إدراج صف
+        function insertRow() {
+            rows++;
+            createRowNumbers();
+            createCells();
+            updateStatusBar();
+        }
+        
+        // إدراج عمود
+        function insertColumn() {
+            cols++;
+            createColumnHeaders();
+            createCells();
+            updateStatusBar();
+        }
+        
+        // حذف صف (إصدار مبسط)
+        function deleteRow() {
+            if (rows > 1) {
+                rows--;
+                createRowNumbers();
+                createCells();
+                updateStatusBar();
+            } else {
+                alert('لا يمكن حذف كل الصفوف');
+            }
+        }
+        
+        // حذف عمود (إصدار مبسط)
+        function deleteColumn() {
+            if (cols > 1) {
+                cols--;
+                createColumnHeaders();
+                createCells();
+                updateStatusBar();
+            } else {
+                alert('لا يمكن حذف كل الأعمدة');
+            }
+        }
+        
+        // حفظ تنسيق الخلية
+        function saveCellFormat(cell) {
+            const cellId = cell.dataset.cellId;
+            if (!cellFormat[cellId]) {
+                cellFormat[cellId] = {};
+            }
+            
+            cellFormat[cellId] = {
+                fontFamily: cell.style.fontFamily,
+                fontSize: cell.style.fontSize,
+                fontWeight: cell.style.fontWeight,
+                fontStyle: cell.style.fontStyle,
+                textDecoration: cell.style.textDecoration,
+                textAlign: cell.style.textAlign,
+                color: cell.style.color,
+                backgroundColor: cell.style.backgroundColor,
+                border: cell.style.border
+            };
+        }
+        
+        // تطبيق التنسيق على الخلية
+        function applyFormatToCell(cell, format) {
+            if (format.fontFamily) cell.style.fontFamily = format.fontFamily;
+            if (format.fontSize) cell.style.fontSize = format.fontSize;
+            if (format.fontWeight) cell.style.fontWeight = format.fontWeight;
+            if (format.fontStyle) cell.style.fontStyle = format.fontStyle;
+            if (format.textDecoration) cell.style.textDecoration = format.textDecoration;
+            if (format.textAlign) cell.style.textAlign = format.textAlign;
+            if (format.color) cell.style.color = format.color;
+            if (format.backgroundColor) cell.style.backgroundColor = format.backgroundColor;
+            if (format.border) cell.style.border = format.border;
+        }
+        
+        // التعامل مع أحداث لوحة المفاتيح
+        function handleKeyDown(e) {
+            if (!selectedCell) return;
+            
+            const row = parseInt(selectedCell.dataset.row);
+            const col = parseInt(selectedCell.dataset.col);
+            
+            switch(e.key) {
+                case 'ArrowUp':
+                    if (row > 0) selectCell(row - 1, col);
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                    if (row < rows - 1) selectCell(row + 1, col);
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                    if (col > 0) selectCell(row, col - 1);
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                    if (col < cols - 1) selectCell(row, col + 1);
+                    e.preventDefault();
+                    break;
+                case 'Tab':
+                    if (col < cols - 1) selectCell(row, col + 1);
+                    e.preventDefault();
+                    break;
+                case 'Enter':
+                    // الخروج من وضع التحرير
+                    if (selectedCell.classList.contains('editing')) {
+                        selectedCell.classList.remove('editing');
+                    }
+                    if (row < rows - 1) selectCell(row + 1, col);
+                    e.preventDefault();
+                    break;
+                case 'Escape':
+                    if (selectedCell.classList.contains('editing')) {
+                        selectedCell.classList.remove('editing');
+                    }
+                    break;
+            }
+        }
+        
+        // حفظ البيانات في localStorage
+        function saveToLocalStorage() {
+            const data = {
+                cellData: cellData,
+                cellFormat: cellFormat,
+                rows: rows,
+                cols: cols
+            };
+            
+            localStorage.setItem('excelWebApp', JSON.stringify(data));
+            alert('تم حفظ البيانات بنجاح!');
+        }
+        
+        // تحميل البيانات من localStorage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('excelWebApp');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                cellData = data.cellData || {};
+                cellFormat = data.cellFormat || {};
+                rows = data.rows || 30;
+                cols = data.cols || 20;
+                
+                initSheet();
+                alert('تم تحميل البيانات بنجاح!');
+            } else {
+                alert('لا توجد بيانات محفوظة!');
+            }
+        }
+        
+        // إنشاء ورقة جديدة
+        function newSheet() {
+            if (confirm('هل تريد إنشاء ورقة جديدة؟ سيتم فقدان البيانات غير المحفوظة.')) {
+                cellData = {};
+                cellFormat = {};
+                rows = 30;
+                cols = 20;
+                
+                initSheet();
+                document.getElementById('formulaInput').value = '';
+            }
+        }
+        
+        // تحديث شريط الحالة
+        function updateStatusBar() {
+            // حساب عدد الخلايا التي تحتوي على بيانات
+            const filledCells = Object.keys(cellData).filter(key => cellData[key] && cellData[key].trim() !== '').length;
+            document.getElementById('cellCount').textContent = `${filledCells} خلية`;
+            
+            // حساب مجموع الأرقام (محاولة بسيطة)
+            let sum = 0;
+            Object.values(cellData).forEach(value => {
+                const num = parseFloat(value);
+                if (!isNaN(num)) {
+                    sum += num;
+                }
+            });
+            document.getElementById('sumValue').textContent = `المجموع: ${sum}`;
+        }
+        
+        // جعل خيارات التنسيق قابلة للتحديد
+        document.querySelectorAll('.format-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.format-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

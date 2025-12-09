@@ -879,7 +879,7 @@
                             <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
                                 <div class="row gy-3">
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <label class="small text-muted mb-1">وجهتك</label>
                                         <select class="form-control form-control-custom" name="destination"
                                             required>
@@ -889,7 +889,7 @@
                                         <div class="error-message">هذا الحقل مطلوب</div>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <label class="small text-muted mb-1">اختر الفندق</label>
                                         <select class="form-control form-control-custom" name="hotel_id" required>
                                             <option value="">اختر الفندق</option>
@@ -900,7 +900,7 @@
                                         <div class="error-message">هذا الحقل مطلوب</div>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-6">
                                         <label class="small text-muted mb-1">اختر الفترة</label>
                                         <input type="text" id="date_range" class="form-control form-control-custom"
                                             placeholder="اختر تاريخ الوصول والمغادرة" required>
@@ -918,12 +918,12 @@
                         </div>
 
                         <!-- فورم البحث -->
-                        <div class="flex-fill p-4 ">
-                            <h5 class="mb-4 text-center">بحث عن حجوزات سابقة</h5>
+                        <div class="flex-fill p-4  ">
+                            <h5 class="mb-4 text-center  ">بحث عن حجوزات سابقة</h5>
 
                             <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations"
                                 novalidate>
-                                <div class="row gy-3">
+                                <div class="row gy-3  ">
 
                                     <div class="col-lg-12">
                                         <label class="small text-muted mb-1">رقم الهاتف</label>
@@ -931,7 +931,6 @@
                                             placeholder="أدخل رقم الهاتف للبحث" required>
                                         <div class="error-message">يرجى إدخال رقم الهاتف</div>
                                     </div>
-
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
                                     </div>

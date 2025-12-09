@@ -34,6 +34,8 @@
             overflow-x: hidden;
         }
 
+        /* ... باقي تنسيقات الـ CSS (لم تتغير) ... */
+        /* اختصارًا: تركنا التنسيقات كما هي لعدم إطالة الكود */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -302,12 +304,11 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
-                @if($data->logo)
+                @if(isset($data) && $data->logo)
                 <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
                 @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -320,9 +321,8 @@
                     <li class="nav-item"><a class="nav-link active" href="#">إنشاء حجز جديد</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
                     </li>
-                      <li class="nav-item">
-                        <a class="nav-link " href="{{ route('blogs') }}"
-                            aria-expanded="false">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
                             <i class="fas fa-list-alt me-1"></i> مقالات
                         </a>
                     </li>
@@ -330,15 +330,7 @@
 
                 @php
                 $user = auth()->user() ?? null; // تعيين متغير $user
-                $has_available_rooms = false;
-                if(isset($hotel->prices)) {
-                foreach($hotel->prices as $room_info) {
-                if(isset($room_info['roomAvailable']) && $room_info['roomAvailable'] > 0 && isset($room_info['price'])) {
-                $has_available_rooms = true;
-                break;
-                }
-                }
-                }
+                // $has_available_rooms تم حسابها في الـ Controller وتمريرها
                 @endphp
                 <div class="user-dropdown">
                     @guest
@@ -394,7 +386,7 @@
                         <div class="alert alert-warning text-center p-5 border-warning border-3">
                             <h3 class="fw-bold text-danger mb-3"><i class="fas fa-exclamation-triangle me-2"></i> لا يمكن
                                 الحجز حاليًا!</h3>
-                            <p class="lead mb-0">نعتذر، لا يوجد غرف متاحة في فندق {{ $hotel->name ?? 'الفندق' }} في الوقت الحالي. يرجى مراجعة صفحة الفنادق واختيار فندق آخر.</p>
+                            <p class="lead mb-0">نعتذر، لا يوجد غرف متاحة في فندق **{{ $hotel->name ?? 'الفندق' }}** للفترة من **{{ $start }}** إلى **{{ $end }}**. يرجى تغيير تواريخ الإقامة والمحاولة مرة أخرى.</p>
                         </div>
                         @else
                         <form method="post" action="{{ route('reservations.store.user') }}">
@@ -402,7 +394,7 @@
 
                             <div class="alert alert-info text-center fw-bold mb-5 border-0 rounded-pill shadow-sm">
                                 <i class="fas fa-hotel me-2"></i>
-                                جاري الحجز في فندق: {{ $hotel->name ?? 'اسم الفندق غير متوفر' }}
+                                جاري الحجز في فندق: **{{ $hotel->name ?? 'اسم الفندق غير متوفر' }}**
                                 <input type="hidden" name="hotel_id" value="{{ $hotel->id ?? '' }}">
                             </div>
 
@@ -469,13 +461,9 @@
                                 <div class="col-md-4">
                                     <label for="number_of_nights" class="form-label-custom">عدد الليالي <span
                                             class="text-danger">*</span></label>
-                                    <input type="number"
-                                        class="form-control form-control-custom"
-                                        id="number_of_nights"
-                                        name="number_of_nights"
-                                        value="{{ old('number_of_nights', $defaultNights) }}"
-                                        min="1"
-                                        required>
+                                    <input type="number" class="form-control form-control-custom"
+                                        id="number_of_nights" name="number_of_nights"
+                                        value="{{ old('number_of_nights', $defaultNights) }}" min="1" required>
 
                                     @error('number_of_nights')<div class="text-danger mt-1 small">{{ $message }}</div>@enderror
                                 </div>
@@ -486,30 +474,27 @@
                                 <i class="fas fa-bed me-2"></i> اختيار الغرف
                             </h4>
                             <div class="row g-4 mb-4 justify-content-center ">
-                                @foreach( $hotel->prices as $beds => $room_info)
-                                @if(isset($room_info['roomAvailable']) && $room_info['roomAvailable'] > 0 && isset($room_info['price']))
-                                @php
-                                $room_label = $room_info['label'] ?? (($beds == 0)
-                                ? 'غرفة كينج (1 سرير)'
-                                : "غرفة " . ($beds + 1) . " أسرة");
-                                @endphp
-
+                                {{-- ❗ Loop over the new $available_rooms_data --}}
+                                @foreach( $available_rooms_data as $room_data)
                                 <div class="col-lg-3 col-md-6 mb-3">
-                                    <label class="form-label-custom fw-bold">{{ $room_label }}</label>
+                                    <label class="form-label-custom fw-bold">{{ $room_data['room_label'] }} سرير </label>
                                     <div class="input-group">
                                         <input type="number" class="form-control form-control-custom rooms-input text-center"
-                                            name="rooms[{{ $beds }}][count]" min="0" max="{{ $room_info['roomAvailable'] }}"
-                                            data-price="{{ $room_info['price'] }}" placeholder="عدد الغرف"
+                                            {{-- ❗ Use a unique identifier for the room type and period ID --}}
+                                            name="rooms[{{ $room_data['period_id'] }}][count]" min="0" max="{{ $room_data['room_available'] }}"
+                                            data-price="{{ $room_data['period_price'] }}" placeholder="عدد الغرف"
                                             style="border-top-left-radius: 0; border-bottom-left-radius: 0;">
                                         <span class="input-group-text small"
                                             style="background-color: #e9ecef; color: var(--text-light); border-color: #ced4da;">
-                                            {{ $room_info['price'] }} / ليلة
+                                            {{ $room_data['period_price'] }} / ليلة
                                         </span>
-                                        <input type="hidden" name="rooms[{{ $beds }}][beds]" value="{{ $beds }}">
+                                        {{-- ❗ Pass the essential IDs as hidden fields using the period_id as the array key --}}
+                                        <input type="hidden" name="rooms[{{ $room_data['period_id'] }}][beds]" value="{{ $room_data['room_label']}}">
+                                        <input type="hidden" name="rooms[{{ $room_data['period_id'] }}][period_id]" value="{{ $room_data['period_id'] }}">
+                                        <input type="hidden" name="rooms[{{ $room_data['period_id'] }}][period_price]" value="{{ $room_data['period_price'] }}">
                                     </div>
-                                    <small class="text-info d-block mt-1">المتاح: {{ $room_info['roomAvailable'] }}</small>
+                                    <small class="text-info d-block mt-1">المتاح: {{ $room_data['room_available'] }}</small>
                                 </div>
-                                @endif
                                 @endforeach
                             </div>
 
@@ -539,7 +524,7 @@
         </div>
     </section>
 
-   
+
     <script>
         AOS.init();
     </script>
@@ -590,7 +575,8 @@
 
                 roomsInputs.forEach(input => {
                     const count = parseInt(input.value) || 0;
-                    const pricePerNight = parseFloat(input.dataset.price) || 0;
+                    // جلب السعر من data-price الذي يحمل سعر الفترة
+                    const pricePerNight = parseFloat(input.dataset.price) || 0; 
                     totalRoomPricePerNight += count * pricePerNight;
                 });
 
@@ -610,7 +596,7 @@
                 calculateTotal();
             });
 
-            // عند تغيير عدد الليالي → تحديث تاريخ المغادرة مباشرة
+            // عند تغيير عدد الليالي ← تحديث تاريخ المغادرة مباشرة
             nightsInput.addEventListener('input', () => {
                 updateCheckoutFromNights();
                 calculateTotal();

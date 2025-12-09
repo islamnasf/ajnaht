@@ -18,4 +18,9 @@ class Category extends Model
       public function files(){
       return $this->hasMany(File::class,'category_id');
     }
+     // دالة للحصول على السعر حسب عدد الأسرة
+    public function getPriceByBeds($beds)
+    {
+        return $this->prices()->where('name', $beds)->first();
+    }
 }
