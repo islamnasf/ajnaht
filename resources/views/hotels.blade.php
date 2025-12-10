@@ -381,6 +381,26 @@
             color: var(--dark-text);
             font-weight: 700;
         }
+          .social-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-text);
+            margin: 0 5px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .social-circle:hover {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-red);
+        }
+
 
         /* --- User Dropdown Style (للتسجيل) --- */
         .user-dropdown {
