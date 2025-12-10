@@ -23,7 +23,7 @@
 
                 <div class="table-responsive">
                     {{-- إضافة ID للجدول لتسهيل الوصول إليه --}}
-                    <table id="reservations-datatable" class="table table-striped table-bordered p-0 text-center">
+                    <table id="datatable" class="table table-striped table-bordered p-0 text-center">
                         <thead class="thead-dark">
                             <tr>
                                 <th>#</th>
@@ -302,7 +302,7 @@
 
         // إنشاء نسخة من صف الحجز بتنسيق جدول مناسب للطباعة
         const rowData = Array.from(rowElement.cells).map(cell => cell.textContent.trim());
-        const rowHeaders = Array.from(document.querySelector('#reservations-datatable thead tr').children).map(th => th.textContent.trim());
+        const rowHeaders = Array.from(document.querySelector('#datatable thead tr').children).map(th => th.textContent.trim());
 
         // تصفية العناوين والبيانات لإزالة أعمدة "تفاصيل الغرف" و "العمليات" للحصول على جدول بيانات نظيف
         const excludedIndices = [rowHeaders.length - 1, rowHeaders.length - 2]; // آخر عمودين (العمليات وتفاصيل الغرف)
