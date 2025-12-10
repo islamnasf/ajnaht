@@ -9,9 +9,10 @@
     <title>{{ $data->name ?? 'رويال فيو' }} | فنادقنا الفاخرة</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
@@ -26,12 +27,12 @@
             --dark-text: #2c3e50;
             --card-bg: #ffffff;
             --text-light: #7f8c8d;
-            --section-padding: 80px 0; /* تحسين قراءة الـ Padding */
+            --section-padding: 80px 0;
         }
 
         body {
-  font-family: "IBM Plex Sans Arabic", sans-serif;
-              background-color: var(--light-bg);
+            font-family: "IBM Plex Sans Arabic", sans-serif;
+            background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
         }
@@ -55,7 +56,7 @@
             color: #fff;
         }
 
-        /* --- Navbar (بقي كما هو) --- */
+        /* --- Navbar & Buttons (بقي كما هو) --- */
         .navbar {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 0;
@@ -102,6 +103,7 @@
             width: 100%;
         }
 
+        /* --- Dropdown Styles (بقي كما هو) --- */
         .navbar-nav .dropdown-menu {
             border: none;
             border-radius: 10px;
@@ -123,7 +125,6 @@
             color: white;
         }
 
-
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
@@ -131,7 +132,6 @@
             padding: 10px 30px;
             border-radius: 30px;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.4s ease;
             position: relative;
@@ -208,8 +208,6 @@
             z-index: 2;
             color: #ffffff;
             font-size: 1.3rem;
-                       
-
         }
 
         .hero-title {
@@ -217,7 +215,6 @@
             font-weight: 500;
             line-height: 1.1;
             text-transform: uppercase;
-
         }
 
         .hero-title span {
@@ -228,84 +225,72 @@
 
 
         /* ----------------------------------- */
-        /* --- START MODIFIED Hotels CSS (Simpler, Cleaner Look) --- */
+        /* --- START Vertical Hotel Card CSS --- */
         /* ----------------------------------- */
         .hotels-section {
             padding: var(--section-padding);
         }
-        
+
+        /* حاوية البطاقة العمودية */
         .hotel-item {
-            display: flex;
-            align-items: stretch;
-            /* **تبسيط الفصل بين العناصر** */
-            /* margin-bottom: 10px;  */
+            /* **تعديل 1: إزالة Flexbox للحصول على تخطيط عمودي (الطبيعي)** */
+            display: block;
             background-color: var(--card-bg);
-            border-radius: 10px; /* إضافة حواف دائرية بسيطة */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* ظل ناعم فقط */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            padding: 0;
+            margin-bottom: 30px;
+            /* للتصميم العمودي، البطاقة ستأخذ عرض العمود الذي توجد فيه (col-lg-4) */
+            height: 100%; /* للتأكد من تساوي ارتفاع البطاقات في الصف */
         }
-        
-        /* **إلغاء التناوب في الخلفية لتوحيد المظهر** */
-        .hotels-section .row .hotel-item:nth-child(odd),
-        .hotels-section .row .hotel-item:nth-child(even) {
-            background-color: var(--card-bg);
-            border-right: 1px solid rgba(0, 0, 0, 0.05);
-            border-left: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
 
         .hotel-item:hover {
-            transform: translateY(-5px); /* رفع خفيف وجميل */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             border-color: var(--primary-red);
         }
 
-        .hotel-item .hotel-image-col {
-            padding: 0;
-            display: flex;
+        .hotel-item .hotel-image-container {
+            /* **تعديل 2: تخصيص عرض الصورة ليناسب التخطيط العمودي** */
+            width: 100%;
+            height: 250px; /* تحديد ارتفاع ثابت نسبيًا للصورة */
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0; /* لم يعد ضروريًا، ولكنه يبقى كإجراء وقائي */
         }
-        
-        /* **جعل الصورة تأخذ الحواف الدائرية بشكل صحيح** */
-        .hotel-item:not(.reverse) .hotel-image {
-             border-top-right-radius: 9px;
-             border-bottom-right-radius: 9px;
-        }
-        .hotel-item.reverse .hotel-image {
-             border-top-left-radius: 9px;
-             border-bottom-left-radius: 9px;
-        }
-        
 
         .hotel-item .hotel-image {
-            height: 300px; 
-            min-height: 250px;
+            height: 100%;
             width: 100%;
             object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             filter: brightness(0.95);
+            /* **تعديل 3: تطبيق الحواف الدائرية على الجزء العلوي فقط** */
+            border-radius: 12px 12px 0 0;
         }
 
         .hotel-item:hover .hotel-image {
-            transform: scale(1.02); /* زوم أقل وأكثر نعومة */
+            transform: scale(1.08);
             filter: brightness(1);
         }
 
         .hotel-item .hotel-content {
-            padding: 35px; /* تقليل الـ padding قليلاً */
+            padding: 25px;
             color: var(--dark-text);
             text-align: right;
-            display: flex;
+            /* **تعديل 4: إزالة تنسيقات Flexbox الخاصة بالهيكل الأفقي** */
+            flex-grow: 1;
+            display: flex; /* يبقى لترتيب الاسم والتفاصيل والأزرار عمودياً */
             flex-direction: column;
             justify-content: space-between;
         }
 
         .hotel-item .hotel-content .hotel-name {
-            font-size: 2rem; /* تصغير حجم العنوان قليلاً */
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--dark-text); /* جعل العنوان بلون النص الأساسي */
+            color: var(--dark-text);
             margin-bottom: 15px;
             position: relative;
             padding-bottom: 10px;
@@ -316,55 +301,69 @@
             position: absolute;
             right: 0;
             bottom: 0;
-            width: 50px; 
-            height: 3px;
-            background: var(--primary-red); /* استخدام اللون الأساسي للفاصل */
+            width: 50px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
         }
 
-        /* === تنسيق تفاصيل الفندق الجديد === */
         .hotel-details {
             display: flex;
-            flex-wrap: wrap;
-            gap: 25px; /* تقليل التباعد بين التفاصيل */
-            margin-bottom: 25px;
+            flex-direction: column; /* **تعديل 5: عرض التفاصيل بشكل عمودي** */
+            flex-wrap: nowrap;
+            gap: 10px; /* تقليل المسافة العمودية */
+            margin-bottom: 20px;
+            padding-top: 5px;
         }
 
-        .hotel-details span {
+        .hotel-details>span {
             display: inline-flex;
             align-items: center;
-            color: var(--dark-text); 
-            font-weight: 600; /* جعل الخط أغمق قليلاً */
+            color: var(--dark-text);
+            font-weight: 500;
             font-size: 1rem;
             transition: color 0.3s;
         }
 
-        .hotel-details i, .hotel-details .star-rating-icon {
+        .hotel-details i,
+        .hotel-details .star-rating-icon {
             color: var(--primary-red);
             margin-left: 8px;
             font-size: 1.25rem;
         }
-        
+
         /* تنسيق النجوم */
+        .star-rating {
+            display: inline-flex;
+        }
+
         .star-rating .bi-star-fill {
             color: var(--gold);
             margin-left: 2px !important;
-            font-size: 1rem; /* تصغير حجم النجمة قليلاً */
+            font-size: 1rem;
         }
-        
+
         .star-rating-label {
-            color: var(--text-light); /* استخدام لون فاتح لتسمية التصنيف */
+            color: var(--text-light);
             font-weight: 500;
             margin-right: 8px;
         }
         
-        /* نمط الـ Reverse */
-        .hotel-item.reverse {
-            flex-direction: row-reverse;
+        /* وصف الفندق في البطاقة العمودية */
+        .hotel-item .hotel-content p.text-secondary {
+            flex-grow: 1; /* للسماح للوصف بأخذ المساحة اللازمة */
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--text-light) !important;
         }
 
+        /* --- Hide/Show Button Style --- */
+        #load-more-container {
+            margin-top: 50px;
+        }
 
         /* ----------------------------------- */
-        /* --- End MODIFIED Hotels CSS --- */
+        /* --- End Vertical Hotel Card CSS --- */
         /* ----------------------------------- */
 
 
@@ -383,51 +382,57 @@
             font-weight: 700;
         }
 
-        .footer-map iframe {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+        /* --- User Dropdown Style (للتسجيل) --- */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
         }
 
-        .footer-map iframe:hover {
-            transform: scale(1.01);
+        .user-dropdown .menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: #fff;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            z-index: 999;
         }
 
-        .social-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-red);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark-text);
-            margin: 0 5px;
-            transition: 0.3s;
+        .user-dropdown .menu.show {
+            display: block;
+        }
+
+        .user-dropdown .menu a,
+        .user-dropdown .menu button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            text-align: right;
+            border: none;
+            background: transparent;
             text-decoration: none;
+            color: #333;
         }
 
-        .social-circle:hover {
-            background: var(--primary-red);
-            color: #fff;
-            box-shadow: 0 0 15px var(--primary-red);
+        .user-dropdown .menu a:hover,
+        .user-dropdown .menu button:hover {
+            background: #f3f3f3;
+            cursor: pointer;
         }
-
-        .footer .text-muted {
-            color: #6c757d !important;
-        }
-
 
         /* -------------------------------------- */
         /* --- Responsive Enhancements (Mobile) --- */
         /* -------------------------------------- */
 
         @media (max-width: 992px) {
-            /* إعدادات الهيرو */
+            body {
+                margin: 0;
+            }
+            .hero-content .container {
+                padding-bottom: 30px;
+            }
 
-             body {
-            margin:25px;
-        }
             .hero {
                 height: 45vh;
                 min-height: 300px;
@@ -438,100 +443,46 @@
                 font-size: 3rem;
             }
 
-            /* تنسيق الفنادق: تصبح عمودية على اللوحي والموبايل */
-            .hotel-item {
-                flex-direction: column !important;
-                margin-bottom: 30px;
-                border-radius: 10px;
+            /* في وضع العمودي، لا نحتاج لتعديلات كبيرة على التابلت والموبايل */
+            .hotel-item .hotel-image-container {
+                height: 220px; /* تعديل بسيط لارتفاع الصورة */
             }
             
-            .hotels-section .row .hotel-item:nth-child(odd),
-            .hotels-section .row .hotel-item:nth-child(even) {
-                background-color: var(--card-bg); 
-                border-right: 1px solid rgba(0, 0, 0, 0.05);
-                border-left: 1px solid rgba(0, 0, 0, 0.05);
-            }
-            
-            .hotel-item:hover {
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            }
-
-             /* **إزالة الحواف الدائرية المنفصلة على الموبايل** */
-            .hotel-item .hotel-image {
-                border-radius: 0 !important;
-            }
-
-
-            .hotel-item .hotel-image {
-                height: 250px;
-            }
-
             .hotel-item .hotel-content {
-                padding: 30px 0px;
+                padding: 20px;
             }
-            
-            /* **ترتيب التفاصيل على اللوحي عمودياً** */
-            .hotel-details {
-                flex-direction: column;
-                gap: 10px; 
-                margin-bottom: 20px;
+
+            .hotel-item .hotel-content .hotel-name {
+                font-size: 1.6rem;
             }
-            
-             /* **فصل بسيط بين عناصر التفاصيل على اللوحي** */
-             .hotel-details span {
-                padding-bottom: 5px; 
-                border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
-                width: 100%;
-                justify-content: flex-start;
-            }
-            .hotel-details span:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
+
+            .hotel-details>span {
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 768px) {
             .hero {
-                height: 3vh;
+                height: 30vh;
                 min-height: 200px;
             }
 
             .hero-title {
                 font-size: 2.2rem;
             }
-            
-            .hotel-item {
-                 /* **إضافة خط فاصل سفلي أو لا شيء، نكتفي بالظل حالياً لتقليل التعقيد** */
-                margin-bottom: 25px;
-            }
-            
-            .hotel-item .hotel-image {
-                height: 200px;
-            }
-            
-            .hotel-item .hotel-content .hotel-name {
-                font-size: 1.7rem; 
-                margin-bottom: 10px;
-            }
-            
-             .hotel-item .hotel-content {
-                padding: 20px 15px; 
-            }
-            
-            /* **جعل التفاصيل أكثر إحكاماً على الهاتف** */
-            .hotel-details {
-                gap: 8px; 
-                margin-bottom: 15px;
-            }
-            
-            .hotel-details span {
-                font-size: 0.95rem;
-            }
-            
-        }
 
-        /* -------------------------------------- */
-        /* --- End Responsive Enhancements (Mobile) --- */
+            .hotel-item .hotel-image-container {
+                height: 180px; /* ارتفاع أقل للموبايل */
+            }
+
+            .hotel-item .hotel-content {
+                padding: 15px;
+            }
+
+            .hotel-item .hotel-content .hotel-name {
+                font-size: 1.4rem;
+            }
+        }
         /* -------------------------------------- */
     </style>
 </head>
@@ -542,11 +493,11 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
+                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;"
+                    alt="{{ $data->name ?? 'Royal View' }}">
                 @else
                 <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
-
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -555,13 +506,11 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link " href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
-
                     <li class="nav-item"><a class="nav-link active" href="{{route('hotels')}}">الفنادق</a></li>
-
-                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ route('blogs') }}"
-                            aria-expanded="false">
+                        <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
                             <i class="fas fa-list-alt me-1"></i> مقالات
                         </a>
                     </li>
@@ -569,46 +518,6 @@
                 @php
                 $user = auth()->user();
                 @endphp
-
-                <style>
-                    .user-dropdown {
-                        position: relative;
-                        display: inline-block;
-                    }
-
-                    .user-dropdown .menu {
-                        display: none;
-                        position: absolute;
-                        right: 0;
-                        background: #fff;
-                        min-width: 150px;
-                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                        border-radius: 8px;
-                        z-index: 999;
-                    }
-
-                    .user-dropdown .menu.show {
-                        display: block;
-                    }
-
-                    .user-dropdown .menu a,
-                    .user-dropdown .menu button {
-                        display: block;
-                        width: 100%;
-                        padding: 10px 15px;
-                        text-align: right;
-                        border: none;
-                        background: transparent;
-                        text-decoration: none;
-                        color: #333;
-                    }
-
-                    .user-dropdown .menu a:hover,
-                    .user-dropdown .menu button:hover {
-                        background: #f3f3f3;
-                        cursor: pointer;
-                    }
-                </style>
 
                 <div class="user-dropdown">
                     @guest
@@ -629,112 +538,187 @@
                     </div>
                     @endauth
                 </div>
-
-                <script>
-                    const btn = document.getElementById('userBtn');
-                    const menu = document.getElementById('userMenu');
-
-                    if (btn && menu) {
-                        btn.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            menu.classList.toggle('show');
-                        });
-
-                        document.addEventListener('click', function () {
-                            menu.classList.remove('show');
-                        });
-                    }
-                </script>
-
-
             </div>
         </div>
     </nav>
 
-    <!-- <section class="hero">
-        <div class="hero-bg"></div>
+    {{-- إضافة سكريبت القائمة المنسدلة للتوثيق --}}
+    <script>
+        const btn = document.getElementById('userBtn');
+        const menu = document.getElementById('userMenu');
+
+        if (btn && menu) {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function () {
+                menu.classList.remove('show');
+            });
+        }
+    </script>
+
+    {{-- --- Hero Section --- --}}
+    <div class="hero">
+        <div class="hero-bg" style="background-image: url('{{ asset($data->imageHeader ?? 'default-hero.jpg') }}');">
+        </div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
-            <div class="row align-items-center text-center">
-                <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
-                    <h1 class="hero-title">
-                        الفنادق <br>
-                    </h1>
-                </div>
-            </div>
+            <h1 class="hero-title"> <span class="d-block d-md-inline">الفنادق</span></h1>
         </div>
-    </section> -->
+    </div>
 
 
-    <section class="hotels-section py-5" id="hotels">
-        <div class="container py-5">
-
-
-            <div class="row g-5 justify-content-center">
+    {{-- ------------------------------------------------ --}}
+    {{-- --- Hotels Section (Vertical Card + Load More) --- --}}
+    {{-- ------------------------------------------------ --}}
+    <section class="hotels-section" id="hotels">
+        <div class="container">
+            {{-- **التعديل هنا: استخدام col-lg-4 لعرض 3 بطاقات في الصف الواحد (تخطيط عمودي)** --}}
+            <div class="row g-4 justify-content-center">
                 @foreach($hotels as $hotel)
-                {{-- نمط التناوب: 'reverse' إذا كان رقم العنصر زوجياً (بدأنا من 0) --}}
-                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-                    <div class="row g-0 hotel-item {{ $loop->index % 2 != 0 ? 'reverse' : '' }}">
+                {{-- **تطبيق الترتيب العمودي وإخفاء الفنادق من العنصر السابع فصاعداً (index 6)** --}}
+                <div class="col-lg-4 col-md-6 col-sm-10 hotel-wrapper" data-aos="fade-up" data-aos-delay="100"
+                    @if($loop->index >= 6) style="display: none;" @endif
+                    data-hotel-index="{{ $loop->index }}">
 
-                        {{-- عمود الصورة --}}
-                        <div class="col-lg-4 hotel-image-col">
+                    <div class="hotel-item">
+                        {{-- حاوية الصورة --}}
+                        <a href="{{ route('hotelDetails', $hotel->id)}}" class="d-block hotel-image-container">
                             @if($hotel->image)
                             <img src="{{ asset($hotel->image) }}" class="hotel-image" alt="{{ $hotel->name }}">
                             @else
-                            {{-- إضافة +1 للـ Index لضمان صور متنوعة عند استخدام Unsplash --}}
-                            <img src="https://source.unsplash.com/800x600/?luxury,hotel,room,{{ $loop->index + 1 }}"
+                            {{-- استخدام صورة Placeholder عند الحاجة --}}
+                            <img src="https://source.unsplash.com/600x400/?luxury,hotel,room,{{ $loop->index + 1 }}"
                                 class="hotel-image" alt="{{ $hotel->name }}">
                             @endif
-                        </div>
+                        </a>
 
-                        {{-- عمود المحتوى --}}
-                        <div class="col-lg-8 hotel-content">
+                        {{-- المحتوى والتفاصيل --}}
+                        <div class="hotel-content">
                             <div>
                                 <h3 class="hotel-name">{{ $hotel->name }}</h3>
-                                
-                                {{-- تم حذف الوصف لتقليل الارتفاع --}}
-                                {{-- <p>{{ $hotel->description }}</p> --}}
 
-
-                                <div class="hotel-details mb-4">
+                                <div class="hotel-details">
+                                   
                                     <span><i class="fas fa-bed"></i> غرف وأجنحة: {{ $hotel->rooms }}</span>
                                     <span><i class="fas fa-couch"></i> عدد الأسرّة: {{ $hotel->beds }}</span>
-                                    
-                                    {{-- **تعديل: عرض التصنيف بالنجوم حسب العدد الفعلي** --}}
+
+                                    {{-- عرض التصنيف بالنجوم --}}
                                     <span>
-                                        <i class="star-rating-icon bi-star-fill"></i> 
+                                        <i class="star-rating-icon bi-star-fill"></i>
                                         <span class="star-rating-label">التصنيف:</span>
                                         <span class="star-rating">
                                             @php
-                                                // نحول التقييم إلى عدد صحيح (مثلاً 4.7 تصبح 5، 4.1 تصبح 4)
-                                                $rate = round($hotel->rate); 
+                                            $rate = round($hotel->rate);
                                             @endphp
                                             {{-- عرض عدد النجوم المساوي للتقييم --}}
                                             @for ($i = 0; $i < $rate; $i++)
                                                 <i class="bi bi-star-fill"></i>
-                                            @endfor
+                                                @endfor
                                         </span>
                                     </span>
-                                    {{-- **نهاية تعديل النجوم** --}}
                                 </div>
+
                             </div>
 
-                            <div class="d-flex justify-content-start">
-                                <a href="{{ route('hotelDetails', $hotel->id)}}" class="btn btn-luxury mt-3">استكشف الغرف والاجنحة  المتاحة <i
-                                        class="fas fa-chevron-left me-1"></i></a>
+                            <div class="d-flex justify-content-start mt-3">
+                                <a href="{{ route('hotelDetails', $hotel->id)}}" class="btn btn-luxury w-100">استكشف
+                                    الغرف <i class="fas fa-chevron-left me-1"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+
+            {{-- زر عرض المزيد (يظهر فقط إذا كان عدد الفنادق أكبر من 6) --}}
+            @if(count($hotels) > 6)
+            <div class="text-center mt-5" id="load-more-container">
+                <button class="btn btn-luxury" id="load-more-btn">
+                    عرض المزيد من الفنادق (<span id="hidden-count">{{ count($hotels) - 6 }}</span>)
+                    <i class="fas fa-chevron-down me-1"></i>
+                </button>
+            </div>
+            @endif
         </div>
     </section>
 
+    {{-- تضمين الفوتر --}}
+    @include('footer')
 
-@include('footer')
+    {{-- ------------------------------------------------ --}}
+    {{-- --- JavaScript for Load More Functionality --- --}}
+    {{-- ------------------------------------------------ --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
 
-    
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحديد جميع أغلفة الفنادق
+            const hotelWrappers = document.querySelectorAll('.hotels-section .hotel-wrapper');
+            // تحديد زر العرض والمحتوى المتعلق به
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            const hiddenCountSpan = document.getElementById('hidden-count');
+
+            // عدد الفنادق التي يجب أن تكون مرئية افتراضيًا
+            const visibleLimit = 6;
+
+            // دالة لتنفيذ الرؤية الافتراضية
+            function initializeVisibility() {
+                if (hotelWrappers.length > visibleLimit) {
+                    if (loadMoreContainer) {
+                        loadMoreContainer.style.display = 'block';
+                    }
+
+                    // إخفاء الفنادق بدءاً من العنصر السابع (index 6)
+                    for (let i = visibleLimit; i < hotelWrappers.length; i++) {
+                        hotelWrappers[i].style.display = 'none';
+                    }
+
+                    // تحديث عداد الفنادق المخفية
+                    if (hiddenCountSpan) {
+                        hiddenCountSpan.textContent = hotelWrappers.length - visibleLimit;
+                    }
+                } else if (loadMoreContainer) {
+                    // إخفاء الزر إذا لم يكن هناك فنادق إضافية
+                    loadMoreContainer.style.display = 'none';
+                }
+            }
+
+            // دالة لعرض جميع الفنادق المخفية
+            function loadAllHiddenHotels() {
+                for (let i = visibleLimit; i < hotelWrappers.length; i++) {
+                    if (hotelWrappers[i]) {
+                        // استخدام 'block' لجعله يظهر داخل نظام Grid
+                        hotelWrappers[i].style.display = 'block';
+                    }
+                }
+
+                // إخفاء زر "عرض المزيد" بعد عرض جميع الفنادق
+                if (loadMoreContainer) {
+                    loadMoreContainer.style.display = 'none';
+                }
+
+                // تحديث مكتبة AOS لتطبيق تأثير الظهور على العناصر الجديدة
+                AOS.refresh();
+            }
+
+            // إعداد الرؤية عند تحميل الصفحة
+            initializeVisibility();
+
+            // إضافة مستمع الحدث للزر
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', loadAllHiddenHotels);
+            }
+        });
+    </script>
 </body>
 
 </html>
