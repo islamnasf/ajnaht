@@ -22,7 +22,8 @@
             <div class="card-body">
 
                 <div class="table-responsive">
-                    <table id="datatable" class="table table-striped table-bordered p-0 text-center">
+                    {{-- إضافة ID للجدول لتسهيل الوصول إليه --}}
+                    <table id="reservations-datatable" class="table table-striped table-bordered p-0 text-center">
                         <thead class="thead-dark">
                             <tr>
                                 <th>#</th>
@@ -42,7 +43,8 @@
                         </thead>
                         <tbody>
                             @foreach($reservations as $index => $res)
-                            <tr>
+                            {{-- إضافة ID للصف لتسهيل الوصول إليه --}}
+                            <tr id="reservation-row-{{ $res->id }}">
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $res->client }}</td>
                                 <td>{{ $res->phone }}</td>
@@ -55,16 +57,12 @@
                                 <td>{{ number_format($res->total,2) }} ريال</td>
                                 <td>
                                     @if(is_null($res->status) || $res->status == '')
-                                        {{-- حالة الـ NULL أو الفراغ --}}
                                         <span class="badge badge-warning text-dark">غير مؤكد</span>
                                     @elseif($res->status == 'cancelled')
-                                        {{-- حالة الإلغاء --}}
                                         <span class="badge badge-danger">ملغي</span>
                                     @elseif($res->status == 'confirmed')
-                                        {{-- حالة التأكيد --}}
                                         <span class="badge badge-success">مؤكد</span>
                                     @else
-                                        {{-- أي حالة أخرى --}}
                                         <span class="badge badge-secondary">{{ $res->status }}</span>
                                     @endif
                                 </td>
@@ -79,6 +77,13 @@
                                             العمليات
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="operationsDropdown{{$res->id}}">
+                                            
+                                            {{-- ⭐ الزر الجديد لتحميل PDF (تم تمرير معرف الصف أيضاً) ⭐ --}}
+                                            <a class="dropdown-item text-success" href="#" onclick="generateReservationPdf({{$res->id}})">
+                                                <i class="fa fa-file-pdf-o"></i> تحميل PDF
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            
                                             {{-- زر تعديل حالة الحجز (تأكيد/إلغاء) --}}
                                             <a class="dropdown-item text-primary" href="#" data-toggle="modal" data-target="#editStatusModal{{$res->id}}">
                                                 <i class="fa fa-pencil-square-o"></i> تعديل الحالة
@@ -93,7 +98,7 @@
                                 </td>
                             </tr>
 
-                            {{-- Modal تفاصيل الغرف - التصميم المحسن (بدون تغيير) --}}
+                            {{-- Modal تفاصيل الغرف (يجب أن يبقى هنا) --}}
                             <div class="modal fade" id="detailsModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel{{$res->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document"> 
                                     <div class="modal-content">
@@ -103,7 +108,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body" id="details-modal-body-{{$res->id}}">
                                             <div class="row">
                                             @foreach($res->details as $detail)
                                                 @php
@@ -115,7 +120,6 @@
                                                         "5" => '5 سرير (5 أسرة منفردة)',
                                                         default => $detail->type,
                                                     };
-                                                    // اختيار لون مميز لكل بطاقة
                                                     $colorClass = match($detail->type % 5) {
                                                         0 => 'border-primary',
                                                         1 => 'border-success',
@@ -160,6 +164,7 @@
                             </div>
 
                             {{-- Modal تعديل حالة الحجز (تأكيد/إلغاء) --}}
+                            {{-- ... (باقي كود الـ Modals الأخرى) ... --}}
                             <div class="modal fade" id="editStatusModal{{$res->id}}" tabindex="-1" role="dialog" aria-labelledby="editStatusModalLabel{{$res->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
@@ -241,7 +246,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             @endforeach
                         </tbody>
                     </table>
@@ -252,8 +256,129 @@
     </div>
 </div>
 
+{{-- عنصر مخفي مؤقت لتوليد محتوى الـ PDF منه --}}
+<div id="pdf-content-container" style="display: none; padding: 20px; direction: rtl; text-align: right; background-color: #fff;">
+    {{-- سيتم ملء هذا المحتوى ديناميكيًا عبر JavaScript --}}
+</div>
+
 @endsection
 
 @section('js')
+{{-- 🚀 روابط مكتبات إنشاء PDF 🚀 --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+{{-- يجب التأكد من تضمين ملفات Bootstrap و jQuery الخاصة بك أيضاً --}}
+
+<script>
+    // تهيئة jsPDF للاستخدام في المتصفح
+    const { jsPDF } = window.jspdf;
+
+    /**
+     * دالة لإنشاء وتحميل ملف PDF يتضمن تفاصيل الحجز وصفه من الجدول.
+     * @param {number} reservationId معرّف الحجز
+     */
+    function generateReservationPdf(reservationId) {
+        // IDs للعناصر
+        const rowId = 'reservation-row-' + reservationId;
+        const detailsModalBodyId = 'details-modal-body-' + reservationId;
+        const pdfContainerId = 'pdf-content-container';
+
+        const rowElement = document.getElementById(rowId);
+        const detailsModalBody = document.getElementById(detailsModalBodyId);
+        const pdfContainer = document.getElementById(pdfContainerId);
+
+        if (!rowElement || !detailsModalBody || !pdfContainer) {
+            console.error('Missing elements for PDF generation. Row, Modal Body, or Container not found.');
+            alert('تعذر العثور على جميع البيانات لإنشاء ملف PDF.');
+            return;
+        }
+        
+        // 1. جمع البيانات وتحضير المحتوى
+        
+        // استخراج اسم العميل لاسم الملف
+        const clientNameElement = rowElement.querySelector('td:nth-child(2)'); // td:nth-child(2) هو عمود اسم العميل
+        const clientName = clientNameElement ? clientNameElement.textContent.trim() : 'Reservation';
+        const filename = `حجز_${clientName}_رقم_${reservationId}.pdf`;
+
+        // إنشاء نسخة من صف الحجز بتنسيق جدول مناسب للطباعة
+        const rowData = Array.from(rowElement.cells).map(cell => cell.textContent.trim());
+        const rowHeaders = Array.from(document.querySelector('#reservations-datatable thead tr').children).map(th => th.textContent.trim());
+
+        // تصفية العناوين والبيانات لإزالة أعمدة "تفاصيل الغرف" و "العمليات" للحصول على جدول بيانات نظيف
+        const excludedIndices = [rowHeaders.length - 1, rowHeaders.length - 2]; // آخر عمودين (العمليات وتفاصيل الغرف)
+        const filteredHeaders = rowHeaders.filter((_, index) => !excludedIndices.includes(index));
+        const filteredData = rowData.filter((_, index) => !excludedIndices.includes(index));
+
+        let reservationTableHTML = `
+            <h3 style="text-align: center; color: #333; margin-bottom: 20px; padding: 10px; border-bottom: 2px solid #eee;">
+                سند حجز - رقم ${reservationId}
+            </h3>
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px; text-align: right; direction: rtl;">
+                <thead style="background-color: #007bff; color: white;">
+                    <tr>
+                        ${filteredHeaders.map(header => `<th style="border: 1px solid #ddd; padding: 12px; text-align: center;">${header}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #f8f9fa;">
+                        ${filteredData.map(data => `<td style="border: 1px solid #ddd; padding: 12px; text-align: center;">${data}</td>`).join('')}
+                    </tr>
+                </tbody>
+            </table>
+            <h4 style="color: #333; margin-top: 20px; margin-bottom: 15px; border-right: 4px solid #17a2b8; padding-right: 10px;">
+                تفاصيل الغرف المحجوزة
+            </h4>
+        `;
+
+        // إضافة محتوى تفاصيل الغرف (يتم استنساخه من جسم المودال)
+        reservationTableHTML += detailsModalBody.innerHTML;
+
+
+        // 2. إدخال المحتوى في العنصر المخفي
+        pdfContainer.innerHTML = reservationTableHTML;
+        pdfContainer.style.display = 'block'; // أظهر العنصر المخفي لتصويره
+
+        // 3. تصوير المحتوى وتحويله إلى PDF
+        html2canvas(pdfContainer, { scale: 2, logging: false, useCORS: true }).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            
+            // تهيئة jsPDF
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 200; 
+            const pageHeight = 295;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            let heightLeft = imgHeight;
+            let position = 5;
+
+            // إضافة الصورة إلى PDF
+            pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            // التعامل مع الصفحات المتعددة
+            while (heightLeft > -5) {
+                pdf.addPage();
+                // -imgHeight + pageHeight هو الموضع الذي يجب أن تبدأ منه الصورة في الصفحة الجديدة
+                // يتم طرحه لأننا نتحدث عن أعلى الصفحة الجديدة
+                position = (heightLeft - imgHeight) + pageHeight + 5; 
+                pdf.addImage(imgData, 'PNG', 5, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+            
+            // 4. حفظ ملف PDF
+            pdf.save(filename);
+
+            // 5. إخفاء وإفراغ العنصر المؤقت
+            pdfContainer.style.display = 'none';
+            pdfContainer.innerHTML = '';
+
+        }).catch(error => {
+            console.error("Error generating PDF:", error);
+            alert("حدث خطأ أثناء إنشاء ملف PDF.");
+            pdfContainer.style.display = 'none';
+            pdfContainer.innerHTML = '';
+        });
+        
+    }
+</script>
 {{-- ملفات JS الخاصة بـ datatable و Bootstrap --}}
 @endsection

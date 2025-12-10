@@ -697,19 +697,16 @@
                     <div class="col-lg-12" data-aos="fade-right" data-aos-delay="300">
                         <div class="hotel-info-card">
                             <h4 class="fw-bold mb-4 text-center section-heading">ابدأ إقامتك الفاخرة</h4>
-
                             @if($isAvailable)
                                 <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form"
                                     id="quickReserveForm">
                                     @csrf
-
                                     <div class="row g-3 mb-3">
                                         <div class="col-12">
                                             <label class="small text-muted mb-1">الفترة</label>
                                             <input type="text" id="quickDateRange" class="form-control form-control-custom"
                                                 placeholder="اختر تاريخ الوصول والمغادرة" required>
                                             <div class="error-message" id="dateError">برجاء اختيار الفترة</div>
-
                                             <input type="hidden" name="start" id="quickStartDate">
                                             <input type="hidden" name="end" id="quickEndDate">
                                         </div>
@@ -738,47 +735,60 @@
         <hr class="my-5">
 
         {{-- أسعار الغرف المتاحة --}}
-        <div class="rooms-prices">
-            <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
-                <i class="fa fa-door-open me-2"></i> الغرف والأسعار المتاحة
-            </h2>
+       <div class="rooms-prices py-5">
+    <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
+        <i class="fa fa-door-open me-2"></i> الغرف والأسعار المتاحة حسب التاريخ 
+    </h2>
 
-            <div class="row g-4">
-                @for($i = 1; $i <= 5; $i++)
-                    @php
-                        $priceItem = $hotel->prices->where('name', $i)->first() ?? null;
-                        $price = $priceItem->price ?? 0;
-                        $roomAvailable = $priceItem->roomAvailable ?? 0;
-                        $roomName = $i == 1 ? 'جناح ملكي' : ($i == 2 ? 'غرفة مزدوجة' : 'غرفة عائلية ' . $i . ' أسرّة');
-                    @endphp
+    <div class="row g-4">
+        @foreach($hotel->prices as $priceItem)
+            @php
+                $roomName = $priceItem->name == 1 ? 'جناح ملكي' :
+                            ($priceItem->name == 2 ? 'غرفة مزدوجة' : 'غرفة عائلية ' . $priceItem->name . ' أسرّة');
+                $periods = $priceItem->periods->where('rooms_available', '>', 0);
+            @endphp
 
-                    @if($roomAvailable > 0)
-                        <div class="col-xl-3 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $i * 100 }}">
-                            <div class="price-card">
-                                <h4 class="mb-3">{{ $roomName }}</h4>
-                                <p class="text-secondary flex-grow-1">
-                                    <i class="fa fa-tag me-1 text-success"></i> السعر لليلة الواحدة:
-                                    <br>
-                                    <span class="price-tag">{{ number_format($price, 0) }} ريال</span>
-                                </p>
-                                <p class="availability">
-                                    <i class="fa fa-door-open me-1 text-primary-red"></i> الغرف المتاحة:
-                                    <span class="fw-bold fs-5">{{ $roomAvailable }}</span>
-                                </p>
-                            </div>
+            @if($periods->count() > 0)
+                <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 100 }}">
+<div class="card shadow-sm border-0  rounded-4" style="min-height: 200px; ">
+                        <div class="card-body d-flex flex-column">
+                            <!-- اسم الغرفة -->
+                            <h5 class="card-title mb-4 text-center ">{{ $roomName }}</h5>
+
+                            <!-- عرض كل الفترات -->
+                            @foreach($periods as $period)
+                                <div class="mb-3 p-3 border rounded-3 bg-light">
+                                    <p class="card-text text-secondary mb-2">
+                                        <i class="fa fa-tag me-2 text-success"></i> السعر:
+                                        <span class="fw-bold">{{ number_format($period->period_price, 0) }} ريال</span>
+                                    </p>
+                                    <p class="card-text mb-2">
+                                        <i class="fa fa-door-open me-2 text-primary-red"></i> الغرف المتاحة:
+                                        <span class="fw-bold">{{ $period->rooms_available }}</span>
+                                    </p>
+                                    <p class="card-text text-muted mb-0">
+                                        <i class="fa fa-calendar-alt me-2"></i>
+                                         {{ \Carbon\Carbon::parse($period->start)->format('d/m/Y') }}
+                                        إلى {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y') }}
+                                    </p>
+                                </div>
+                            @endforeach
                         </div>
-                    @endif
-                @endfor
-            </div>
-        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
+</div>
+
+
+
 
         <hr class="my-5">
-
         {{-- معرض الصور --}}
         <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
             <i class="fa fa-images me-2"></i> صور الفندق
         </h2>
-
         <div class="row g-3">
             @foreach($hotel->files as $file)
                 <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
@@ -788,7 +798,6 @@
             @endforeach
         </div>
     </div>
-
     {{-- Lightbox Modal --}}
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

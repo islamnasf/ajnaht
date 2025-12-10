@@ -194,8 +194,12 @@ return view('newReser', compact('data','hotel', 'start', 'end', 'available_rooms
 
     public function hotelDetails($hotel)
     {
-        $hotel = Category::with(['prices.periods', 'files'])->findOrFail($hotel);
-        
+        // $hotel = Category::with(['prices.periods', 'files'])->findOrFail($hotel);
+        $hotel = Category::with(['prices.periods' => function($query) {
+    $query->where('rooms_available', '>', 0)
+          ->where('end', '>=', now());
+}])->find($hotel); // مثلا حسب الـ ID
+
         $data = SiteData::first();
 
         return view('hotelDetails', compact('data', 'hotel'));
