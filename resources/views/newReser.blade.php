@@ -373,6 +373,7 @@
             }
         });
     </script>
+    
     <section class="reservation-section">
         <div class="container">
             <div class="row justify-content-center">
