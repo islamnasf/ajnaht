@@ -16,6 +16,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
     <style>
         :root {
@@ -38,7 +39,6 @@
             color: var(--dark-text);
             overflow-x: hidden;
             padding-top: 40px;
-            /* إضافة padding للتعامل مع الشريط الثابت */
         }
 
         ::-webkit-scrollbar {
@@ -75,7 +75,6 @@
             left: 0;
             right: 0;
             display: flex !important;
-            /* إجبار العرض على جميع الأحجام */
             align-items: center;
         }
 
@@ -90,7 +89,6 @@
             box-shadow: 0 50px 50px rgba(0, 0, 0, 0.05);
             position: fixed;
             top: 40px;
-            /* تبدأ من بعد الشريط العلوي */
             left: 0;
             right: 0;
             z-index: 1030;
@@ -202,7 +200,6 @@
             align-items: center;
             overflow: hidden;
             margin-top: 40px;
-            /* تعويض عن ارتفاع الـ navbar */
         }
 
         .hero-bg {
@@ -481,6 +478,318 @@
         }
 
         /* =========================================== */
+        /* تحسينات القسم الجديد للخدمات (السكشن الوحش) */
+        /* =========================================== */
+        
+        .services-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 30px;
+            margin: 3rem auto;
+            max-width: 1400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+
+        .services-header {
+            padding: 2.5rem 0 1rem;
+            text-align: center;
+        }
+
+        .services-title {
+            color: var(--dark-text);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .services-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-slide {
+            padding: 2rem 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .service-content {
+            display: flex;
+            align-items: center;
+            min-height: 450px;
+        }
+
+        .service-text {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .service-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .service-description {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .service-image-container {
+            flex: 1;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .service-image-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .service-image-container:hover .service-image {
+            transform: scale(1.03);
+        }
+
+        .service-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(198, 132, 47, 0.3);
+            color: white;
+        }
+
+        .service-btn i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .service-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* تحسينات مؤشرات الكاروسيل */
+        .services-carousel .carousel-indicators {
+            position: relative;
+            margin: 1.5rem 0 0;
+            justify-content: center;
+        }
+
+        .services-carousel .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 6px;
+            background-color: rgba(198, 132, 47, 0.3);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .services-carousel .carousel-indicators button.active {
+            background-color: var(--primary-red);
+            transform: scale(1.2);
+        }
+
+        /* أزرار التحكم في الكاروسيل */
+        .services-carousel .carousel-control-prev,
+        .services-carousel .carousel-control-next {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-red);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .services-carousel .carousel-control-prev:hover,
+        .services-carousel .carousel-control-next:hover {
+            opacity: 1;
+            background: var(--primary-red);
+        }
+
+        .services-carousel .carousel-control-prev-icon,
+        .services-carousel .carousel-control-next-icon {
+            background-size: 60%;
+            filter: invert(45%) sepia(85%) saturate(500%) hue-rotate(360deg);
+        }
+
+        .services-carousel .carousel-control-prev:hover .carousel-control-prev-icon,
+        .services-carousel .carousel-control-next:hover .carousel-control-next-icon {
+            filter: invert(100%);
+        }
+
+        /* =========================================== */
+        /* تحسينات الاستجابة للقسم الجديد */
+        /* =========================================== */
+
+        @media (max-width: 1199px) {
+            .service-content {
+                min-height: 400px;
+            }
+            
+            .service-name {
+                font-size: 2rem;
+            }
+            
+            .service-image {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .service-content {
+                flex-direction: column;
+                min-height: auto;
+                text-align: center;
+            }
+            
+            .service-text {
+                order: 2;
+                padding: 1.5rem 1rem;
+            }
+            
+            .service-image-container {
+                order: 1;
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .service-name {
+                font-size: 1.8rem;
+            }
+            
+            .service-description {
+                font-size: 1rem;
+            }
+            
+            .services-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .services-section {
+                border-radius: 20px;
+                margin: 2rem auto;
+            }
+            
+            .services-header {
+                padding: 1.5rem 0 0.5rem;
+            }
+            
+            .services-title {
+                font-size: 1.8rem;
+            }
+            
+            .services-subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .service-slide {
+                padding: 1rem 0.5rem;
+            }
+            
+            .service-text {
+                padding: 1rem 0.5rem;
+            }
+            
+            .service-name {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+            }
+            
+            .service-image {
+                height: 300px;
+            }
+            
+            .service-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .services-carousel .carousel-control-prev,
+            .services-carousel .carousel-control-next {
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .services-title {
+                font-size: 1.5rem;
+            }
+            
+            .service-name {
+                font-size: 1.4rem;
+            }
+            
+            .service-image {
+                height: 250px;
+            }
+            
+            .services-carousel .carousel-control-prev,
+            .services-carousel .carousel-control-next {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* =========================================== */
         /* Responsive Enhancements - تحسينات الاستجابة */
         /* =========================================== */
 
@@ -533,7 +842,6 @@
         @media (max-width: 767px) {
             body {
                 padding-top: 35px;
-                /* تقليل الـ padding للهواتف */
             }
 
             .top-bar {
@@ -544,14 +852,12 @@
 
             .navbar {
                 top: 35px;
-                /* تعديل حسب ارتفاع الشريط العلوي الجديد */
             }
 
             .hero {
                 height: 40vh;
                 min-height: 300px;
                 margin-top: 35px;
-                /* تعديل حسب ارتفاع الـ navbar الجديد */
             }
 
             .hero-title {
@@ -584,7 +890,6 @@
                 width: 150px !important;
             }
 
-            /* تحسين عرض الفورم على الموبايل */
             .search-glass .d-flex {
                 flex-direction: column;
             }
@@ -598,7 +903,6 @@
                 margin-bottom: 0;
             }
 
-            /* تحسين الكاروسيل على الموبايل */
             #hotelCarousel .carousel-control-prev,
             #hotelCarousel .carousel-control-next {
                 width: 40px;
@@ -631,7 +935,6 @@
                 height: 35vh;
                 min-height: 250px;
                 margin-top: 30px;
-                /* تعديل حسب ارتفاع الـ navbar الجديد */
             }
 
             .hero-title {
@@ -647,7 +950,6 @@
                 font-size: 0.9rem;
             }
 
-            /* إخفاء بعض العناصر على الهواتف الصغيرة */
             .top-bar span.me-3:nth-child(1),
             .top-bar span.me-3:nth-child(3) {
                 display: none !important;
@@ -657,13 +959,11 @@
                 justify-content: center;
             }
 
-            /* تحسين الـ form controls */
             .form-control-custom {
                 padding: 10px;
                 font-size: 0.95rem;
             }
 
-            /* تحسين الكروت */
             .card {
                 margin-bottom: 15px;
             }
@@ -672,7 +972,6 @@
                 height: 180px !important;
             }
 
-            /* تحسين الهيدر */
             .navbar-brand {
                 font-size: 1.3rem;
             }
@@ -757,13 +1056,21 @@
             .about-img-box:hover img {
                 filter: grayscale(40%);
             }
+            
+            .service-image-container:hover {
+                transform: none;
+            }
+            
+            .service-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
         }
 
         /* تحسين الأداء على الموبايل */
         @media (max-width: 767px) {
             .hero-bg {
                 animation: none;
-                /* إيقاف الأنيميشن على الموبايل لتحسين الأداء */
             }
 
             .search-glass {
@@ -963,24 +1270,9 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                    <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
-                    <!-- <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
-                        style="color: var(--primary-red);">الشغف</span>
-                    والتميز</h2> -->
                     <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
                         {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
                     </div>
-
-                    <!-- <div class="d-flex align-items-center mt-4">
-                    <div class="border-start border-danger border-3 ps-3 ms-3">
-                        <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">أفضل موقع</h5>
-                        <small class="text-muted">مباشرة أمام الحرم</small>
-                    </div>
-                    <div class="border-start border-danger border-3 ps-3">
-                        <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">واي فاي</h5>
-                        <small class="text-muted">عالي السرعة مجاني</small>
-                    </div>
-                </div> -->
                 </div>
                 <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
                     <div class="about-img-box tilt-element">
@@ -1007,7 +1299,6 @@
             display: block;
             width: 60px;
             height: 3px;
-            /* background-color: var(--primary-color); */
             position: absolute;
             bottom: 0;
             left: 50%;
@@ -1017,7 +1308,6 @@
         .card {
             border: none;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* background-color: var(--card-bg); */
         }
 
         .card:hover {
@@ -1027,13 +1317,11 @@
 
         .hotel-card-img {
             height: 300px !important;
-            /* ارتفاع موحد لصور الفنادق */
             border-radius: 30px 30px 0 0 !important;
         }
 
         .service-card-img {
             height: 150px !important;
-            /* ارتفاع موحد لصور الخدمات */
             border-radius: 120px 120px 0 0 !important;
         }
 
@@ -1050,9 +1338,7 @@
 
             <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                 <div class="carousel-inner">
-                    {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
                     @php
-                        // يُفترض أن متغير $hotels مُعرَّف ومملوء ببيانات الفنادق
                         $chunks = isset($hotels) ? $hotels->chunk(4) : collect([
                             collect([
                                 (object) ['name' => 'فندق الفخامة', 'address' => 'مكة المكرمة', 'image' => 'https://source.unsplash.com/400x300/?luxury,hotel'],
@@ -1061,11 +1347,10 @@
                                 (object) ['name' => 'فندق النبلاء', 'address' => 'المدينة المنورة', 'image' => 'https://source.unsplash.com/400x300/?suite,bed']
                             ])
                         ]);
-                        $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
+                        $isActive = true;
                     @endphp
 
                     @foreach($chunks as $chunk)
-                        {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
                         <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
                             <div class="row g-4 justify-content-center">
                                 @foreach($chunk as $hotel)
@@ -1093,7 +1378,6 @@
                     @endforeach
                 </div>
 
-                {{-- أزرار التحكم (السابق/التالي) --}}
                 @if($chunks->count() > 1)
                     <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel"
                         data-bs-slide="prev">
@@ -1110,117 +1394,58 @@
         </div>
     </section>
 
-  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-
-
-
-    <div class="carousel-inner">
-        
-        @foreach($services as $index => $service)
+    <!-- قسم الخدمات المحسن -->
+    <section class="services-section py-5" id="services">
+        <div class="container">
+            <div class="services-header">
+                <h2 class="services-title">خدماتنا المميزة</h2>
+                <p class="services-subtitle m-3">نقدم لكم مجموعة متكاملة من الخدمات الفاخرة لتجربة إقامة لا تُنسى</p>
+            </div>
             
-            <div class="carousel-item @if($index === 0) active @endif" data-bs-interval="5000">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center" style="min-height: 450px;">
-                        
-                        <div class="col-lg-5 col-md-6 text-start pe-lg-5">
-                            <h2 class="fw-bold mb-4 display-6">{{ $service->name }}</h2>
-                            
-
-                            <a href="{{ route('serviceSectionsDetails',$service->id) }}" class="btn btn-luxury px-4 py-2 rounded-pill">
-                                اعرف أكثر <i class="bi bi-arrow-left ms-2 mt-3"></i>
-                            </a>
-                        </div>
-                        
-                        <div class="col-lg-5 col-md-6 ps-lg-5 mt-md-0 mt-4">
-                            <div class="rounded-4 overflow-hidden shadow-lg">
-                                <img src="{{ $service->image }}" class="d-block w-100"
-                                    style="min-height:400px; object-fit: cover;" alt="{{ $service->name }}">
+            <div id="servicesCarousel" class="carousel slide services-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    @foreach($services as $index => $service)
+                        <div class="carousel-item service-slide @if($index === 0) active @endif" data-bs-interval="5000">
+                            <div class="service-content">
+                                <div class="service-text">
+                                    <h3 class="service-name m-5">{{ $service->name }}</h3>
+                                
+                                    <a href="{{ route('serviceSectionsDetails', $service->id) }}" class="service-btn m-5">
+                                        <i class="fas fa-arrow-left me-2"></i> اكتشف المزيد
+                                    </a>
+                                </div>
+                                <div class="service-image-container m-5">
+                                    <img src="{{ $service->image }}" class="service-image" alt="{{ $service->name }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-            </div> @endforeach
-    </div> <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon bg-dark bg-opacity-25 rounded-circle p-3" aria-hidden="true"></span>
-        <span class="visually-hidden">السابق</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-        <span class="carousel-control-next-icon bg-dark bg-opacity-25 rounded-circle p-3" aria-hidden="true"></span>
-        <span class="visually-hidden">التالي</span>
-    </button>
-        <div class="carousel-indicators position-static mt-4">
-        @foreach($services as $index => $service)
-            <button type="button" 
-                data-bs-target="#carouselExampleDark" 
-                data-bs-slide-to="{{ $index }}"
-                class="@if($index === 0) active @endif bg-dark rounded-circle mx-1" 
-                style="width: 10px; height: 10px;" 
-                aria-current="@if($index === 0) true @endif"
-                aria-label="شريحة {{ $index + 1 }}">
-            </button>
-        @endforeach
-    </div>
-
-</div>
-    <style>
-        #carouselExampleDark {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            overflow: hidden;
-            /* box-shadow: 0 10px 30px rgba(0,0,0,0.1); */
-            margin: 2rem auto;
-            max-width: 1400px;
-        }
-
-        .carousel-item {
-            padding: 2rem;
-        }
-
-
-
-
-        .rounded-4 {
-            border-radius: 1rem !important;
-        }
-
-        .shadow-lg {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: auto;
-            opacity: 1;
-        }
-
-        .carousel-control-prev {
-            left: 1rem;
-        }
-
-        .carousel-control-next {
-            right: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-item {
-                padding: 1rem;
-            }
-
-            .row {
-                text-align: center !important;
-            }
-
-            .text-start {
-                text-align: center !important;
-            }
-
-            .pe-lg-5,
-            .ps-lg-5 {
-                padding-right: var(--bs-gutter-x, 0.75rem) !important;
-                padding-left: var(--bs-gutter-x, 0.75rem) !important;
-            }
-        }
-    </style>
+                
+                <!-- أزرار التحكم -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">السابق</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#servicesCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">التالي</span>
+                </button>
+                
+                <!-- المؤشرات -->
+                <div class="carousel-indicators">
+                    @foreach($services as $index => $service)
+                        <button type="button" 
+                            data-bs-target="#servicesCarousel" 
+                            data-bs-slide-to="{{ $index }}"
+                            class="@if($index === 0) active @endif"
+                            aria-label="شريحة {{ $index + 1 }}">
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
 
     @include('footer')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -1233,25 +1458,20 @@
             const navbar = document.querySelector('.navbar');
 
             if (topBar && navbar) {
-                // ضبط الـ top الأولي للـ navbar
                 navbar.style.top = topBar.offsetHeight + 'px';
 
-                // تحديث عند تغيير حجم النافذة
                 window.addEventListener('resize', function () {
                     navbar.style.top = topBar.offsetHeight + 'px';
                 });
 
-                // إخفاء الشريط العلوي عند التمرير
                 let lastScrollTop = 0;
                 window.addEventListener('scroll', function () {
                     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
                     if (scrollTop > lastScrollTop && scrollTop > 100) {
-                        // التمرير للأسفل - إخفاء
                         topBar.style.transform = 'translateY(-100%)';
                         navbar.style.top = '0';
                     } else {
-                        // التمرير للأعلى - إظهار
                         topBar.style.transform = 'translateY(0)';
                         navbar.style.top = topBar.offsetHeight + 'px';
                     }
@@ -1319,7 +1539,6 @@
 
                     if (!valid) {
                         e.preventDefault();
-                        // إضافة اهتزاز للفورم غير الصالح
                         form.classList.add('shake');
                         setTimeout(() => form.classList.remove('shake'), 500);
                     }
