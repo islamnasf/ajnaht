@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Plog;
 use App\Models\ReserDetail;
 use App\Models\Reservation;
+use App\Models\Service;
 use App\Models\SiteData;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,15 @@ class SiteDataController extends Controller
         $data = SiteData::first(); // عرض أول عنصر فقط
 
         return view('hotels', compact('data', 'hotels'));
+    }
+
+      public function services()
+    {
+        $services = Service::all();
+
+        $data = SiteData::first(); // عرض أول عنصر فقط
+
+        return view('services', compact('data', 'services'));
     }
 
     public function updateSiteData(Request $request)
@@ -139,9 +149,11 @@ class SiteDataController extends Controller
                     ->where('end', '>=', now());
             })
             ->get();
-        $data = SiteData::first();
 
-        return view('landing', compact('data', 'hotels', 'allHotels'));
+        $data = SiteData::first();
+        $services = Service::get();
+
+        return view('landing', compact('data', 'hotels', 'allHotels','services'));
     }
 //     public function newReser(Request $request)
 //     {

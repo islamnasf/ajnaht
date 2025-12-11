@@ -37,7 +37,8 @@
             background-color: var(--light-bg);
             color: var(--dark-text);
             overflow-x: hidden;
-            padding-top: 40px; /* إضافة padding للتعامل مع الشريط الثابت */
+            padding-top: 40px;
+            /* إضافة padding للتعامل مع الشريط الثابت */
         }
 
         ::-webkit-scrollbar {
@@ -73,7 +74,8 @@
             top: 0;
             left: 0;
             right: 0;
-            display: flex !important; /* إجبار العرض على جميع الأحجام */
+            display: flex !important;
+            /* إجبار العرض على جميع الأحجام */
             align-items: center;
         }
 
@@ -87,7 +89,8 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 50px 50px rgba(0, 0, 0, 0.05);
             position: fixed;
-            top: 40px; /* تبدأ من بعد الشريط العلوي */
+            top: 40px;
+            /* تبدأ من بعد الشريط العلوي */
             left: 0;
             right: 0;
             z-index: 1030;
@@ -198,7 +201,8 @@
             display: flex;
             align-items: center;
             overflow: hidden;
-            margin-top: 40px; /* تعويض عن ارتفاع الـ navbar */
+            margin-top: 40px;
+            /* تعويض عن ارتفاع الـ navbar */
         }
 
         .hero-bg {
@@ -528,7 +532,8 @@
         /* Small devices (phones, 576px to 767px) */
         @media (max-width: 767px) {
             body {
-                padding-top: 35px; /* تقليل الـ padding للهواتف */
+                padding-top: 35px;
+                /* تقليل الـ padding للهواتف */
             }
 
             .top-bar {
@@ -538,13 +543,15 @@
             }
 
             .navbar {
-                top: 35px; /* تعديل حسب ارتفاع الشريط العلوي الجديد */
+                top: 35px;
+                /* تعديل حسب ارتفاع الشريط العلوي الجديد */
             }
 
             .hero {
                 height: 40vh;
                 min-height: 300px;
-                margin-top: 35px; /* تعديل حسب ارتفاع الـ navbar الجديد */
+                margin-top: 35px;
+                /* تعديل حسب ارتفاع الـ navbar الجديد */
             }
 
             .hero-title {
@@ -623,7 +630,8 @@
             .hero {
                 height: 35vh;
                 min-height: 250px;
-                margin-top: 30px; /* تعديل حسب ارتفاع الـ navbar الجديد */
+                margin-top: 30px;
+                /* تعديل حسب ارتفاع الـ navbar الجديد */
             }
 
             .hero-title {
@@ -754,7 +762,8 @@
         /* تحسين الأداء على الموبايل */
         @media (max-width: 767px) {
             .hero-bg {
-                animation: none; /* إيقاف الأنيميشن على الموبايل لتحسين الأداء */
+                animation: none;
+                /* إيقاف الأنيميشن على الموبايل لتحسين الأداء */
             }
 
             .search-glass {
@@ -765,7 +774,9 @@
 
         /* إصلاح مشكلة الـ overflow على الموبايل */
         @media (max-width: 767px) {
-            html, body {
+
+            html,
+            body {
                 max-width: 100%;
                 overflow-x: hidden;
             }
@@ -785,181 +796,182 @@
 
 <body>
 
-<div class="top-bar fixed-top d-md-flex" id="top-bar">
-    <div class="container d-flex justify-content-center align-items-center">
-        <span class="me-3 d-none d-md-inline">
-            <i class="fas fa-phone-alt me-1"></i> {{ $data->phone1 ?? '+966 50 123 4567' }}
-        </span>
-        <span class="me-3">
-            <i class="fas fa-phone-alt me-1"></i> {{ $data->phone2 ?? '+966 50 123 4567' }}
-        </span>
-        <span class="me-3 d-none d-md-inline">
-            <i class="fas fa-envelope me-1"></i> {{ $data->email ?? 'info@royalview.com' }}
-        </span>
-    </div>
-</div>
-
-<nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container connav">
-        <a class="navbar-brand" href="{{ route('website') }}">
-            @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
-            @else
-                <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
-            @endif
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link active" href="{{ route('website') }}">الرئيسية</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">القصة</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">الموقع وتواصل</a></li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
-                        <i class="fas fa-list-alt me-1"></i> مقالات
-                    </a>
-                </li>
-            </ul>
-            @php
-                $user = auth()->user();
-            @endphp
-
-            <div class="user-dropdown">
-                @guest
-                    <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                        التسجيل الآن
-                    </a>
-                @endguest
-
-                @auth
-                    <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                        {{ auth()->user()->name }} ▾
-                    </button>
-
-                    <div id="userMenu" class="menu">
-                        <form method="GET" action="{{ route('logout') }}">
-                            <button type="submit">تسجيل الخروج</button>
-                        </form>
-                    </div>
-                @endauth
-            </div>
+    <div class="top-bar fixed-top d-md-flex" id="top-bar">
+        <div class="container d-flex justify-content-center align-items-center">
+            <span class="me-3 d-none d-md-inline">
+                <i class="fas fa-phone-alt me-1"></i> {{ $data->phone1 ?? '+966 50 123 4567' }}
+            </span>
+            <span class="me-3">
+                <i class="fas fa-phone-alt me-1"></i> {{ $data->phone2 ?? '+966 50 123 4567' }}
+            </span>
+            <span class="me-3 d-none d-md-inline">
+                <i class="fas fa-envelope me-1"></i> {{ $data->email ?? 'info@royalview.com' }}
+            </span>
         </div>
     </div>
-</nav>
 
-<section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="container hero-content">
-        <div class="row align-items-center text-center">
-            <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
-                <!-- <h1 class="hero-title">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container connav">
+            <a class="navbar-brand" href="{{ route('website') }}">
+                @if($data->logo)
+                    <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;">
+                @else
+                    <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
+                @endif
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('website') }}">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">القصة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">الخدمات</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">الموقع وتواصل</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="{{ route('blogs') }}" aria-expanded="false">
+                            <i class="fas fa-list-alt me-1"></i> مقالات
+                        </a>
+                    </li>
+                </ul>
+                @php
+                    $user = auth()->user();
+                @endphp
+
+                <div class="user-dropdown">
+                    @guest
+                        <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
+                            التسجيل الآن
+                        </a>
+                    @endguest
+
+                    @auth
+                        <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
+                            {{ auth()->user()->name }} ▾
+                        </button>
+
+                        <div id="userMenu" class="menu">
+                            <form method="GET" action="{{ route('logout') }}">
+                                <button type="submit">تسجيل الخروج</button>
+                            </form>
+                        </div>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center text-center">
+                <div class="col-lg-12 text-center" data-aos="fade-up" data-aos-duration="1000">
+                    <!-- <h1 class="hero-title">
                     {{ $data->name ?? 'LUXURY' }} <br>
                     <span>ROMANCE HOTELS</span>
                 </h1> -->
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="container-fluid py-0 search-form-container">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                <div class="search-glass">
-                    <div class="d-flex flex-column flex-lg-row gap-4">
-
-                        <!-- فورم الحجز -->
-                        <div class="flex-fill p-4 ">
-                            <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
-
-                            <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
-                                <div class="row gy-3">
-
-                                    <div class="col-lg-3">
-                                        <label class="small text-muted mb-1">وجهتك</label>
-                                        <select class="form-control form-control-custom" name="destination"
-                                            required>
-                                            <option value="">اختر الوجهة</option>
-                                            <option selected>مكة</option>
-                                        </select>
-                                        <div class="error-message">هذا الحقل مطلوب</div>
-                                    </div>
-
-                                    <div class="col-lg-3">
-                                        <label class="small text-muted mb-1">اختر الفندق</label>
-                                        <select class="form-control form-control-custom" name="hotel_id" required>
-                                            <option value="">اختر الفندق</option>
-                                            @foreach($allHotels as $hotel)
-                                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="error-message">هذا الحقل مطلوب</div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <label class="small text-muted mb-1">اختر الفترة</label>
-                                        <input type="text" id="date_range" class="form-control form-control-custom"
-                                            placeholder="اختر تاريخ الوصول والمغادرة" required>
-                                        <input type="hidden" name="start" id="start_date">
-                                        <input type="hidden" name="end" id="end_date">
-                                        <div class="error-message">برجاء اختيار الفترة</div>
-                                    </div>
-
-                                    <div class="col-12 mt-3">
-                                        <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- فورم البحث -->
-                        <div class="flex-fill p-4  ">
-                            <h5 class="mb-4 text-center  ">بحث عن حجوزات سابقة</h5>
-
-                            <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations"
-                                novalidate>
-                                <div class="row gy-3  ">
-
-                                    <div class="col-lg-12">
-                                        <label class="small text-muted mb-1">رقم الهاتف</label>
-                                        <input type="text" name="phone" class="form-control form-control-custom"
-                                            placeholder="أدخل رقم الهاتف للبحث" required>
-                                        <div class="error-message">يرجى إدخال رقم الهاتف</div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
-                                    </div>
-
-                                </div>
-                            </form>
-                        </div>
-
-                    </div><!-- /d-flex -->
                 </div>
+            </div>
+        </div>
+    </section>
 
+    <div class="container-fluid py-0 search-form-container">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-12 mx-auto" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+                    <div class="search-glass">
+                        <div class="d-flex flex-column flex-lg-row gap-4">
+
+                            <!-- فورم الحجز -->
+                            <div class="flex-fill p-4 ">
+                                <h5 class="mb-4 text-center">خطط لإقامتك القادمة</h5>
+
+                                <form action="{{ route('newReser') }}" method="GET" id="reserveForm" novalidate>
+                                    <div class="row gy-3">
+
+                                        <div class="col-lg-3">
+                                            <label class="small text-muted mb-1">وجهتك</label>
+                                            <select class="form-control form-control-custom" name="destination"
+                                                required>
+                                                <option value="">اختر الوجهة</option>
+                                                <option selected>مكة</option>
+                                            </select>
+                                            <div class="error-message">هذا الحقل مطلوب</div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <label class="small text-muted mb-1">اختر الفندق</label>
+                                            <select class="form-control form-control-custom" name="hotel_id" required>
+                                                <option value="">اختر الفندق</option>
+                                                @foreach($allHotels as $hotel)
+                                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="error-message">هذا الحقل مطلوب</div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label class="small text-muted mb-1">اختر الفترة</label>
+                                            <input type="text" id="date_range" class="form-control form-control-custom"
+                                                placeholder="اختر تاريخ الوصول والمغادرة" required>
+                                            <input type="hidden" name="start" id="start_date">
+                                            <input type="hidden" name="end" id="end_date">
+                                            <div class="error-message">برجاء اختيار الفترة</div>
+                                        </div>
+
+                                        <div class="col-12 mt-3">
+                                            <button type="submit" class="btn btn-luxury w-100 py-3">احجز الآن</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- فورم البحث -->
+                            <div class="flex-fill p-4  ">
+                                <h5 class="mb-4 text-center  ">بحث عن حجوزات سابقة</h5>
+
+                                <form action="{{ route('searchOldReser') }}" method="GET" id="searchOldReservations"
+                                    novalidate>
+                                    <div class="row gy-3  ">
+
+                                        <div class="col-lg-12">
+                                            <label class="small text-muted mb-1">رقم الهاتف</label>
+                                            <input type="text" name="phone" class="form-control form-control-custom"
+                                                placeholder="أدخل رقم الهاتف للبحث" required>
+                                            <div class="error-message">يرجى إدخال رقم الهاتف</div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button type="submit" class="btn btn-luxury w-100 py-3">بحث</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div><!-- /d-flex -->
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<section class="about-section" id="about">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-                <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
-                <!-- <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+                    <!-- <h1 class="text-danger fw-bold text-uppercase mb-2">// من نحن</h1> -->
+                    <!-- <h2 class="display-5 fw-bold mb-4" style="color: var(--dark-text);">قصة من <span
                         style="color: var(--primary-red);">الشغف</span>
                     والتميز</h2> -->
-                <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
-                    {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
-                </div>
+                    <div class="text-muted mb-4 lead" style="line-height: 1.8; color: var(--dark-text) !important;">
+                        {!! $data->textarea ?? 'تأسس فندق رويال فيو على مبادئ الضيافة الفاخرة والاهتمام بالتفاصيل. نحن نعدك بتجربة لا مثيل لها، حيث كل زاوية مصممة لراحتك المطلقة. منذ الافتتاح، ونحن نسعى لتقديم أعلى معايير الخدمة العالمية، مما جعلنا الخيار الأول للمسافرين المميزين.' !!}
+                    </div>
 
-                <!-- <div class="d-flex align-items-center mt-4">
+                    <!-- <div class="d-flex align-items-center mt-4">
                     <div class="border-start border-danger border-3 ps-3 ms-3">
                         <h5 class="mb-0 fw-bold" style="color: var(--dark-text);">أفضل موقع</h5>
                         <small class="text-muted">مباشرة أمام الحرم</small>
@@ -969,188 +981,353 @@
                         <small class="text-muted">عالي السرعة مجاني</small>
                     </div>
                 </div> -->
-            </div>
-            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
-                <div class="about-img-box tilt-element">
-                    <div class="about-bg-accent"></div>
-                    <img src="{{ asset($data->aboutImage ?? 'default-about.jpg') }}"
-                        class="img-fluid w-100 shadow-lg" alt="About Us">
                 </div>
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="about-img-box tilt-element">
+                        <div class="about-bg-accent"></div>
+                        <img src="{{ asset($data->aboutImage ?? 'default-about.jpg') }}"
+                            class="img-fluid w-100 shadow-lg" alt="About Us">
+                    </div>
+                </div>
+
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="hotels-section py-5" id="hotels">
-    <div class="container">
-        <h2 class="display-5 fw-bold text-center mb-5" style="color: var(--dark-text);">
-            اكتشف فنادقنا المميزة
-        </h2>
+    <style>
+        .section-title {
+            color: var(--dark-text);
+            font-size: 2.8rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
 
-        <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-            <div class="carousel-inner">
-                {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
-                @php
-                    $chunks = $hotels->chunk(3); // تقسيم مجموعة الفنادق إلى مجموعات تحتوي كل منها على 4
-                    $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
-                @endphp
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            /* background-color: var(--primary-color); */
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-                @foreach($chunks as $chunk)
-                    {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
-                    <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
-                        <div class="row g-4 justify-content-center">
-                            @foreach($chunk as $hotel)
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card h-20 shadow-sm">
-                                        @if($hotel->image)
-                                            <img src="{{ asset($hotel->image) }}" class="card-img-top" alt="{{ $hotel->name }}"
-                                                style="width: 100%; height: 220px; object-fit: cover; object-position: center; border-radius: 8px;">
-                                        @else
-                                            <img src="https://source.unsplash.com/400x300/?hotel" class="card-img-top"
-                                                alt="{{ $hotel->name }}">
-                                        @endif
-                                        <div class="card-body d-flex flex-column">
-                                            <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
-                                            <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i>
-                                                {{ $hotel->address }}</p>
-                                            <!-- <p class="mb-1"><strong>عدد الغرف: {{ $hotel->rooms }}</strong></p> -->
-                                            <!-- <p class="mb-1"><strong>عدد الأسرة: {{ $hotel->beds }}</strong></p> -->
-                                            <!-- <p class="mb-2">⭐ {{ $hotel->rate }}</p> -->
-                                            <a href="{{ route('hotelDetails', $hotel->id) }}"
-                                                class="btn btn-luxury mt-auto">عرض</a>
+        .card {
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* background-color: var(--card-bg); */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .hotel-card-img {
+            height: 300px !important;
+            /* ارتفاع موحد لصور الفنادق */
+            border-radius: 30px 30px 0 0 !important;
+        }
+
+        .service-card-img {
+            height: 150px !important;
+            /* ارتفاع موحد لصور الخدمات */
+            border-radius: 120px 120px 0 0 !important;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+    </style>
+
+    <section class="hotels-section py-5 bg-light" id="featured-hotels">
+        <div class="container">
+            <h2 class="section-title fw-bold text-center mb-5">
+                ✨ اكتشف فنادقنا المميزة
+            </h2>
+
+            <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    {{-- تقسيم الفنادق إلى مجموعات من 4 لعرضها في كل شريحة (item) --}}
+                    @php
+                        // يُفترض أن متغير $hotels مُعرَّف ومملوء ببيانات الفنادق
+                        $chunks = isset($hotels) ? $hotels->chunk(4) : collect([
+                            collect([
+                                (object) ['name' => 'فندق الفخامة', 'address' => 'مكة المكرمة', 'image' => 'https://source.unsplash.com/400x300/?luxury,hotel'],
+                                (object) ['name' => 'فندق القمة', 'address' => 'الرياض', 'image' => 'https://source.unsplash.com/400x300/?hotel,view'],
+                                (object) ['name' => 'فندق الهدوء', 'address' => 'جدة', 'image' => 'https://source.unsplash.com/400x300/?resort,pool'],
+                                (object) ['name' => 'فندق النبلاء', 'address' => 'المدينة المنورة', 'image' => 'https://source.unsplash.com/400x300/?suite,bed']
+                            ])
+                        ]);
+                        $isActive = true; // متغير لتحديد الشريحة النشطة الأولى
+                    @endphp
+
+                    @foreach($chunks as $chunk)
+                        {{-- كل شريحة (carousel-item) ستحتوي على 4 فنادق كحد أقصى ----}}
+                        <div class="carousel-item @if($isActive) active @php $isActive = false; @endphp @endif">
+                            <div class="row g-4 justify-content-center">
+                                @foreach($chunk as $hotel)
+                                    <div class="col-lg-3 col-md-6 col-sm-10">
+                                        <div class="card h-100 " style="border-radius: 35px;">
+                                            <img src="{{ isset($hotel->image) ? asset($hotel->image) : 'https://source.unsplash.com/400x300/?hotel' }}"
+                                                class="card-img-top hotel-card-img" alt="{{ $hotel->name }}"
+                                                style="object-fit: cover; object-position: center;">
+
+                                            <div class="card-body d-flex flex-column text-center">
+                                                <h5 class="card-title fw-bold">{{ $hotel->name }}</h5>
+                                                <p class="text-muted mb-3">
+                                                    <i class="bi bi-geo-alt-fill" style="color: var(--primary-color);"></i>
+                                                    {{ $hotel->address }}
+                                                </p>
+
+                                                <a href="{{ route('hotelDetails', $hotel->id ?? '1') }}"
+                                                    class="btn btn-luxury mt-auto mx-auto" style="width: 80%;">عرض </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- أزرار التحكم (السابق/التالي) --}}
+                @if($chunks->count() > 1)
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">السابق</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">التالي</span>
+                    </button>
+                @endif
+            </div>
+        </div>
+    </section>
+  <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+
+
+
+    <div class="carousel-inner">
+        
+        @foreach($services as $index => $service)
+            
+            <div class="carousel-item @if($index === 0) active @endif" data-bs-interval="5000">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center" style="min-height: 450px;">
+                        
+                        <div class="col-lg-5 col-md-6 text-start pe-lg-5">
+                            <h2 class="fw-bold mb-4 display-6">{{ $service->name }}</h2>
+                            
+
+                            <a href="#" class="btn btn-luxury px-4 py-2 rounded-pill">
+                                اعرف أكثر <i class="bi bi-arrow-left ms-2"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="col-lg-5 col-md-6 ps-lg-5 mt-md-0 mt-4">
+                            <div class="rounded-4 overflow-hidden shadow-lg">
+                                <img src="{{ $service->image }}" class="d-block w-100"
+                                    style="min-height:400px; object-fit: cover;" alt="{{ $service->name }}">
+                            </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
-
-            {{-- أزرار التحكم (السابق/التالي) --}}
-            @if(count($chunks) > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">السابق</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">التالي</span>
-                </button>
-            @endif
-        </div>
+                </div>
+            </div> @endforeach
+    </div> <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark bg-opacity-25 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">السابق</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark bg-opacity-25 rounded-circle p-3" aria-hidden="true"></span>
+        <span class="visually-hidden">التالي</span>
+    </button>
+        <div class="carousel-indicators position-static mt-4">
+        @foreach($services as $index => $service)
+            <button type="button" 
+                data-bs-target="#carouselExampleDark" 
+                data-bs-slide-to="{{ $index }}"
+                class="@if($index === 0) active @endif bg-dark rounded-circle mx-1" 
+                style="width: 10px; height: 10px;" 
+                aria-current="@if($index === 0) true @endif"
+                aria-label="شريحة {{ $index + 1 }}">
+            </button>
+        @endforeach
     </div>
-</section>
-@include('footer')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<script>
-    // إدارة الشريط العلوي
-    document.addEventListener('DOMContentLoaded', function() {
-        const topBar = document.getElementById('top-bar');
-        const navbar = document.querySelector('.navbar');
-        
-        if (topBar && navbar) {
-            // ضبط الـ top الأولي للـ navbar
-            navbar.style.top = topBar.offsetHeight + 'px';
-            
-            // تحديث عند تغيير حجم النافذة
-            window.addEventListener('resize', function() {
+</div>
+    <style>
+        #carouselExampleDark {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            /* box-shadow: 0 10px 30px rgba(0,0,0,0.1); */
+            margin: 2rem auto;
+            max-width: 1400px;
+        }
+
+        .carousel-item {
+            padding: 2rem;
+        }
+
+
+
+
+        .rounded-4 {
+            border-radius: 1rem !important;
+        }
+
+        .shadow-lg {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: auto;
+            opacity: 1;
+        }
+
+        .carousel-control-prev {
+            left: 1rem;
+        }
+
+        .carousel-control-next {
+            right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item {
+                padding: 1rem;
+            }
+
+            .row {
+                text-align: center !important;
+            }
+
+            .text-start {
+                text-align: center !important;
+            }
+
+            .pe-lg-5,
+            .ps-lg-5 {
+                padding-right: var(--bs-gutter-x, 0.75rem) !important;
+                padding-left: var(--bs-gutter-x, 0.75rem) !important;
+            }
+        }
+    </style>
+
+    @include('footer')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        // إدارة الشريط العلوي
+        document.addEventListener('DOMContentLoaded', function () {
+            const topBar = document.getElementById('top-bar');
+            const navbar = document.querySelector('.navbar');
+
+            if (topBar && navbar) {
+                // ضبط الـ top الأولي للـ navbar
                 navbar.style.top = topBar.offsetHeight + 'px';
-            });
-            
-            // إخفاء الشريط العلوي عند التمرير
-            let lastScrollTop = 0;
-            window.addEventListener('scroll', function() {
-                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    // التمرير للأسفل - إخفاء
-                    topBar.style.transform = 'translateY(-100%)';
-                    navbar.style.top = '0';
-                } else {
-                    // التمرير للأعلى - إظهار
-                    topBar.style.transform = 'translateY(0)';
+
+                // تحديث عند تغيير حجم النافذة
+                window.addEventListener('resize', function () {
                     navbar.style.top = topBar.offsetHeight + 'px';
-                }
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            });
-        }
-        
-        // إدارة القائمة المنسدلة للمستخدم
-        const userBtn = document.getElementById('userBtn');
-        const userMenu = document.getElementById('userMenu');
-        
-        if (userBtn && userMenu) {
-            userBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                userMenu.classList.toggle('show');
-            });
-            
-            document.addEventListener('click', function() {
-                userMenu.classList.remove('show');
-            });
-        }
-        
-        // Flatpickr لتحديد التاريخ
-        if (document.getElementById('date_range')) {
-            flatpickr("#date_range", {
-                mode: "range",
-                dateFormat: "Y-m-d",
-                minDate: "today",
-                locale: "ar",
-                onChange: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length === 2) {
-                        const start = instance.formatDate(selectedDates[0], "Y-m-d");
-                        const end = instance.formatDate(selectedDates[1], "Y-m-d");
-                        
-                        document.getElementById('start_date').value = start;
-                        document.getElementById('end_date').value = end;
-                    }
-                }
-            });
-        }
-        
-        // التحقق من صحة الفورم
-        const formIds = ['reserveForm', 'searchOldReservations'];
-        
-        formIds.forEach(formId => {
-            const form = document.getElementById(formId);
-            if (!form) return;
-            
-            form.addEventListener('submit', function(e) {
-                let valid = true;
-                const requiredFields = form.querySelectorAll('.form-control-custom[required]');
-                
-                requiredFields.forEach(field => {
-                    const error = field.parentElement.querySelector('.error-message');
-                    
-                    if (!field.value.trim()) {
-                        valid = false;
-                        field.classList.add('is-invalid');
-                        if (error) error.style.display = 'block';
+                });
+
+                // إخفاء الشريط العلوي عند التمرير
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', function () {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        // التمرير للأسفل - إخفاء
+                        topBar.style.transform = 'translateY(-100%)';
+                        navbar.style.top = '0';
                     } else {
-                        field.classList.remove('is-invalid');
-                        if (error) error.style.display = 'none';
+                        // التمرير للأعلى - إظهار
+                        topBar.style.transform = 'translateY(0)';
+                        navbar.style.top = topBar.offsetHeight + 'px';
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                });
+            }
+
+            // إدارة القائمة المنسدلة للمستخدم
+            const userBtn = document.getElementById('userBtn');
+            const userMenu = document.getElementById('userMenu');
+
+            if (userBtn && userMenu) {
+                userBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('show');
+                });
+
+                document.addEventListener('click', function () {
+                    userMenu.classList.remove('show');
+                });
+            }
+
+            // Flatpickr لتحديد التاريخ
+            if (document.getElementById('date_range')) {
+                flatpickr("#date_range", {
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    locale: "ar",
+                    onChange: function (selectedDates, dateStr, instance) {
+                        if (selectedDates.length === 2) {
+                            const start = instance.formatDate(selectedDates[0], "Y-m-d");
+                            const end = instance.formatDate(selectedDates[1], "Y-m-d");
+
+                            document.getElementById('start_date').value = start;
+                            document.getElementById('end_date').value = end;
+                        }
                     }
                 });
-                
-                if (!valid) {
-                    e.preventDefault();
-                    // إضافة اهتزاز للفورم غير الصالح
-                    form.classList.add('shake');
-                    setTimeout(() => form.classList.remove('shake'), 500);
-                }
+            }
+
+            // التحقق من صحة الفورم
+            const formIds = ['reserveForm', 'searchOldReservations'];
+
+            formIds.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (!form) return;
+
+                form.addEventListener('submit', function (e) {
+                    let valid = true;
+                    const requiredFields = form.querySelectorAll('.form-control-custom[required]');
+
+                    requiredFields.forEach(field => {
+                        const error = field.parentElement.querySelector('.error-message');
+
+                        if (!field.value.trim()) {
+                            valid = false;
+                            field.classList.add('is-invalid');
+                            if (error) error.style.display = 'block';
+                        } else {
+                            field.classList.remove('is-invalid');
+                            if (error) error.style.display = 'none';
+                        }
+                    });
+
+                    if (!valid) {
+                        e.preventDefault();
+                        // إضافة اهتزاز للفورم غير الصالح
+                        form.classList.add('shake');
+                        setTimeout(() => form.classList.remove('shake'), 500);
+                    }
+                });
             });
-        });
-        
-        // تأثير اهتزاز للفورم
-        const style = document.createElement('style');
-        style.textContent = `
+
+            // تأثير اهتزاز للفورم
+            const style = document.createElement('style');
+            style.textContent = `
             @keyframes shake {
                 0%, 100% {transform: translateX(0);}
                 10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
@@ -1160,9 +1337,10 @@
                 animation: shake 0.5s ease-in-out;
             }
         `;
-        document.head.appendChild(style);
-    });
-</script>
+            document.head.appendChild(style);
+        });
+    </script>
 
 </body>
+
 </html>

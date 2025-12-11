@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CategoryController as ControllersCategoryController;
@@ -25,6 +26,11 @@ Route::post('/reservations/user/store', [SiteDataController::class, 'storeReserv
 Route::get('/searchOldReser', action: [SiteDataController::class, 'searchOldReser'])->name('searchOldReser');
 Route::get('/blogs', action: [SiteDataController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{id}', [SiteDataController::class, 'showPlog'])->name('blog.show');
+//
+// مسار صفحة الخدمات
+Route::get('/services', [SiteDataController::class, 'services'])->name('services');
+// إذا كان لديك صفحة تفاصيل خدمة، أضف هذا المسار:
+Route::get('/services/{id}', [SiteDataController::class, 'serviceDetails'])->name('serviceDetails');
 
 
 Route::middleware(['auth', 'verified', 'role:مسؤول'])
@@ -140,6 +146,17 @@ route::group(['prefix' => 'dashboard/site'], function () {
     Route::get('show', [SiteDataController::class, 'index'])->name('getSiteData');
     Route::post('/reservations/update', [SiteDataController::class, 'updateSiteData'])->name('siteData.update');
 
+
+});
+route::group(['prefix' => 'dashboard/'], function () {
+   Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+Route::put('/services/update/{id}', [ServiceController::class, 'update'])->name('services.update');
+Route::post('/services/delete/{id}', [ServiceController::class, 'delete'])->name('services.delete');
+
+Route::post('/services/sections/store', [ServiceController::class, 'storeSection'])->name('sections.store');
+Route::put('/services/sections/update/{id}', [ServiceController::class, 'updateSection'])->name('sections.update');
+Route::post('/services/sections/delete/{id}', [ServiceController::class, 'deleteSection'])->name('sections.delete');
 
 });
 

@@ -62,13 +62,13 @@
                             <div class="clearfix"></div>
                         </a>
                     </li>  
-                    <!-- <li>
-                    <a href="{{route('getVendor')}}">
-                            <div class="pull-left"><i class="ti-palette"></i><span
-                                    class="right-nav-text">Vendor</span></div>
+                     <li>
+                    <a href="{{route('services.index')}}">
+                            <div class="pull-left"style="font-size: 18px; "><i class="ti-palette" style="font-size: 18px; "></i><span
+                                    class="right-nav-text" >خدمات </span></div>
                             <div class="clearfix"></div>
                         </a>
-                    </li>  -->
+                    </li>  
                     <li>
                         <a href="{{route('admin.users.index')}}">
                             <div class="pull-left " style="font-size: 18px; "><i class="fa fa-user " style="font-size: 18px; font-weight: bold;"></i><span class="right-nav-text ">المستخدمين</span></div>

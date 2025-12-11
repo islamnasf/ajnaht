@@ -3,11 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    {{-- $data متغير شامل يُمثل إعدادات الموقع --}}
     <link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $data->name ?? 'رويال فيو' }} | فنادقنا الفاخرة</title>
+    <title>{{ $data->name ?? 'رويال فيو' }} | خدماتنا المميزة</title>
 
+    {{-- تضمين ملفات Bootstrap و الخطوط --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +58,6 @@
             color: #fff;
         }
 
-        /* --- Navbar & Buttons (بقي كما هو) --- */
         .navbar {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 0;
@@ -103,7 +104,7 @@
             width: 100%;
         }
 
-        /* --- Dropdown Styles (بقي كما هو) --- */
+        /* Dropdown Styles */
         .navbar-nav .dropdown-menu {
             border: none;
             border-radius: 10px;
@@ -162,7 +163,6 @@
             border-color: var(--primary-red);
         }
 
-        /* --- Hero Section (بقي كما هو) --- */
         .hero {
             position: relative;
             height: 35vh;
@@ -223,151 +223,97 @@
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-
-        /* ----------------------------------- */
-        /* --- START Vertical Hotel Card CSS --- */
-        /* ----------------------------------- */
-        .hotels-section {
+        .services-section {
             padding: var(--section-padding);
         }
 
-        /* حاوية البطاقة العمودية */
-        .hotel-item {
-            /* **تعديل 1: إزالة Flexbox للحصول على تخطيط عمودي (الطبيعي)** */
-            display: block;
+        /* تعديلات البطاقة لجعلها عمودية ومربعة */
+        .service-item {
+            display: block; /* لم تعد مرنة (Flex) */
             background-color: var(--card-bg);
-            border-radius: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 35px; /* شكل دائري/مربع أكثر وضوحاً */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             margin-bottom: 30px;
-            /* للتصميم العمودي، البطاقة ستأخذ عرض العمود الذي توجد فيه (col-lg-4) */
-            height: 100%; /* للتأكد من تساوي ارتفاع البطاقات في الصف */
+            min-height: 0; /* لإلغاء الارتفاع الأدنى الأفقي */
+            text-align: center; /* لمركزة المحتوى */
         }
 
-        .hotel-item:hover {
+        .service-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             border-color: var(--primary-red);
         }
 
-        .hotel-item .hotel-image-container {
-            /* **تعديل 2: تخصيص عرض الصورة ليناسب التخطيط العمودي** */
+        /* حاوية الصورة أصبحت تأخذ العرض بالكامل وارتفاع ثابت */
+        .service-item .service-image-container {
             width: 100%;
-            height: 350px; /* تحديد ارتفاع ثابت نسبيًا للصورة */
+            height: 300px; /* ارتفاع ثابت نسبيًا للحفاظ على الشكل المربع */
             position: relative;
             overflow: hidden;
-            flex-shrink: 0; /* لم يعد ضروريًا، ولكنه يبقى كإجراء وقائي */
+            flex-shrink: 0;
         }
 
-        .hotel-item .hotel-image {
+        .service-item .service-image {
             height: 100%;
             width: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             filter: brightness(0.95);
-            /* **تعديل 3: تطبيق الحواف الدائرية على الجزء العلوي فقط** */
-            border-radius: 12px 12px 0 0;
         }
 
-        .hotel-item:hover .hotel-image {
+        .service-item:hover .service-image {
             transform: scale(1.08);
             filter: brightness(1);
         }
-
-        .hotel-item .hotel-content {
-            padding: 25px;
-            color: var(--dark-text);
-            text-align: right;
-            /* **تعديل 4: إزالة تنسيقات Flexbox الخاصة بالهيكل الأفقي** */
-            flex-grow: 1;
-            display: flex; /* يبقى لترتيب الاسم والتفاصيل والأزرار عمودياً */
-            flex-direction: column;
-            justify-content: space-between;
+        
+        /* تعديلات حدود الصورة لتبدو مستديرة قليلاً في الأعلى */
+        .service-item .service-image {
+            border-radius: 15px 15px 0 0; 
         }
 
-        .hotel-item .hotel-content .hotel-name {
-            font-size: 1.8rem;
-            font-weight: 800;
+        /* محتوى الخدمة */
+        .service-item .service-content {
+            padding: 15px 20px;
+            color: var(--dark-text);
+            text-align: center; /* تعديل ليصبح المحتوى مركزًا */
+            display: block;
+        }
+
+        .service-item .service-content .service-name {
+            font-size: 1.3rem; /* حجم أصغر يناسب البطاقة الأصغر */
+            font-weight: 700;
             color: var(--dark-text);
             margin-bottom: 15px;
-            position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 0; /* إزالة البادينج السفلي */
+            position: static; /* إزالة الموقع المطلق */
         }
 
-        .hotel-item .hotel-content .hotel-name::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 50px;
-            height: 4px;
-            background: var(--primary-red);
-            border-radius: 2px;
+        /* إزالة خط التمييز تحت العنوان في التصميم الجديد */
+        .service-item .service-content .service-name::after {
+            content: none;
         }
 
-        .hotel-details {
-            display: flex;
-            flex-direction: column; /* **تعديل 5: عرض التفاصيل بشكل عمودي** */
-            flex-wrap: nowrap;
-            gap: 10px; /* تقليل المسافة العمودية */
-            margin-bottom: 20px;
-            padding-top: 5px;
+        /* تم إزالة p.text-secondary لأنه غير مطلوب في التصميم الجديد القصير */
+        /* .service-item .service-content p.text-secondary { display: none; } */
+
+        .service-details {
+            display: none; /* إزالة التفاصيل الإضافية */
         }
 
-        .hotel-details>span {
-            display: inline-flex;
-            align-items: center;
-            color: var(--dark-text);
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.3s;
+        .btn-luxury {
+            padding: 8px 20px; /* تصغير الزر */
+            font-size: 0.9rem;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
 
-        .hotel-details i,
-        .hotel-details .star-rating-icon {
-            color: var(--primary-red);
-            margin-left: 8px;
-            font-size: 1.25rem;
-        }
-
-        /* تنسيق النجوم */
-        .star-rating {
-            display: inline-flex;
-        }
-
-        .star-rating .bi-star-fill {
-            color: var(--gold);
-            margin-left: 2px !important;
-            font-size: 1rem;
-        }
-
-        .star-rating-label {
-            color: var(--text-light);
-            font-weight: 500;
-            margin-right: 8px;
-        }
-        
-        /* وصف الفندق في البطاقة العمودية */
-        .hotel-item .hotel-content p.text-secondary {
-            flex-grow: 1; /* للسماح للوصف بأخذ المساحة اللازمة */
-            margin-bottom: 20px;
-            line-height: 1.6;
-            color: var(--text-light) !important;
-        }
-
-        /* --- Hide/Show Button Style --- */
         #load-more-container {
             margin-top: 50px;
         }
 
-        /* ----------------------------------- */
-        /* --- End Vertical Hotel Card CSS --- */
-        /* ----------------------------------- */
-
-
-        /* --- Footer (بقي كما هو تقريباً) --- */
         .footer {
             background: #e9ecef;
             padding-top: 80px;
@@ -381,7 +327,8 @@
             color: var(--dark-text);
             font-weight: 700;
         }
-          .social-circle {
+
+        .social-circle {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -401,8 +348,6 @@
             box-shadow: 0 0 15px var(--primary-red);
         }
 
-
-        /* --- User Dropdown Style (للتسجيل) --- */
         .user-dropdown {
             position: relative;
             display: inline-block;
@@ -441,18 +386,7 @@
             cursor: pointer;
         }
 
-        /* -------------------------------------- */
-        /* --- Responsive Enhancements (Mobile) --- */
-        /* -------------------------------------- */
-
         @media (max-width: 992px) {
-            body {
-                margin: 0;
-            }
-            .hero-content .container {
-                padding-bottom: 30px;
-            }
-
             .hero {
                 height: 45vh;
                 min-height: 300px;
@@ -463,21 +397,8 @@
                 font-size: 3rem;
             }
 
-            /* في وضع العمودي، لا نحتاج لتعديلات كبيرة على التابلت والموبايل */
-            .hotel-item .hotel-image-container {
-                height: 220px; /* تعديل بسيط لارتفاع الصورة */
-            }
-            
-            .hotel-item .hotel-content {
-                padding: 20px;
-            }
-
-            .hotel-item .hotel-content .hotel-name {
-                font-size: 1.6rem;
-            }
-
-            .hotel-details>span {
-                font-size: 0.95rem;
+            .service-item .service-image-container {
+                height: 200px; /* حافظ على ارتفاع مناسب في الشاشات المتوسطة */
             }
         }
 
@@ -491,24 +412,18 @@
                 font-size: 2.2rem;
             }
 
-            .hotel-item .hotel-image-container {
-                height: 180px; /* ارتفاع أقل للموبايل */
+            .service-item .service-image-container {
+                height: 150px; /* تصغير الارتفاع في الشاشات الصغيرة */
             }
-
-            .hotel-item .hotel-content {
-                padding: 15px;
-            }
-
-            .hotel-item .hotel-content .hotel-name {
-                font-size: 1.4rem;
+            
+            .service-item .service-content .service-name {
+                font-size: 1.2rem;
             }
         }
-        /* -------------------------------------- */
     </style>
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
@@ -526,9 +441,8 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link " href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{{route('hotels')}}">الفنادق</a></li>
-                                                    <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">الخدمات</a></li>
-
+                    <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{route('services')}}">الخدمات</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
                     </li>
                     <li class="nav-item">
@@ -563,8 +477,6 @@
             </div>
         </div>
     </nav>
-
-    {{-- إضافة سكريبت القائمة المنسدلة للتوثيق --}}
     <script>
         const btn = document.getElementById('userBtn');
         const menu = document.getElementById('userMenu');
@@ -580,86 +492,50 @@
             });
         }
     </script>
-
-    {{-- --- Hero Section --- --}}
     <div class="hero">
         <div class="hero-bg" style="background-image: url('{{ asset($data->imageHeader ?? 'default-hero.jpg') }}');">
         </div>
         <div class="hero-overlay"></div>
         <div class="container hero-content">
-            <h1 class="hero-title"> <span class="d-block d-md-inline">الفنادق</span></h1>
+            <h1 class="hero-title"> <span class="d-block d-md-inline">خدماتنا</span></h1>
         </div>
     </div>
-
-
-    {{-- ------------------------------------------------ --}}
-    {{-- --- Hotels Section (Vertical Card + Load More) --- --}}
-    {{-- ------------------------------------------------ --}}
-    <section class="hotels-section" id="hotels">
+    <section class="services-section" id="services">
         <div class="container">
-            {{-- **التعديل هنا: استخدام col-lg-4 لعرض 3 بطاقات في الصف الواحد (تخطيط عمودي)** --}}
             <div class="row g-4 justify-content-center">
-                @foreach($hotels as $hotel)
-                {{-- **تطبيق الترتيب العمودي وإخفاء الفنادق من العنصر السابع فصاعداً (index 6)** --}}
-                <div class="col-lg-4 col-md-6 col-sm-10 hotel-wrapper" data-aos="fade-up" data-aos-delay="100"
+                @foreach($services as $service)
+                {{-- تم التغيير هنا: أصبح col-lg-3 col-md-4 col-sm-6 لـ 4 أعمدة في الشاشات الكبيرة --}}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 service-wrapper" data-aos="fade-up" data-aos-delay="100"
                     @if($loop->index >= 6) style="display: none;" @endif
-                    data-hotel-index="{{ $loop->index }}">
+                    data-service-index="{{ $loop->index }}">
 
-                    <div class="hotel-item">
-                        {{-- حاوية الصورة --}}
-                        <a href="{{ route('hotelDetails', $hotel->id)}}" class="d-block hotel-image-container">
-                            @if($hotel->image)
-                            <img src="{{ asset($hotel->image) }}" class="hotel-image" alt="{{ $hotel->name }}">
+                    <div class="service-item">
+                        <a href="{{ route('serviceDetails', $service->id)}}" class="d-block service-image-container">
+                            @if($service->image)
+                            <img src="{{ asset($service->image) }}" class="service-image" alt="{{ $service->name }}">
                             @else
-                            {{-- استخدام صورة Placeholder عند الحاجة --}}
-                            <img src="https://source.unsplash.com/600x400/?luxury,hotel,room,{{ $loop->index + 1 }}"
-                                class="hotel-image" alt="{{ $hotel->name }}">
+                            <img src="https://source.unsplash.com/600x400/?service,luxury,{{ $loop->index + 1 }}"
+                                class="service-image" alt="{{ $service->name }}">
                             @endif
                         </a>
-
-                        {{-- المحتوى والتفاصيل --}}
-                        <div class="hotel-content">
+                        <div class="service-content">
                             <div>
-                                <h3 class="hotel-name">{{ $hotel->name }}</h3>
-
-                                <div class="hotel-details">
-                                   
-                                    <span><i class="fas fa-bed"></i> غرف وأجنحة: {{ $hotel->rooms }}</span>
-                                    <span><i class="fas fa-couch"></i> عدد الأسرّة: {{ $hotel->beds }}</span>
-
-                                    {{-- عرض التصنيف بالنجوم --}}
-                                    <span>
-                                        <i class="star-rating-icon bi-star-fill"></i>
-                                        <span class="star-rating-label">التصنيف:</span>
-                                        <span class="star-rating">
-                                            @php
-                                            $rate = round($hotel->rate);
-                                            @endphp
-                                            {{-- عرض عدد النجوم المساوي للتقييم --}}
-                                            @for ($i = 0; $i < $rate; $i++)
-                                                <i class="bi bi-star-fill"></i>
-                                                @endfor
-                                        </span>
-                                    </span>
-                                </div>
-
+                                <h3 class="service-name">{{ $service->name }}</h3>
                             </div>
-
-                            <div class="d-flex justify-content-start mt-3">
-                                <a href="{{ route('hotelDetails', $hotel->id)}}" class="btn btn-luxury w-100">استكشف
-                                    الغرف <i class="fas fa-chevron-left me-1"></i></a>
+                            <div class="d-flex justify-content-center mt-2"> {{-- تم التعديل لمركزة الزر --}}
+                                <a href="{{ route('serviceDetails', $service->id)}}" class="btn btn-luxury w-auto">
+                                    اكتشف الخدمة <i class="fas fa-chevron-left me-1"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
-
-            {{-- زر عرض المزيد (يظهر فقط إذا كان عدد الفنادق أكبر من 6) --}}
-            @if(count($hotels) > 6)
+            @if(count($services) > 6)
             <div class="text-center mt-5" id="load-more-container">
                 <button class="btn btn-luxury" id="load-more-btn">
-                    عرض المزيد من الفنادق (<span id="hidden-count">{{ count($hotels) - 6 }}</span>)
+                    عرض المزيد من الخدمات (<span id="hidden-count">{{ count($services) - 6 }}</span>)
                     <i class="fas fa-chevron-down me-1"></i>
                 </button>
             </div>
@@ -667,13 +543,8 @@
         </div>
     </section>
 
-    {{-- تضمين الفوتر --}}
     @include('footer')
 
-    {{-- ------------------------------------------------ --}}
-    {{-- --- JavaScript for Load More Functionality --- --}}
-    {{-- ------------------------------------------------ --}}
-  
     <script>
         AOS.init({
             duration: 800,
@@ -681,65 +552,47 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // تحديد جميع أغلفة الفنادق
-            const hotelWrappers = document.querySelectorAll('.hotels-section .hotel-wrapper');
-            // تحديد زر العرض والمحتوى المتعلق به
+            const serviceWrappers = document.querySelectorAll('.services-section .service-wrapper');
             const loadMoreBtn = document.getElementById('load-more-btn');
             const loadMoreContainer = document.getElementById('load-more-container');
             const hiddenCountSpan = document.getElementById('hidden-count');
+            const visibleLimit = 8; // يفضل زيادة الحد المرئي ليناسب تخطيط 4 أعمدة (مثل 4 أو 8)
 
-            // عدد الفنادق التي يجب أن تكون مرئية افتراضيًا
-            const visibleLimit = 6;
-
-            // دالة لتنفيذ الرؤية الافتراضية
             function initializeVisibility() {
-                if (hotelWrappers.length > visibleLimit) {
+                if (serviceWrappers.length > visibleLimit) {
                     if (loadMoreContainer) {
                         loadMoreContainer.style.display = 'block';
                     }
-
-                    // إخفاء الفنادق بدءاً من العنصر السابع (index 6)
-                    for (let i = visibleLimit; i < hotelWrappers.length; i++) {
-                        hotelWrappers[i].style.display = 'none';
+                    for (let i = visibleLimit; i < serviceWrappers.length; i++) {
+                        serviceWrappers[i].style.display = 'none';
                     }
-
-                    // تحديث عداد الفنادق المخفية
                     if (hiddenCountSpan) {
-                        hiddenCountSpan.textContent = hotelWrappers.length - visibleLimit;
+                        hiddenCountSpan.textContent = serviceWrappers.length - visibleLimit;
                     }
                 } else if (loadMoreContainer) {
-                    // إخفاء الزر إذا لم يكن هناك فنادق إضافية
                     loadMoreContainer.style.display = 'none';
                 }
             }
-
-            // دالة لعرض جميع الفنادق المخفية
-            function loadAllHiddenHotels() {
-                for (let i = visibleLimit; i < hotelWrappers.length; i++) {
-                    if (hotelWrappers[i]) {
-                        // استخدام 'block' لجعله يظهر داخل نظام Grid
-                        hotelWrappers[i].style.display = 'block';
+            
+            // يتم تعديل هذه الدالة لتحميل جميع الخدمات المخفية دفعة واحدة.
+            function loadAllHiddenServices() {
+                for (let i = visibleLimit; i < serviceWrappers.length; i++) {
+                    if (serviceWrappers[i]) {
+                        serviceWrappers[i].style.display = 'block';
                     }
                 }
-
-                // إخفاء زر "عرض المزيد" بعد عرض جميع الفنادق
                 if (loadMoreContainer) {
                     loadMoreContainer.style.display = 'none';
                 }
-
-                // تحديث مكتبة AOS لتطبيق تأثير الظهور على العناصر الجديدة
                 AOS.refresh();
             }
 
-            // إعداد الرؤية عند تحميل الصفحة
             initializeVisibility();
 
-            // إضافة مستمع الحدث للزر
             if (loadMoreBtn) {
-                loadMoreBtn.addEventListener('click', loadAllHiddenHotels);
+                loadMoreBtn.addEventListener('click', loadAllHiddenServices);
             }
         });
     </script>
 </body>
-
 </html>

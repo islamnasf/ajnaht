@@ -318,6 +318,8 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">الخدمات</a></li>
+
                     <li class="nav-item"><a class="nav-link active" href="#">إنشاء حجز جديد</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
                     </li>
