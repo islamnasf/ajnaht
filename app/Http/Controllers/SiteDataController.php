@@ -35,7 +35,14 @@ class SiteDataController extends Controller
 
         return view('services', compact('data', 'services'));
     }
+ public function serviceSections($id)
+    {
+        $service = Service::where('id',$id)->with('sections')->first();
 
+        $data = SiteData::first(); // عرض أول عنصر فقط
+
+        return view('serviceSections', compact('data', 'service'));
+    }
     public function updateSiteData(Request $request)
     {
         // Validate

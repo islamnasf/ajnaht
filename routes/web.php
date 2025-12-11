@@ -30,7 +30,7 @@ Route::get('/blog/{id}', [SiteDataController::class, 'showPlog'])->name('blog.sh
 // مسار صفحة الخدمات
 Route::get('/services', [SiteDataController::class, 'services'])->name('services');
 // إذا كان لديك صفحة تفاصيل خدمة، أضف هذا المسار:
-Route::get('/services/{id}', [SiteDataController::class, 'serviceDetails'])->name('serviceDetails');
+Route::get('/services/{id}', [SiteDataController::class, 'serviceSections'])->name('serviceSectionsDetails');
 
 
 Route::middleware(['auth', 'verified', 'role:مسؤول'])

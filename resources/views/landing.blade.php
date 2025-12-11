@@ -1109,6 +1109,7 @@
             </div>
         </div>
     </section>
+
   <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 
 
@@ -1125,8 +1126,8 @@
                             <h2 class="fw-bold mb-4 display-6">{{ $service->name }}</h2>
                             
 
-                            <a href="#" class="btn btn-luxury px-4 py-2 rounded-pill">
-                                اعرف أكثر <i class="bi bi-arrow-left ms-2"></i>
+                            <a href="{{ route('serviceSectionsDetails',$service->id) }}" class="btn btn-luxury px-4 py-2 rounded-pill">
+                                اعرف أكثر <i class="bi bi-arrow-left ms-2 mt-3"></i>
                             </a>
                         </div>
                         
