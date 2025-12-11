@@ -531,7 +531,6 @@
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             {{-- عنوان الخدمة --}}
-            <h1 class="hero-title"> <span class="d-block d-md-inline">{{ $service->name ?? 'الخدمة غير متوفرة' }}</span></h1>
             {{-- زر العودة للخدمات --}}
             <a href="{{ route('services') }}" class="btn btn-luxury mt-3">
                 <i class="fas fa-chevron-right me-1"></i> العودة للخدمات
