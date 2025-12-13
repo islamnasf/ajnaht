@@ -14,12 +14,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-
 
     <style>
         :root {
@@ -41,7 +41,7 @@
             overflow-x: hidden;
         }
 
-        /* تخصيص شريط التمرير (بقي كما هو) */
+        /* تخصيص شريط التمرير */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -60,11 +60,14 @@
             color: #fff;
         }
 
+        /* ================================================= */
+        /* Navbar & Dropdown Styles */
+        /* ================================================= */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95); /* زيادة عتامة خفيفة */
             padding: 10px 0;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(10px); /* تقليل التمويه قليلاً */
+            -webkit-backdrop-filter: blur(10px);
             transition: all 0.4s ease;
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -102,30 +105,9 @@
             transition: width 0.3s;
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after { /* تفعيل الخط أسفل الرابط النشط */
             width: 100%;
-        }
-
-        /* Dropdown Styles */
-        .navbar-nav .dropdown-menu {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background-color: var(--card-bg);
-            padding: 0;
-        }
-
-        .navbar-nav .dropdown-item {
-            color: var(--dark-text);
-            padding: 10px 0px;
-            transition: background-color 0.2s, color 0.2s;
-            font-weight: 500;
-        }
-
-        .navbar-nav .dropdown-item:hover,
-        .navbar-nav .dropdown-item:active {
-            background-color: var(--primary-red);
-            color: white;
         }
 
         .btn-luxury {
@@ -165,34 +147,27 @@
             border-color: var(--primary-red);
         }
 
+        /* ================================================= */
+        /* Hero Section (Banner) */
+        /* ================================================= */
+
         .hero {
             position: relative;
             height: 45vh;
-            min-height: 350px;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
+            min-height: 300px;
+            overflow: hidden; /* لمنع ظهور جزء الصورة المكبرة خارج الحدود */
+            margin-top: 70px; /* لترك مساحة كافية للـ Navbar الثابت */
         }
 
-        .hero-bg {
+        .hero-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: url('{{ asset( $data->imageHeader ?? 'default-hero.jpg') }}') center/cover no-repeat;
-            z-index: -1;
+            height: 100%; /* استخدام 100% بدلاً من 95% ليغطي الـ Hero بالكامل */
+            object-fit: cover;
+            z-index: 0;
             animation: zoomBg 10s infinite alternate;
-        }
-
-        @keyframes zoomBg {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.1);
-            }
         }
 
         .hero-overlay {
@@ -201,95 +176,107 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
-            z-index: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.65) 100%);
+            z-index: 1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
             color: #ffffff;
-            font-size: 1.3rem;
-            text-align: right;
+            text-align: center;
+            padding: 0 15px;
         }
 
         .hero-title {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
-            line-height: 1.1;
-            text-transform: uppercase;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+            animation: float 4s ease-in-out infinite; /* تأثير الطفو البطيء */
         }
 
         .hero-title span {
-            color: var(--primary-red);
-            -webkit-text-stroke: 0;
+            color: var(--gold);
             text-shadow: none;
         }
-        
-        /* تنسيق قسم تفاصيل الخدمة */
+
+        @keyframes zoomBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* ================================================= */
+        /* Service Sections (section-block) */
+        /* ================================================= */
         .service-details-section {
-            padding: var(--section-padding);
-            padding-top: 40px;
+            padding: 60px 0 80px 0;
         }
 
         .service-details-section h2 {
-            font-weight: 700;
-            color: var(--dark-text); /* تم التغيير إلى اللون الداكن ليكون العنوان أكثر وضوحاً */
-            margin-bottom: 30px;
-            border-right: 5px solid var(--primary-red);
-            padding-right: 15px;
+            display: none;
         }
 
-        /* تنسيق الحاوية الرئيسية لتفاصيل الخدمة */
         .service-content-container {
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            margin-bottom: 50px;
-            border-top: 5px solid var(--primary-red);
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 0;
         }
 
-        .service-main-image {
-            width: 100%;
-            height: auto;
-            max-height: 350px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-
-        /* تنسيق أقسام الخدمة (Service Sections) - تحسين العرض */
         .section-block {
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             margin-bottom: 40px;
-            border: 1px solid rgba(0, 0, 0, 0.05); /* إضافة حدود خفيفة */
-            transition: all 0.3s ease;
-            background-color: var(--card-bg); /* تغيير الخلفية إلى الأبيض لجعلها بارزة داخل الحاوية */
+            border: none;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: var(--card-bg);
+            position: relative;
+            overflow: hidden;
+            z-index: 1; /* لضمان ظهور المحتوى فوق شريط الـ ::before */
         }
-        
-        /* تأثير عند التحويم */
+
+        .section-block::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: var(--primary-red);
+            transition: width 0.3s ease;
+            z-index: -1; /* خلف المحتوى */
+        }
+
+        .section-block:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
         .section-block:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
         }
 
         .section-block h3 {
-            color: var(--primary-red); /* تغيير لون العنوان للتركيز عليه */
+            color: var(--dark-text);
             font-weight: 700;
             margin-bottom: 20px;
             position: relative;
-            padding-right: 10px;
         }
-        
+
         .section-block h3 i {
-            color: var(--gold);
+            color: var(--primary-red);
             margin-left: 10px;
+            min-width: 25px; /* لتنظيم محاذاة النص */
         }
 
         .section-block h3::after {
@@ -297,41 +284,57 @@
             position: absolute;
             right: 0;
             bottom: -5px;
-            width: 70px;
+            width: 50px;
             height: 3px;
-            background-color: var(--gold);
+            background-color: var(--primary-red);
+            border-radius: 5px;
         }
 
 
         .section-block p {
             line-height: 1.8;
-            color: var(--dark-text); /* تغيير لون النص ليكون أكثر وضوحاً */
+            color: var(--dark-text);
             font-size: 1.05rem;
             white-space: pre-wrap;
         }
 
         .section-image {
             width: 100%;
-            height: 250px; 
+            height: 250px;
             object-fit: cover;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        /* تأثير عند التحويم على الصورة داخل البلوك */
-        .section-block:hover .section-image {
-            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            margin-bottom: 0;
+            transition: transform 0.4s ease-in-out;
         }
 
+        .section-block:hover .section-image {
+            transform: scale(1.03);
+            opacity: 0.95;
+        }
+
+        /* نمط في حال عدم وجود أقسام (معتمد على المقترحات) */
         .no-sections {
             text-align: center;
             padding: 50px;
-            border: 2px dashed #ccc;
+            border: 2px dashed var(--primary-red);
             border-radius: 10px;
-            color: var(--text-light);
-            background-color: var(--secondary-bg); /* تغيير الخلفية لتمييزها */
+            color: var(--primary-red);
+            background-color: var(--card-bg);
+            transition: all 0.3s;
+        }
+
+        .no-sections:hover {
+            box-shadow: 0 5px 20px rgba(198, 132, 47, 0.2);
+        }
+
+        .no-sections h4 {
+            color: var(--primary-red);
+            font-weight: 600;
+        }
+
+        .no-sections p {
+            color: var(--dark-text);
         }
 
 
@@ -379,10 +382,12 @@
             position: absolute;
             right: 0;
             background: #fff;
-            min-width: 150px;
+            min-width: 180px; /* زيادة العرض قليلاً */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             border-radius: 8px;
-            z-index: 999;
+            z-index: 1000; /* قيمة عالية لضمان الظهور فوق كل شيء */
+            top: 100%;
+            margin-top: 10px;
         }
 
         .user-dropdown .menu.show {
@@ -399,27 +404,42 @@
             background: transparent;
             text-decoration: none;
             color: #333;
+            font-weight: 500;
+            transition: background 0.2s;
         }
 
         .user-dropdown .menu a:hover,
         .user-dropdown .menu button:hover {
-            background: #f3f3f3;
+            background: var(--secondary-bg);
             cursor: pointer;
         }
+
+        /* ================================================= */
+        /* Media Queries (Responsive) */
+        /* ================================================= */
 
         @media (max-width: 992px) {
             .hero {
                 height: 35vh;
                 min-height: 250px;
-                align-items: flex-end;
+                margin-top: 66px;
             }
 
             .hero-title {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
-            /* تعديل مهم: لجعل الصورة تظهر دائماً فوق المحتوى في شاشات الجوال */
-            .section-block .row > div:first-child { 
-                order: -1;
+
+            /* في الأجهزة اللوحية (التبديل بين الأعمدة) */
+            .section-block .row>div:first-child {
+                order: initial !important; /* إلغاء ترتيب الجوال في هذه الشاشة */
+            }
+
+            .section-block .row>div:nth-child(2) {
+                order: initial !important;
+            }
+
+            .section-block::before {
+                width: 4px;
             }
         }
 
@@ -430,39 +450,41 @@
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            
+
             .service-details-section {
                 padding: 40px 0;
             }
 
-            .service-content-container {
-                padding: 20px;
-            }
-
             .section-block {
                 padding: 20px;
+                margin-bottom: 50px; /* زيادة المباعدة بين البلوكات في الجوال */
             }
-            
-            /* إلغاء ترتيب العناصر في الجوال للحفاظ على الترتيب الطبيعي (صورة ثم نص) */
-            .section-block .row > div {
-                order: initial !important; 
+
+            /* الجوال: الصورة تظهر أولاً دائماً فوق النص */
+            .section-block .row>div {
+                order: initial !important;
+            }
+
+            .section-image {
+                height: 200px; /* تصغير ارتفاع الصورة قليلاً في الجوال */
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 
 <body>
-    {{-- جزء الـ Navbar (تم نقله بالكامل) --}}
+    {{-- جزء الـ Navbar --}}
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;"
-                    alt="{{ $data->name ?? 'Royal View' }}">
+                    <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;"
+                        alt="{{ $data->name ?? 'Royal View' }}">
                 @else
-                <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
+                    <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
@@ -474,7 +496,9 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
                     {{-- تم تفعيل active على رابط الخدمات --}}
-                    <li class="nav-item"><a class="nav-link active" href="#">{{ $service->name ?? 'تفاصيل الخدمة ' }}</a>
+                    <li class="nav-item"><a class="nav-link active"
+                            href="#">{{ $service->name ?? 'تفاصيل الخدمة ' }}</a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
                     </li>
                     <li class="nav-item">
@@ -484,26 +508,26 @@
                     </li>
                 </ul>
                 @php
-                $user = auth()->user();
+                    $user = auth()->user();
                 @endphp
 
                 <div class="user-dropdown">
                     @guest
-                    <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                        التسجيل الآن
-                    </a>
+                        <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
+                            التسجيل الآن
+                        </a>
                     @endguest
 
                     @auth
-                    <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                        {{ auth()->user()->name }} ▾
-                    </button>
+                        <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
+                            {{ auth()->user()->name }} ▾
+                        </button>
 
-                    <div id="userMenu" class="menu">
-                        <form method="GET" action="{{ route('logout') }}">
-                            <button type="submit">تسجيل الخروج</button>
-                        </form>
-                    </div>
+                        <div id="userMenu" class="menu">
+                            <form method="GET" action="{{ route('logout') }}">
+                                <button type="submit">تسجيل الخروج</button>
+                            </form>
+                        </div>
                     @endauth
                 </div>
             </div>
@@ -514,25 +538,30 @@
         const menu = document.getElementById('userMenu');
 
         if (btn && menu) {
-            btn.addEventListener('click', function (e) {
+            btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 menu.classList.toggle('show');
             });
 
-            document.addEventListener('click', function () {
+            document.addEventListener('click', function() {
                 menu.classList.remove('show');
             });
         }
     </script>
 
+    {{-- جزء الـ Hero الجديد (بشكل Banner كامل) --}}
     <div class="hero">
-        <div class="hero-bg" >
-        </div>
+        <img src="{{ asset($service->image ?? 'default-hero.jpg') }}" alt="{{ $service->name ?? 'صورة خلفية الخدمة' }}"
+            class="hero-image">
+
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            {{-- عنوان الخدمة --}}
+        <div class="container hero-content d-flex flex-column justify-content-center align-items-center h-100">
+            {{-- عنوان الخدمة المركزي --}}
+            <h1 class="hero-title" data-aos="fade-down" data-aos-delay="200">
+                <i class="fas fa-gem me-2"></i> <span>{{ $service->name ?? 'تفاصيل الخدمة' }}</span>
+            </h1>
             {{-- زر العودة للخدمات --}}
-            <a href="{{ route('services') }}" class="btn btn-luxury mt-3">
+            <a href="{{ route('services') }}" class="btn btn-luxury mt-3" data-aos="zoom-in" data-aos-delay="400">
                 <i class="fas fa-chevron-right me-1"></i> العودة للخدمات
             </a>
         </div>
@@ -542,49 +571,49 @@
     {{-- قسم تفاصيل الخدمة وأقسامها (التعديلات هنا) --}}
     <section class="service-details-section">
         <div class="container">
-            <h2 class="text-right">  <i class="fas fa-magic text-warning me-2"></i> {{ $service->name ?? 'الخدمة' }}</h2>
-            
             <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    
-                    {{-- حاوية تفاصيل الخدمة الرئيسية --}}
-                    <div class="service-content-container" data-aos="fade-up">
-                        
-                        {{-- صورة الخدمة الرئيسية --}}
-                        <img src="{{ asset($service->image ?? 'default-service.jpg') }}" 
-                            class="service-main-image"
-                            alt="{{ $service->name ?? 'صورة الخدمة' }}">
+                <div class="col-lg-12">
 
-                        
+                    <div class="service-content-container">
+
                         {{-- عرض أقسام الخدمة --}}
                         @if($service->sections->isNotEmpty())
+                            @php
+                                // قائمة أيقونات فخمة للتناوب
+                                $icon_classes = ['fa-gem', 'fa-award', 'fa-crown', 'fa-fingerprint', 'fa-scroll', 'fa-leaf'];
+                            @endphp
                             @foreach($service->sections as $index => $section)
-                                {{-- يتم التبديل بين ترتيب الصورة والنص لعرض أجمل --}}
                                 @php
                                     $is_even = ($index + 1) % 2 == 0;
-                                    $content_order = $is_even ? 'order-md-1' : 'order-md-2'; // تبديل الترتيب
-                                    $image_order = $is_even ? 'order-md-2' : 'order-md-1'; // تبديل الترتيب
-                                    $icon_class = $is_even ? 'fa-check-circle' : 'fa-star';
+                                    // اختيار أيقونة بناءً على الفهرس
+                                    $icon_class = $icon_classes[$index % count($icon_classes)];
+
+                                    $content_cols = 'col-md-9';
+                                    $image_cols = 'col-md-3';
+                                    // التبديل في الترتيب الأفقي (لأجهزة سطح المكتب فقط)
+                                    $content_order = $is_even ? 'order-md-1' : 'order-md-2';
+                                    $image_order = $is_even ? 'order-md-2' : 'order-md-1';
                                 @endphp
 
                                 <div class="section-block" data-aos="fade-up" data-aos-delay="100">
                                     <div class="row align-items-center">
-                                        
-                                        {{-- جزء المحتوى (الذي سيتم تبديل مكانه) --}}
-                                        <div class="col-md-7 {{ $content_order }}">
+
+                                        {{-- جزء المحتوى --}}
+                                        <div class="{{ $content_cols }} {{ $content_order }}">
                                             {{-- عنوان القسم --}}
-                                            <h3><i class="fas {{ $icon_class }}"></i> {{ $section->title ?? 'قسم بدون عنوان' }}</h3>
+                                            <h3><i class="fas {{ $icon_class }}"></i>
+                                                {{ $section->title ?? 'قسم بدون عنوان' }}
+                                            </h3>
                                             {{-- محتوى القسم --}}
                                             <p>
                                                 {!! $section->contant ?? 'لا يوجد محتوى لهذا القسم.' !!}
                                             </p>
                                         </div>
 
-                                        {{-- جزء الصورة (الذي سيتم تبديل مكانه) --}}
-                                        <div class="col-md-5 {{ $image_order }}">
-                                            <img src="{{ asset($section->image ?? 'default-section-image.jpg') }}" 
-                                                class="section-image"
-                                                alt="{{ $section->title ?? 'صورة القسم' }}">
+                                        {{-- جزء الصورة --}}
+                                        <div class="col-12 col-md-3 {{ $image_order }} text-center">
+                                            <img src="{{ asset($section->image ?? 'default-section-image.jpg') }}"
+                                                class="section-image" alt="{{ $section->title ?? 'صورة القسم' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -593,13 +622,11 @@
                             <div class="no-sections" data-aos="fade-up">
                                 <i class="fas fa-info-circle fa-2x mb-3"></i>
                                 <h4>لا تتوفر أقسام مفصلة لهذه الخدمة حالياً.</h4>
-                                <p>نحن نعمل على إضافة المزيد من المحتوى قريباً.</p>
+                                <p>نحن نعمل على إضافة المزيد من المحتوى قريباً، شكراً لتفهمكم.</p>
                             </div>
                         @endif
 
                     </div>
-                    {{-- نهاية حاوية تفاصيل الخدمة الرئيسية --}}
-
                 </div>
             </div>
         </div>
@@ -612,6 +639,7 @@
     {{-- تضمين ملفات الجافاسكريبت --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
         AOS.init({
             duration: 800,
@@ -619,4 +647,5 @@
         });
     </script>
 </body>
+
 </html>
