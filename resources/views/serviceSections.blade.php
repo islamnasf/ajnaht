@@ -363,7 +363,7 @@
 
         .section-image {
             width: 100%;
-            height: 280px;
+            height: 380px;
             /* زيادة ارتفاع الصورة قليلاً */
             object-fit: cover;
             border-radius: 12px;
