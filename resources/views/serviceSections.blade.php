@@ -3,14 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    {{-- $data متغير شامل يُمثل إعدادات الموقع --}}
     <link rel="icon" type="image/png" href="{{ asset($data->logo) }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {{-- هنا نستخدم اسم الخدمة في عنوان الصفحة --}}
     <title>{{ $data->name ?? 'رويال فيو' }} | {{ $service->name ?? 'تفاصيل الخدمة' }}</title>
 
-    {{-- تضمين ملفات Bootstrap و الخطوط --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,9 +21,12 @@
     <style>
         :root {
             --primary-red: #c6842f;
-            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
+            /* اللون الأساسي: ذهبي/نحاسي */
+            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #a86c23 100%);
             --gold: #D4AF37;
-            --light-bg: #f8f8f8;
+            /* لون الذهب الصريح */
+            --light-bg: #f5f5f5;
+            /* خلفية خفيفة جداً */
             --dark-text: #2c3e50;
             --card-bg: #ffffff;
             --text-light: #7f8c8d;
@@ -64,9 +64,9 @@
         /* Navbar & Dropdown Styles */
         /* ================================================= */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95); /* زيادة عتامة خفيفة */
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 10px 0;
-            backdrop-filter: blur(10px); /* تقليل التمويه قليلاً */
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             transition: all 0.4s ease;
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -106,7 +106,7 @@
         }
 
         .nav-link:hover::after,
-        .nav-link.active::after { /* تفعيل الخط أسفل الرابط النشط */
+        .nav-link.active::after {
             width: 100%;
         }
 
@@ -147,16 +147,58 @@
             border-color: var(--primary-red);
         }
 
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-dropdown .menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: #fff;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            z-index: 1000;
+            top: 100%;
+            margin-top: 10px;
+        }
+
+        .user-dropdown .menu.show {
+            display: block;
+        }
+
+        .user-dropdown .menu a,
+        .user-dropdown .menu button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            text-align: right;
+            border: none;
+            background: transparent;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .user-dropdown .menu a:hover,
+        .user-dropdown .menu button:hover {
+            background: var(--secondary-bg);
+            cursor: pointer;
+        }
+
         /* ================================================= */
-        /* Hero Section (Banner) */
+        /* Hero Section (Banner) - تحسينات بسيطة */
         /* ================================================= */
 
         .hero {
             position: relative;
             height: 45vh;
             min-height: 300px;
-            overflow: hidden; /* لمنع ظهور جزء الصورة المكبرة خارج الحدود */
-            margin-top: 70px; /* لترك مساحة كافية للـ Navbar الثابت */
+            overflow: hidden;
+            margin-top: 70px;
         }
 
         .hero-image {
@@ -164,7 +206,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%; /* استخدام 100% بدلاً من 95% ليغطي الـ Hero بالكامل */
+            height: 100%;
             object-fit: cover;
             z-index: 0;
             animation: zoomBg 10s infinite alternate;
@@ -176,7 +218,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.65) 100%);
+            /* تدرج لوني يعزز الإحساس بالفخامة */
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%);
             z-index: 1;
         }
 
@@ -194,126 +237,151 @@
             line-height: 1.2;
             margin-bottom: 20px;
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-            animation: float 4s ease-in-out infinite; /* تأثير الطفو البطيء */
+            animation: float 4s ease-in-out infinite;
         }
 
         .hero-title span {
             color: var(--gold);
-            text-shadow: none;
+            /* إبراز اسم الخدمة باللون الذهبي */
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
         }
 
         @keyframes zoomBg {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
         }
 
         /* ================================================= */
-        /* Service Sections (section-block) */
+        /* Service Sections (section-block) - التحسينات الرئيسية */
         /* ================================================= */
         .service-details-section {
             padding: 60px 0 80px 0;
-        }
-
-        .service-details-section h2 {
-            display: none;
-        }
-
-        .service-content-container {
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-            margin-bottom: 0;
         }
 
         .section-block {
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin-bottom: 40px;
-            border: none;
+            margin-bottom: 50px;
+            /* زيادة التباعد بين الأقسام */
+            border: 1px solid rgba(198, 132, 47, 0.2);
+            /* حدود ذهبية خفيفة */
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             background-color: var(--card-bg);
             position: relative;
             overflow: hidden;
-            z-index: 1; /* لضمان ظهور المحتوى فوق شريط الـ ::before */
+            z-index: 1;
         }
 
+        /* تفعيل شريط الألوان عند التفاعل فقط */
         .section-block::before {
             content: '';
             position: absolute;
             right: 0;
             top: 0;
             bottom: 0;
-            width: 8px;
-            background: var(--primary-red);
+            width: 0px;
+            /* يبدأ من 0 */
+            background: var(--primary-gradient);
             transition: width 0.3s ease;
-            z-index: -1; /* خلف المحتوى */
+            z-index: -1;
+            opacity: 0.1;
         }
 
         .section-block:hover::before {
             width: 100%;
-            opacity: 0.05;
+            /* يتوسع إلى 100% عند التمرير */
+            opacity: 0.07;
         }
 
         .section-block:hover {
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            transform: translateY(-5px);
+            transform: translateY(-7px);
+            /* زيادة تأثير التحليق */
+            border-color: var(--primary-red);
         }
 
         .section-block h3 {
             color: var(--dark-text);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            /* زيادة التباعد */
             position: relative;
+            padding-bottom: 10px;
         }
 
         .section-block h3 i {
             color: var(--primary-red);
             margin-left: 10px;
-            min-width: 25px; /* لتنظيم محاذاة النص */
+            min-width: 25px;
         }
 
+        /* شريط تزيني أسفل العنوان */
         .section-block h3::after {
             content: '';
             position: absolute;
             right: 0;
-            bottom: -5px;
-            width: 50px;
-            height: 3px;
-            background-color: var(--primary-red);
+            bottom: 0;
+            width: 80px;
+            /* أطول قليلاً */
+            height: 4px;
+            /* أسمك قليلاً */
+            background: var(--primary-gradient);
+            /* تدرج لوني */
             border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
 
         .section-block p {
             line-height: 1.8;
-            color: var(--dark-text);
+            color: #555;
+            /* لون نص أغمق لقراءة أوضح */
             font-size: 1.05rem;
             white-space: pre-wrap;
+            margin-bottom: 0;
         }
 
         .section-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
+            /* زيادة ارتفاع الصورة قليلاً */
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            margin-bottom: 0;
-            transition: transform 0.4s ease-in-out;
+            border-radius: 12px;
+            /* زيادة استدارة الحواف */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 3px solid var(--primary-red);
+            /* حدود واضحة */
+            transition: all 0.5s ease-in-out;
         }
 
         .section-block:hover .section-image {
-            transform: scale(1.03);
-            opacity: 0.95;
+            transform: scale(1.05) rotateZ(1deg);
+            /* تأثير دوران خفيف مع التكبير */
+            opacity: 1;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
         }
 
-        /* نمط في حال عدم وجود أقسام (معتمد على المقترحات) */
+        /* نمط في حال عدم وجود أقسام */
         .no-sections {
             text-align: center;
             padding: 50px;
@@ -372,53 +440,32 @@
             box-shadow: 0 0 15px var(--primary-red);
         }
 
-        .user-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .user-dropdown .menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            background: #fff;
-            min-width: 180px; /* زيادة العرض قليلاً */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border-radius: 8px;
-            z-index: 1000; /* قيمة عالية لضمان الظهور فوق كل شيء */
-            top: 100%;
-            margin-top: 10px;
-        }
-
-        .user-dropdown .menu.show {
-            display: block;
-        }
-
-        .user-dropdown .menu a,
-        .user-dropdown .menu button {
-            display: block;
-            width: 100%;
-            padding: 10px 15px;
-            text-align: right;
-            border: none;
-            background: transparent;
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-
-        .user-dropdown .menu a:hover,
-        .user-dropdown .menu button:hover {
-            background: var(--secondary-bg);
-            cursor: pointer;
-        }
-
         /* ================================================= */
-        /* Media Queries (Responsive) */
+        /* Media Queries (Responsive) - تعديل ترتيب الأقسام */
         /* ================================================= */
 
-        @media (max-width: 992px) {
+        @media (min-width: 992px) {
+
+            /* تعديل توزيع الأعمدة ليتناسب مع تصميم الصورة الجانبية */
+            .content-lg-9 {
+                width: 75%;
+            }
+
+            .image-lg-3 {
+                width: 25%;
+            }
+
+            /* الحفاظ على التناوب الأفقي في الشاشات الكبيرة */
+            .section-block .order-md-1 {
+                order: 1;
+            }
+
+            .section-block .order-md-2 {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 991.98px) {
             .hero {
                 height: 35vh;
                 min-height: 250px;
@@ -429,21 +476,18 @@
                 font-size: 2.5rem;
             }
 
-            /* في الأجهزة اللوحية (التبديل بين الأعمدة) */
-            .section-block .row>div:first-child {
-                order: initial !important; /* إلغاء ترتيب الجوال في هذه الشاشة */
-            }
-
-            .section-block .row>div:nth-child(2) {
+            /* في الشاشات الصغيرة، يجب أن تظهر الصورة أولاً ثم النص */
+            .section-block .row>div {
                 order: initial !important;
+                /* إلغاء الترتيب لضمان ظهور الصورة أولاً */
             }
 
-            .section-block::before {
-                width: 4px;
+            .section-image {
+                margin-bottom: 20px;
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 767.98px) {
             .hero {
                 height: 30vh;
                 min-height: 200px;
@@ -459,35 +503,30 @@
 
             .section-block {
                 padding: 20px;
-                margin-bottom: 50px; /* زيادة المباعدة بين البلوكات في الجوال */
-            }
-
-            /* الجوال: الصورة تظهر أولاً دائماً فوق النص */
-            .section-block .row>div {
-                order: initial !important;
+                margin-bottom: 30px;
             }
 
             .section-image {
-                height: 200px; /* تصغير ارتفاع الصورة قليلاً في الجوال */
-                margin-bottom: 20px;
+                height: 200px;
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 
 <body>
-    {{-- جزء الـ Navbar --}}
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                    <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;"
-                        alt="{{ $data->name ?? 'Royal View' }}">
+                <img src="{{ asset($data->logo) }}" width="190" style="border-radius: 5px;"
+                    alt="{{ $data->name ?? 'Royal View' }}">
                 @else
-                    <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
+                <i class="fas fa-crown text-danger"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="mainNav">
@@ -495,7 +534,6 @@
                     <li class="nav-item"><a class="nav-link " href="{{ route('website') }}">الرئيسية</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
-                    {{-- تم تفعيل active على رابط الخدمات --}}
                     <li class="nav-item"><a class="nav-link active"
                             href="#">{{ $service->name ?? 'تفاصيل الخدمة ' }}</a>
                     </li>
@@ -508,26 +546,27 @@
                     </li>
                 </ul>
                 @php
-                    $user = auth()->user();
+                $user = auth()->user();
                 @endphp
 
                 <div class="user-dropdown">
                     @guest
-                        <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                            التسجيل الآن
-                        </a>
+                    <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
+                        التسجيل الآن
+                    </a>
                     @endguest
 
                     @auth
-                        <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                            {{ auth()->user()->name }} ▾
-                        </button>
+                    <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
+                        {{ auth()->user()->name }} ▾
+                    </button>
 
-                        <div id="userMenu" class="menu">
-                            <form method="GET" action="{{ route('logout') }}">
-                                <button type="submit">تسجيل الخروج</button>
-                            </form>
-                        </div>
+                    <div id="userMenu" class="menu">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf 
+                            <button type="submit">تسجيل الخروج</button>
+                        </form>
+                    </div>
                     @endauth
                 </div>
             </div>
@@ -549,26 +588,21 @@
         }
     </script>
 
-    {{-- جزء الـ Hero الجديد (بشكل Banner كامل) --}}
     <div class="hero">
         <img src="{{ asset($service->image ?? 'default-hero.jpg') }}" alt="{{ $service->name ?? 'صورة خلفية الخدمة' }}"
             class="hero-image">
 
         <div class="hero-overlay"></div>
         <div class="container hero-content d-flex flex-column justify-content-center align-items-center h-100">
-            {{-- عنوان الخدمة المركزي --}}
             <h1 class="hero-title" data-aos="fade-down" data-aos-delay="200">
                 <i class="fas fa-gem me-2"></i> <span>{{ $service->name ?? 'تفاصيل الخدمة' }}</span>
             </h1>
-            {{-- زر العودة للخدمات --}}
             <a href="{{ route('services') }}" class="btn btn-luxury mt-3" data-aos="zoom-in" data-aos-delay="400">
                 <i class="fas fa-chevron-right me-1"></i> العودة للخدمات
             </a>
         </div>
     </div>
-    {{-- نهاية جزء الـ Hero --}}
 
-    {{-- قسم تفاصيل الخدمة وأقسامها (التعديلات هنا) --}}
     <section class="service-details-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -576,54 +610,50 @@
 
                     <div class="service-content-container">
 
-                        {{-- عرض أقسام الخدمة --}}
-                        @if($service->sections->isNotEmpty())
-                            @php
-                                // قائمة أيقونات فخمة للتناوب
-                                $icon_classes = ['fa-gem', 'fa-award', 'fa-crown', 'fa-fingerprint', 'fa-scroll', 'fa-leaf'];
-                            @endphp
-                            @foreach($service->sections as $index => $section)
-                                @php
-                                    $is_even = ($index + 1) % 2 == 0;
-                                    // اختيار أيقونة بناءً على الفهرس
-                                    $icon_class = $icon_classes[$index % count($icon_classes)];
+                        @if(isset($service) && $service->sections->isNotEmpty())
+                        @php
+                        // قائمة أيقونات فخمة للتناوب
+                        $icon_classes = ['fa-gem', 'fa-award', 'fa-crown', 'fa-fingerprint', 'fa-scroll', 'fa-leaf', 'fa-chess-king', 'fa-star'];
+                        @endphp
+                        @foreach($service->sections as $index => $section)
+                        @php
+                        $is_even = ($index + 1) % 2 == 0;
+                        // اختيار أيقونة بناءً على الفهرس
+                        $icon_class = $icon_classes[$index % count($icon_classes)];
 
-                                    $content_cols = 'col-md-9';
-                                    $image_cols = 'col-md-3';
-                                    // التبديل في الترتيب الأفقي (لأجهزة سطح المكتب فقط)
-                                    $content_order = $is_even ? 'order-md-1' : 'order-md-2';
-                                    $image_order = $is_even ? 'order-md-2' : 'order-md-1';
-                                @endphp
+                        // تحديث توزيع الأعمدة وتناوب الترتيب لأجهزة سطح المكتب
+                        $content_cols = 'col-md-7 content-lg-7';
+                        $image_cols = 'col-md-5 image-lg-5';
+                        $content_order = $is_even ? 'order-md-1' : 'order-md-2';
+                        $image_order = $is_even ? 'order-md-2' : 'order-md-1';
+                        @endphp
 
-                                <div class="section-block" data-aos="fade-up" data-aos-delay="100">
-                                    <div class="row align-items-center">
+                        <div class="section-block" data-aos="fade-up" data-aos-delay="100">
+                            <div class="row align-items-center">
 
-                                        {{-- جزء المحتوى --}}
-                                        <div class="{{ $content_cols }} {{ $content_order }}">
-                                            {{-- عنوان القسم --}}
-                                            <h3><i class="fas {{ $icon_class }}"></i>
-                                                {{ $section->title ?? 'قسم بدون عنوان' }}
-                                            </h3>
-                                            {{-- محتوى القسم --}}
-                                            <p>
-                                                {!! $section->contant ?? 'لا يوجد محتوى لهذا القسم.' !!}
-                                            </p>
-                                        </div>
-
-                                        {{-- جزء الصورة --}}
-                                        <div class="col-12 col-md-3 {{ $image_order }} text-center">
-                                            <img src="{{ asset($section->image ?? 'default-section-image.jpg') }}"
-                                                class="section-image" alt="{{ $section->title ?? 'صورة القسم' }}">
-                                        </div>
-                                    </div>
+                                <div class="col-12 {{ $image_cols }} {{ $image_order }} text-center">
+                                    <img src="{{ asset($section->image ?? 'default-section-image.jpg') }}"
+                                        class="section-image" alt="{{ $section->title ?? 'صورة القسم' }}">
                                 </div>
-                            @endforeach
-                        @else
-                            <div class="no-sections" data-aos="fade-up">
-                                <i class="fas fa-info-circle fa-2x mb-3"></i>
-                                <h4>لا تتوفر أقسام مفصلة لهذه الخدمة حالياً.</h4>
-                                <p>نحن نعمل على إضافة المزيد من المحتوى قريباً، شكراً لتفهمكم.</p>
+
+                                <div class="col-12 {{ $content_cols }} {{ $content_order }}">
+                                    <h3><i class="fas {{ $icon_class }}"></i>
+                                        {{ $section->title ?? 'قسم بدون عنوان' }}
+                                    </h3>
+                                    <p>
+                                        {!! $section->contant ?? 'لا يوجد محتوى لهذا القسم.' !!}
+                                    </p>
+                                </div>
+
                             </div>
+                        </div>
+                        @endforeach
+                        @else
+                        <div class="no-sections" data-aos="fade-up">
+                            <i class="fas fa-info-circle fa-2x mb-3"></i>
+                            <h4>لا تتوفر أقسام مفصلة لهذه الخدمة حالياً.</h4>
+                            <p>نحن نعمل على إضافة المزيد من المحتوى قريباً، شكراً لتفهمكم.</p>
+                        </div>
                         @endif
 
                     </div>
@@ -631,15 +661,10 @@
             </div>
         </div>
     </section>
-    {{-- نهاية قسم تفاصيل الخدمة --}}
 
-    {{-- تضمين الـ Footer --}}
     @include('footer')
 
-    {{-- تضمين ملفات الجافاسكريبت --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+  
     <script>
         AOS.init({
             duration: 800,
