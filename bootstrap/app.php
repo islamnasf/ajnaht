@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RedirectIfProjectExists;
 use App\Http\Middleware\RoleCheck;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,9 +14,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-          $middleware->alias([
-        'role' => RoleCheck::class,
-    ]);
+        $middleware->alias([
+            'role' => RoleCheck::class,
+            // 'project.exists' => RedirectIfProjectExists::class,
+            
+
+        ]);
+            $middleware->append(RedirectIfProjectExists::class);
+
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

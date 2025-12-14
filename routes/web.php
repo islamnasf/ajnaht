@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -26,8 +27,16 @@ Route::post('/reservations/user/store', [SiteDataController::class, 'storeReserv
 Route::get('/searchOldReser', action: [SiteDataController::class, 'searchOldReser'])->name('searchOldReser');
 Route::get('/blogs', action: [SiteDataController::class, 'blogs'])->name('blogs');
 Route::get('/blog/{id}', [SiteDataController::class, 'showPlog'])->name('blog.show');
+Route::get('/projectStatus', [ProjectController::class, 'projectStatus'])->name('projectStatus.show');
+Route::get('/user/store/{status}', [ProjectController::class, 'handleStatusOnly'])->name('handleStatusOnly.store.user');
+
+
+
 //
 // مسار صفحة الخدمات
+
+
+
 Route::get('/services', [SiteDataController::class, 'services'])->name('services');
 // إذا كان لديك صفحة تفاصيل خدمة، أضف هذا المسار:
 Route::get('/services/{id}', [SiteDataController::class, 'serviceSections'])->name('serviceSectionsDetails');
