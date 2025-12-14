@@ -604,9 +604,8 @@
     </div>
 
     <section class="service-details-section">
-        <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-12">
+                <div class="col-lg-11">
 
                     <div class="service-content-container">
 
@@ -659,7 +658,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     @include('footer')
