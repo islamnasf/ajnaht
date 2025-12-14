@@ -243,7 +243,7 @@
         .hero-title span {
             color: var(--gold);
             /* إبراز اسم الخدمة باللون الذهبي */
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
         @keyframes zoomBg {
@@ -363,7 +363,7 @@
 
         .section-image {
             width: 100%;
-            height: 380px;
+            height: 500px;
             /* زيادة ارتفاع الصورة قليلاً */
             object-fit: cover;
             border-radius: 12px;
@@ -604,8 +604,8 @@
     </div>
 
     <section class="service-details-section">
-            <div class="row justify-content-center">
-                <div class="col-lg-11">
+            <div class="justify-content-center">
+                <div class="col-lg-12">
 
                     <div class="service-content-container">
 
