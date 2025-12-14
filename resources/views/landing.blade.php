@@ -631,7 +631,7 @@
             height: 12px;
             border-radius: 50%;
             margin: 0 6px;
-            background-color: rgba(198, 132, 47, 0.3);
+            background-color: var(--gold);
             border: none;
             transition: all 0.3s ease;
         }
@@ -644,14 +644,13 @@
         /* أزرار التحكم في الكاروسيل */
         .services-carousel .carousel-control-prev,
         .services-carousel .carousel-control-next {
-            width: 55px;
-            height: 55px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid var(--primary-red);
+            width: 35px;
+            height: 35px;
+            background:var(--primary-red) ;
             border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
-            opacity: 0.8;
+            opacity: 1;
             transition: all 0.3s ease;
         }
 
@@ -664,7 +663,7 @@
         .services-carousel .carousel-control-prev-icon,
         .services-carousel .carousel-control-next-icon {
             background-size: 60%;
-            filter: invert(45%) sepia(85%) saturate(500%) hue-rotate(360deg);
+            /* filter: invert(45%) sepia(85%) saturate(500%) hue-rotate(360deg); */
         }
 
         .services-carousel .carousel-control-prev:hover .carousel-control-prev-icon,

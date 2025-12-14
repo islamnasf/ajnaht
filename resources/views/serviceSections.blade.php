@@ -274,7 +274,7 @@
         /* Service Sections (section-block) - التحسينات الرئيسية */
         /* ================================================= */
         .service-details-section {
-            padding: 60px 0 80px 0;
+            padding: 5px 100px;
         }
 
         .section-block {
