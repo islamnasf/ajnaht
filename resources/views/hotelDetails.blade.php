@@ -12,20 +12,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {{-- مكتبة Date Range Picker CSS --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.css">
+    {{-- مكتبة Swiper للسلادير --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
         :root {
             --primary-red: #c6842f;
-            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #c6842f 100%);
+            --primary-gradient: linear-gradient(135deg, #c6842f 0%, #a0661b 100%);
             --gold: #D4AF37;
-            --light-bg: #f5f5f5;
+            --light-bg: #f8f9fa;
             --dark-text: #1a1a1a;
             --card-bg: #ffffff;
             --text-light: #6c757d;
@@ -41,33 +41,11 @@
             padding-top: 80px;
         }
 
-        /* --- Scrollbar and Selection --- */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e9ecef;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-red);
-            border-radius: 5px;
-        }
-
-        ::selection {
-            background: var(--primary-red);
-            color: #fff;
-        }
-
-        /* --- Navbar Styles --- */
+        /* --- Navbar Styles (كما هي) --- */
         .navbar {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.98);
             padding: 15px 0;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
             z-index: 1050;
         }
 
@@ -75,121 +53,265 @@
             font-weight: 800;
             color: var(--dark-text) !important;
             font-size: 1.7rem;
-            letter-spacing: 0.5px;
         }
 
         .nav-link {
             color: var(--dark-text) !important;
             font-weight: 500;
             margin: 0 12px;
-            padding: 8px 0;
             transition: color 0.3s;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
+        .nav-link:hover, .nav-link.active {
             color: var(--primary-red) !important;
-        }
-
-        .nav-link::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 3px;
-            background-color: var(--primary-red);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
         }
 
         /* --- Luxury Button --- */
         .btn-luxury {
             background: var(--primary-gradient);
             color: #fff;
-            border: 1px solid var(--primary-red);
-            padding: 10px 30px;
-            border-radius: 30px;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
             font-weight: 600;
-            letter-spacing: 0.5px;
             transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .btn-luxury::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background: var(--light-bg);
-            z-index: -1;
-            transition: all 0.4s ease;
-            transform: skewX(-30deg);
-        }
-
-        .btn-luxury:hover::before {
-            width: 150%;
-            left: -20%;
-        }
-
-        .btn-luxury:hover {
-            color: var(--primary-red);
-            border-color: var(--primary-red);
             box-shadow: 0 4px 15px rgba(198, 132, 47, 0.3);
         }
 
-        /* User Dropdown Custom Styles */
-        .user-dropdown {
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(198, 132, 47, 0.4);
+            color: #fff;
+        }
+
+        /* --- New Modern Hero Slider --- */
+        .hero-section {
             position: relative;
-            display: inline-block;
+            height: 80vh; /* ارتفاع السلايدر */
+            min-height: 500px;
+            max-height: 700px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 30px;
         }
 
-        .user-dropdown .menu {
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            position: relative;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .swiper-slide::before {
+            content: '';
             position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            min-width: 150px;
-            padding: 10px;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%);
+            z-index: 1;
         }
 
-        .user-dropdown .menu.show {
+        .hero-content {
+            position: absolute;
+            bottom: 60px;
+            right: 8%;
+            z-index: 2;
+            color: white;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .swiper-slide-active .hero-content {
             opacity: 1;
-            visibility: visible;
             transform: translateY(0);
         }
 
-        .user-dropdown .menu button {
-            width: 100%;
-            padding: 8px 15px;
-            background: none;
-            border: none;
-            text-align: right;
-            color: var(--dark-text);
-            font-weight: 500;
-            border-radius: 5px;
-            transition: background-color 0.2s, color 0.2s;
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .user-dropdown .menu button:hover {
-            background-color: var(--primary-red);
+        .hero-location {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .swiper-button-next, .swiper-button-prev {
             color: white;
+            background: rgba(0,0,0,0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
         }
 
-        /* --- Footer Styles --- */
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: var(--primary-red);
+        }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--primary-red);
+        }
+
+        /* --- Modern Room Cards --- */
+        .room-card-modern {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .room-card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .room-header {
+            background: var(--light-bg);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .room-header h5 {
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .room-features {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0;
+            color: var(--text-light);
+        }
+
+        .room-feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+        .room-feature-item i {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary-red);
+        }
+
+        .room-price-box {
+            background: #fff;
+            padding: 20px;
+            border-top: 1px dashed #eee;
+            margin-top: auto;
+        }
+
+        .price-display {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary-red);
+        }
+
+        .price-period {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* --- Booking Form Card --- */
+        .booking-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary-red);
+            position: sticky;
+            top: 100px;
+        }
+
+        /* --- Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '\f00e';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        .gallery-item::before {
+             content: '';
+             position: absolute;
+             top:0; left:0; right:0; bottom:0;
+             background: rgba(0,0,0,0.3);
+             opacity: 0;
+             transition: opacity 0.3s;
+             z-index: 1;
+        }
+        .gallery-item:hover::before { opacity: 1; }
+
+
+        /* Footer Adjustment */
+   /* --- Footer (بقي كما هو تقريباً) --- */
         .footer {
             background: #e9ecef;
             padding-top: 80px;
@@ -203,8 +325,7 @@
             color: var(--dark-text);
             font-weight: 700;
         }
-
-        .social-circle {
+          .social-circle {
             width: 45px;
             height: 45px;
             border-radius: 50%;
@@ -224,368 +345,13 @@
             box-shadow: 0 0 15px var(--primary-red);
         }
 
-        /* --- Hotel Details Custom Styles --- */
-        .hotel-details-section {
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
 
-        /* ******* Hero Image ******* */
-        .hotel-hero {
-            position: relative;
-            height: 100%;
-            min-height: 450px;
-            max-height: 750px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .hotel-image-full {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .hotel-hero:hover .hotel-image-full {
-            transform: scale(1.03);
-        }
-
-        .hotel-info-overlay {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            padding: 30px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 100%);
-            color: white;
-            z-index: 5;
-        }
-
-        .hotel-info-overlay h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hotel-info-overlay .location {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .hotel-info-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            border-top: 5px solid var(--primary-red);
-            height: 100%;
-            position: relative;
-            z-index: 10;
-        }
-
-        .feature-box {
-            background-color: var(--light-bg);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid #dee2e6;
-            transition: all 0.3s;
-        }
-
-        .feature-box i {
-            font-size: 2rem;
-            color: var(--primary-red);
-            margin-bottom: 10px;
-        }
-
-        .feature-box h5 {
-            font-weight: 700;
-            margin-bottom: 0;
-            color: var(--secondary-color);
-        }
-
-        .rating .fa-star {
-            color: var(--gold);
-            font-size: 1.2rem;
-        }
-
-        /* Rooms and Prices Section */
-        .rooms-prices {
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
-
-        .section-heading {
-            color: var(--primary-red);
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .price-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #e9ecef;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .price-card h4 {
-            color: var(--primary-red);
-            font-weight: 600;
-        }
-
-        .price-card .price-tag {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #28a745;
-        }
-
-        .price-card .availability {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-
-        .price-card .btn-dark {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            transition: 0.3s;
-            margin-top: auto;
-            font-weight: 600;
-        }
-
-        .price-card .btn-dark:hover {
-            background-color: var(--primary-red);
-            border-color: var(--primary-red);
-        }
-
-        /* Gallery Section */
-        .gallery-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .gallery-img:hover {
-            transform: scale(0.98);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
-            opacity: 0.8;
-        }
-
-        /* Lightbox Modal Custom Style */
-        .modal-content {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-        }
-
-        .modal-backdrop.show {
-            opacity: 0.9;
-            background-color: rgba(0, 0, 0, 0.9);
-        }
-
-        .lightbox-img {
-            width: 100%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        .modal-header .btn-close {
-            filter: invert(1);
-            opacity: 1;
-        }
-
-        /* Date Range Picker Styles */
-        .daterangepicker {
-            font-family: "IBM Plex Sans Arabic", sans-serif !important;
-            direction: rtl !important;
-            text-align: right !important;
-        }
-
-        .daterangepicker .calendar-table th,
-        .daterangepicker .calendar-table td {
-            font-family: "IBM Plex Sans Arabic", sans-serif !important;
-        }
-
-        .daterangepicker .ranges li {
-            text-align: right !important;
-            padding: 8px 12px !important;
-        }
-
-        .daterangepicker .drp-calendar.left {
-            float: right !important;
-        }
-
-        .daterangepicker .drp-calendar.right {
-            float: left !important;
-        }
-
-        #quickDateRange {
-            background-color: white;
-            cursor: pointer;
-            text-align: center;
-            font-weight: 500;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            padding: 10px 15px;
-        }
-
-        #quickDateRange:focus {
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 0.25rem rgba(198, 132, 47, 0.25);
-            outline: none;
-        }
-
-        /* Error Message */
-        .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 5px;
-            display: none;
-        }
-
-        /* تصحيح مشكلة القائمة في الجوال */
-        .navbar-toggler {
-            border: none;
-            padding: 0.25rem 0.75rem;
-            font-size: 1.25rem;
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-            outline: none;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28198, 132, 47, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-            width: 30px;
-            height: 30px;
-        }
-
-        /* تحسين القائمة المنسدلة في الجوال */
-        @media (max-width: 991.98px) {
-            body {
-                padding-top: 70px;
-            }
-
-            .navbar-collapse {
-                background-color: white;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                margin-top: 15px;
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: 0;
-                z-index: 1000;
-                max-height: calc(100vh - 100px);
-                overflow-y: auto;
-            }
-
-            .navbar-nav {
-                padding: 10px 0;
-                margin-bottom: 15px;
-            }
-
-            .nav-item {
-                margin: 5px 0;
-            }
-
-            .nav-link {
-                padding: 12px 20px !important;
-                border-radius: 8px;
-                transition: all 0.3s;
-                margin: 0;
-                display: block;
-            }
-
-            .nav-link:hover,
-            .nav-link.active {
-                background-color: rgba(198, 132, 47, 0.1);
-                padding-right: 25px !important;
-            }
-
-            .nav-link::after {
-                display: none;
-            }
-
-            .user-dropdown {
-                margin-top: 15px;
-                padding-top: 15px;
-                border-top: 1px solid #eee;
-                text-align: center;
-                display: block;
-                width: 100%;
-            }
-
-            .user-dropdown .btn-luxury {
-                width: 100%;
-                margin-top: 0;
-            }
-
-            .user-dropdown .menu {
-                position: static;
-                margin-top: 10px;
-                box-shadow: none;
-                background: transparent;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                display: none;
-                min-width: auto;
-            }
-
-            .user-dropdown .menu.show {
-                display: block;
-            }
-        }
-
-        @media (max-width: 767.98px) {
-            .hotel-hero {
-                height: 35vh;
-                min-height: 250px;
-            }
-
-            .hotel-info-overlay h1 {
-                font-size: 1.8rem;
-            }
-
-            .gallery-img {
-                height: 180px;
-            }
-
-            .hotel-info-card {
-                margin-top: 20px;
-                padding: 20px;
-                border-top: none;
-                border-right: 5px solid var(--primary-red);
-            }
-
-            .navbar-collapse {
-                padding: 15px;
-                margin-top: 10px;
-            }
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-section { height: 60vh; }
         }
     </style>
-
 </head>
 
 <body>
@@ -594,8 +360,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ route('website') }}">
                 @if($data->logo)
-                    <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}"
-                        style="border-radius: 5px;">
+                    <img src="{{ asset($data->logo) }}" width="150" alt="{{ $data->name ?? 'Royal View' }}" style="border-radius: 5px;">
                 @else
                     <i class="fas fa-crown text-primary-red"></i> {{ $data->name ?? 'Royal View' }}
                 @endif
@@ -609,355 +374,326 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{{ route('website') }}">الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#about">القصة</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('hotels') }}">الفنادق</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">الخدمات</a></li>
-
-                    <li class="nav-item"><a class="nav-link active" href="#">{{ $hotel->name ?? 'تفاصيل الفندق' }}</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('website') }}#contact">الموقع وتواصل</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('services') }}">الخدمات</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">{{ $hotel->name ?? 'تفاصيل الفندق' }}</a></li>
                 </ul>
 
                 <div class="user-dropdown">
                     @guest
                         <a href="{{ route('login') }}" class="btn btn-luxury mt-3 mt-lg-0">
-                            <i class="fa fa-user-plus me-1"></i> التسجيل الآن
+                            <i class="fa fa-user-plus me-1"></i> دخول / تسجيل
                         </a>
                     @endguest
 
                     @auth
                         <button id="userBtn" class="btn btn-luxury mt-3 mt-lg-0">
-                            <i class="fa fa-user me-1"></i> {{ auth()->user()->name }} ▾
+                            <i class="fa fa-user me-1"></i> {{ auth()->user()->name }}
                         </button>
-
-                        <div id="userMenu" class="menu">
-                            <form method="get" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit"> تسجيل الخروج</button>
-                            </form>
-                        </div>
                     @endauth
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container hotel-details-section">
-        <div class="row g-4 mb-5 pt-5 pt-lg-0">
-
-            {{-- 1. العمود الأيمن (صورة البطل) --}}
-            <div class="col-lg-7 order-lg-1" data-aos="zoom-in" data-aos-delay="100">
-                <div class="hotel-hero m-lg-0">
-                    <img src="{{ asset($hotel->image) }}" class="hotel-image-full" alt="{{ $hotel->name }}">
-                    <div class="hotel-info-overlay">
-                        <h1 class="text-white">{{ $hotel->name }}</h1>
-                        <p class="location text-light"><i class="fa fa-map-marker-alt me-2"></i> {{ $hotel->address }}
-                        </p>
-                        <p class="rating mb-3">
-                            @for($i = 1; $i <= 5; $i++)
-                                @if($i <= $hotel->rate)
-                                    <i class="fa fa-star"></i>
-                                @endif
-                            @endfor
-                        </p>
+    {{-- Hero Slider Section (New Design) --}}
+    <div class="hero-section">
+        <div class="swiper myHeroSwiper">
+            <div class="swiper-wrapper">
+                {{-- الصورة الرئيسية كأول سلايد --}}
+                <div class="swiper-slide">
+                    <img src="{{ asset($hotel->image) }}" style="width:100%; height:100%; object-fit:cover;" alt="{{ $hotel->name }}">
+                    <div class="hero-content">
+                        <span class="hero-location"><i class="fa fa-map-marker-alt me-1"></i> {{ $hotel->address }}</span>
+                        <h1 class="hero-title">{{ $hotel->name }}</h1>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="text-warning fs-5">
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($i <= $hotel->rate) <i class="fa fa-star"></i> @else <i class="far fa-star"></i> @endif
+                                @endfor
+                            </div>
+                            <span class="text-white opacity-75">({{ $hotel->rate }} نجوم)</span>
+                        </div>
                     </div>
                 </div>
+                {{-- بقية الصور --}}
+                @foreach($hotel->files as $file)
+                <div class="swiper-slide">
+                    <img src="{{ asset($file->image) }}" style="width:100%; height:100%; object-fit:cover;" alt="صورة الفندق">
+                    <div class="hero-content">
+                        <span class="hero-location"><i class="fa fa-camera me-1"></i> اكتشف الفخامة</span>
+                        <h1 class="hero-title">{{ $hotel->name }}</h1>
+                    </div>
+                </div>
+                @endforeach
             </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
 
-            {{-- 2. العمود الأيسر (للمعلومات والحجز) --}}
-            <div class="col-lg-5 order-lg-2">
-                <div class="row g-4 h-100">
-                    <div class="col-lg-12" data-aos="fade-right" data-aos-delay="200">
-                        <div class="hotel-info-card">
-                            <h3 class="fw-bolder mb-4 section-heading"><i class="fa fa-info-circle me-2"></i> نظرة عامة
-                                على الفندق</h3>
-                            <div class="row g-3 mb-4 text-center">
-                                <div class="col-6">
-                                    <div class="feature-box">
-                                        <i class="fa fa-hotel"></i>
-                                        <h5 class="mb-1">{{ $hotel->rooms ?? 'N/A' }}</h5>
-                                        <p class="text-muted mb-0">عدد الغرف الإجمالي</p>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="feature-box">
-                                        <i class="fa fa-bed"></i>
-                                        <h5 class="mb-1">{{ $hotel->beds ?? 'N/A' }}</h5>
-                                        <p class="text-muted mb-0">عدد الأسرة الكلي</p>
-                                    </div>
-                                </div>
+    <div class="container py-4">
+        <div class="row g-5">
+            {{-- الجانب الأيمن: معلومات الفندق --}}
+            <div class="col-lg-8">
+                <div class="mb-5" data-aos="fade-up">
+                    <h3 class="fw-bold mb-3" style="color: var(--primary-red);">
+                        <i class="fa fa-hotel me-2"></i> عن الفندق
+                    </h3>
+                    <p class="lead text-muted">
+                        استمتع بتجربة إقامة لا تُنسى في {{ $hotel->name }}. نحن نقدم لك مزيجاً من الراحة العصرية والضيافة الأصيلة. 
+                        يتميز الفندق بموقعه الاستراتيجي وتجهيزاته الفاخرة لضمان راحتك القصوى.
+                    </p>
+                    
+                    <div class="row g-4 mt-2 text-center">
+                        <div class="col-md-3 col-6">
+                            <div class="p-3 bg-white rounded-3 shadow-sm border">
+                                <i class="fa fa-bed fa-2x text-secondary mb-2"></i>
+                                <h5 class="fw-bold m-0">{{ $hotel->rooms ?? 'N/A' }}</h5>
+                                <small class="text-muted">غرفة فاخرة</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="p-3 bg-white rounded-3 shadow-sm border">
+                                <i class="fa fa-users fa-2x text-secondary mb-2"></i>
+                                <h5 class="fw-bold m-0">{{ $hotel->beds ?? 'N/A' }}</h5>
+                                <small class="text-muted">طاقة استيعابية</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="p-3 bg-white rounded-3 shadow-sm border">
+                                <i class="fa fa-wifi fa-2x text-secondary mb-2"></i>
+                                <h5 class="fw-bold m-0">مجاني</h5>
+                                <small class="text-muted">واي فاي عالي السرعة</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <div class="p-3 bg-white rounded-3 shadow-sm border">
+                                <i class="fa fa-coffee fa-2x text-secondary mb-2"></i>
+                                <h5 class="fw-bold m-0">متوفر</h5>
+                                <small class="text-muted">ضيافة وكوفي</small>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <hr class="my-5">
+
+                {{-- قسم الغرف والأسعار (بتصميم جديد) --}}
+                <div id="rooms-section" class="py-2">
+                    <h2 class="fw-bold mb-4 text-center section-heading" data-aos="fade-up">
+                        <i class="fa fa-door-open me-2" style="color: var(--primary-red);"></i> الغرف والأسعار المتاحة
+                    </h2>
+
+                    <div class="row g-4">
+                        @foreach($hotel->prices as $priceItem)
+                            @php
+                                $roomName = $priceItem->name == 1 ? ' كينج ' :
+                                            ($priceItem->name == 2 ? 'غرفة مزدوجة ديلوكس' : ' عائلي  (' . $priceItem->name . ' أسرّة)');
+                                $periods = $priceItem->periods->where('rooms_available', '>', 0);
+                            @endphp
+
+                            @if($periods->count() > 0)
+                                @foreach($periods as $period)
+                                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                                    <div class="room-card-modern">
+                                        <div class="room-header">
+                                            <h5>{{ $roomName }}</h5>
+                                        </div>
+                                        
+                                        <div class="p-3">
+                                            {{-- مميزات بصرية تجميلية للغرفة --}}
+                                            <div class="room-features">
+                                                <div class="room-feature-item">
+                                                    <i class="fa fa-snowflake"></i> <span>تكييف</span>
+                                                </div>
+                                                <div class="room-feature-item">
+                                                    <i class="fa fa-tv"></i> <span>تلفاز </span>
+                                                </div>
+                                                <div class="room-feature-item">
+                                                    <i class="fa fa-shower"></i> <span>حمام خاص</span>
+                                                </div>
+                                                <div class="room-feature-item">
+                                                    <i class="fa fa-concierge-bell"></i> <span>خدمة غرف</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="alert alert-light border text-center my-3 py-2">
+                                                <i class="far fa-calendar-alt text-muted"></i>
+                                                <span class="mx-1 fw-bold">{{ \Carbon\Carbon::parse($period->start)->format('Y/m/d') }}</span>
+                                                <span class="text-muted">إلى</span>
+                                                <span class="mx-1 fw-bold">{{ \Carbon\Carbon::parse($period->end)->format('Y/m/d') }}</span>
+                                            </div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
+                                                <span class="text-muted small"><i class="fa fa-check-circle text-success"></i> متاح حالياً:</span>
+                                                <span class="badge bg-success">{{ $period->rooms_available }} غرف</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="room-price-box">
+                                            <div class="d-flex justify-content-between align-items-end">
+                                                <div>
+                                                    <span class="text-muted small d-block">سعر الليلة / الفترة</span>
+                                                    <span class="price-display">{{ number_format($period->period_price, 0) }}</span> 
+                                                    <span class="small text-muted">ريال</span>
+                                                </div>
+                                                <a href="#quickReserveForm" onclick="setDates('{{ \Carbon\Carbon::parse($period->start)->format('Y-m-d') }}', '{{ \Carbon\Carbon::parse($period->end)->format('Y-m-d') }}')" class="btn btn-luxury btn-sm rounded-pill px-4">
+                                                    احجز الآن <i class="fa fa-arrow-left ms-1"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                 <hr class="my-5">
+
+                {{-- معرض الصور (Grid Layout) --}}
+                <div class="py-2">
+                    <h3 class="fw-bold mb-4" style="color: var(--primary-red);">
+                        <i class="fa fa-images me-2"></i> معرض الصور
+                    </h3>
+                    <div class="gallery-grid">
+                        @foreach($hotel->files as $file)
+                            <div class="gallery-item" data-aos="fade-up" onclick="openImageModal('{{ asset($file->image) }}')">
+                                <img src="{{ asset($file->image) }}" alt="Hotel Gallery">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- الجانب الأيسر: نموذج الحجز --}}
+            <div class="col-lg-4">
+                <div class="booking-card" data-aos="fade-left">
+                    <h4 class="fw-bold mb-4 text-center">
+                        <i class="fa fa-calendar-check text-primary-red"></i> تأكيد حجزك
+                    </h4>
+                    
                     @php
                         $isAvailable = $hotel->prices->some(function ($price) {
                             return $price->periods->isNotEmpty();
                         });
                     @endphp
-                    {{-- بطاقة الحجز --}}
-                    <div class="col-lg-12" data-aos="fade-right" data-aos-delay="300">
-                        <div class="hotel-info-card">
-                            <h4 class="fw-bold mb-4 text-center section-heading">ابدأ إقامتك الفاخرة</h4>
-                            @if($isAvailable)
-                                <form action="{{ route('newReser') }}" method="GET" class="quick-reserve-form"
-                                    id="quickReserveForm">
-                                    @csrf
-                                    <div class="row g-3 mb-3">
-                                        <div class="col-12">
-                                            <label class="small text-muted mb-1">الفترة</label>
-                                            <input type="text" id="quickDateRange" class="form-control form-control-custom"
-                                                placeholder="اختر تاريخ الوصول والمغادرة" required>
-                                            <div class="error-message" id="dateError">برجاء اختيار الفترة</div>
-                                            <input type="hidden" name="start" id="quickStartDate">
-                                            <input type="hidden" name="end" id="quickEndDate">
-                                        </div>
-                                    </div>
 
-                                    <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
-                                    <input type="hidden" name="destination" value="مكة">
-
-                                    <button type="submit" class="btn btn-luxury btn-lg w-100">
-                                        <i class="fa fa-calendar-check me-2"></i> احجز إقامتك الآن
-                                    </button>
-                                </form>
-                            @else
-                                <div class="alert alert-warning text-center mb-0 py-3">
-                                    <i class="fa fa-bed me-2"></i>
-                                    <strong>نعتذر</strong><br>
-                                    لا توجد غرف متاحة حالياً في هذا الفندق
+                    @if($isAvailable)
+                        <form action="{{ route('newReser') }}" method="GET" id="quickReserveForm">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-muted">تاريخ الوصول والمغادرة</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white"><i class="fa fa-calendar text-primary-red"></i></span>
+                                    <input type="text" id="quickDateRange" class="form-control" placeholder="اختر التواريخ" required style="cursor: pointer;">
                                 </div>
-                            @endif
+                                <div class="error-message text-danger small mt-1" id="dateError" style="display:none;"></div>
+                                <input type="hidden" name="start" id="quickStartDate">
+                                <input type="hidden" name="end" id="quickEndDate">
+                            </div>
+
+                            <input type="hidden" name="hotel_id" value="{{ $hotel->id }}">
+                            <input type="hidden" name="destination" value="مكة">
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-luxury btn-lg">
+                                    متابعة الحجز
+                                </button>
+                            
+                            </div>
+                        </form>
+                    @else
+                        <div class="alert alert-warning text-center">
+                            <i class="fa fa-exclamation-triangle fa-2x mb-2"></i><br>
+                            لا توجد غرف متاحة للحجز المباشر حالياً. يرجى التواصل معنا.
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
-
-        <hr class="my-5">
-
-        {{-- أسعار الغرف المتاحة --}}
-       <div class="rooms-prices py-5">
-    <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
-        <i class="fa fa-door-open me-2"></i> الغرف والأسعار المتاحة حسب التاريخ 
-    </h2>
-
-    <div class="row g-4">
-        @foreach($hotel->prices as $priceItem)
-            @php
-                $roomName = $priceItem->name == 1 ? 'جناح ملكي' :
-                            ($priceItem->name == 2 ? 'غرفة مزدوجة' : 'غرفة عائلية ' . $priceItem->name . ' أسرّة');
-                $periods = $priceItem->periods->where('rooms_available', '>', 0);
-            @endphp
-
-            @if($periods->count() > 0)
-                <div class="col-xl-3 col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="{{ $loop->iteration * 100 }}">
-<div class="card shadow-sm border-0  rounded-4" style="min-height: 200px; ">
-                        <div class="card-body d-flex flex-column">
-                            <!-- اسم الغرفة -->
-                            <h5 class="card-title mb-4 text-center ">{{ $roomName }}</h5>
-
-                            <!-- عرض كل الفترات -->
-                            @foreach($periods as $period)
-                                <div class="mb-3 p-3 border rounded-3 bg-light">
-                                    <p class="card-text text-secondary mb-2">
-                                        <i class="fa fa-tag me-2 text-success"></i> السعر:
-                                        <span class="fw-bold">{{ number_format($period->period_price, 0) }} ريال</span>
-                                    </p>
-                                    <p class="card-text mb-2">
-                                        <i class="fa fa-door-open me-2 text-primary-red"></i> الغرف المتاحة:
-                                        <span class="fw-bold">{{ $period->rooms_available }}</span>
-                                    </p>
-                                    <p class="card-text text-muted mb-0">
-                                        <i class="fa fa-calendar-alt me-2"></i>
-                                         {{ \Carbon\Carbon::parse($period->start)->format('d/m/Y') }}
-                                        إلى {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y') }}
-                                    </p>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            @endif
-        @endforeach
     </div>
-</div>
 
-
-
-
-        <hr class="my-5">
-        {{-- معرض الصور --}}
-        <h2 class="fw-bold mb-5 text-center section-heading" data-aos="fade-up">
-            <i class="fa fa-images me-2"></i> صور الفندق
-        </h2>
-        <div class="row g-3">
-            @foreach($hotel->files as $file)
-                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
-                    <img src="{{ asset($file->image) }}" class="gallery-img shadow-sm" alt="صورة رقم {{ $loop->iteration }}"
-                        onclick="openImageModal('{{ asset($file->image) }}')">
-                </div>
-            @endforeach
-        </div>
-    </div>
     {{-- Lightbox Modal --}}
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content bg-transparent border-0">
                 <div class="modal-header border-0">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center p-0">
-                    <img src="" id="modalImage" class="lightbox-img" alt="صورة مكبرة">
+                <div class="modal-body text-center">
+                    <img src="" id="modalImage" class="img-fluid rounded shadow-lg" style="max-height: 85vh;">
                 </div>
             </div>
         </div>
     </div>
+
     @include('footer')
 
-    {{-- تضمين مكتبات JavaScript --}}
+    {{-- Scripts --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1.0/daterangepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        // تهيئة AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
+        // تهيئة AOS Animation
+        AOS.init({ duration: 800, once: true });
+
+        // تهيئة Swiper Slider
+        var swiper = new Swiper(".myHeroSwiper", {
+            spaceBetween: 0,
+            effect: "fade",
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
         });
 
-        // حل مشكلة القائمة في الجوال
-        document.addEventListener('DOMContentLoaded', function () {
-            // User Dropdown
-            const userBtn = document.getElementById('userBtn');
-            const userMenu = document.getElementById('userMenu');
-
-            if (userBtn && userMenu) {
-                userBtn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    userMenu.classList.toggle('show');
-                });
-
-                document.addEventListener('click', function () {
-                    if (userMenu.classList.contains('show')) {
-                        userMenu.classList.remove('show');
-                    }
-                });
-            }
-
-            // إغلاق القائمة عند النقر على رابط في الجوال
-            const navLinks = document.querySelectorAll('.nav-link');
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    if (window.innerWidth < 992) {
-                        // إغلاق القائمة باستخدام Bootstrap
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                        bsCollapse.hide();
-
-                        // إغلاق قائمة المستخدم إذا كانت مفتوحة
-                        if (userMenu && userMenu.classList.contains('show')) {
-                            userMenu.classList.remove('show');
-                        }
-                    }
-                });
-            });
-
-            // تهيئة Date Range Picker
-            if ($('#quickDateRange').length) {
-                const today = moment();
-                const tomorrow = moment().add(1, 'days');
-                const threeDaysLater = moment().add(3, 'days');
-
-                $('#quickDateRange').daterangepicker({
-                    "locale": {
-                        "format": "YYYY-MM-DD",
-                        "separator": " - ",
-                        "applyLabel": "تأكيد",
-                        "cancelLabel": "إلغاء",
-                        "fromLabel": "من",
-                        "toLabel": "إلى",
-                        "customRangeLabel": "مخصص",
-                        "weekLabel": "أسبوع",
-                        "daysOfWeek": [
-                            "أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"
-                        ],
-                        "monthNames": [
-                            "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو",
-                            "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
-                        ],
-                        "firstDay": 6
-                    },
-                    "opens": "right",
-                    "drops": "down",
-                    "minDate": today,
-                    "startDate": tomorrow,
-                    "endDate": threeDaysLater,
-                    "autoApply": true,
-                    "alwaysShowCalendars": true
-                }, function (start, end, label) {
-                    $('#quickStartDate').val(start.format('YYYY-MM-DD'));
-                    $('#quickEndDate').val(end.format('YYYY-MM-DD'));
-                    $('#quickDateRange').val(start.format('YYYY/MM/DD') + ' - ' + end.format('YYYY/MM/DD'));
-                    $('#dateError').hide();
-                });
-
-                // تعيين القيم الأولية
-                $('#quickStartDate').val(tomorrow.format('YYYY-MM-DD'));
-                $('#quickEndDate').val(threeDaysLater.format('YYYY-MM-DD'));
-                $('#quickDateRange').val(
-                    tomorrow.format('YYYY/MM/DD') + ' - ' + threeDaysLater.format('YYYY/MM/DD')
-                );
-            }
-
-            // التحقق من صحة النموذج قبل الإرسال
-            $('#quickReserveForm').on('submit', function (e) {
-                const start = $('#quickStartDate').val();
-                const end = $('#quickEndDate').val();
-                const dateError = $('#dateError');
-
-                if (!start || !end) {
-                    e.preventDefault();
-                    dateError.text('برجاء اختيار تاريخ الوصول والمغادرة').show();
-                    $('#quickDateRange').focus();
-                    return false;
-                }
-
-                if (new Date(start) >= new Date(end)) {
-                    e.preventDefault();
-                    dateError.text('تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول').show();
-                    $('#quickDateRange').focus();
-                    return false;
-                }
-
-                dateError.hide();
-                return true;
+        // تهيئة Date Picker
+        $(document).ready(function() {
+            const today = moment();
+            $('#quickDateRange').daterangepicker({
+                "locale": { "format": "YYYY-MM-DD", "separator": " - ", "applyLabel": "تأكيد", "cancelLabel": "إلغاء", "fromLabel": "من", "toLabel": "إلى", "daysOfWeek": ["أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"], "monthNames": ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"], "firstDay": 6 },
+                "opens": "left",
+                "minDate": today,
+                "autoUpdateInput": false
+            }, function(start, end) {
+                $('#quickDateRange').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+                $('#quickStartDate').val(start.format('YYYY-MM-DD'));
+                $('#quickEndDate').val(end.format('YYYY-MM-DD'));
             });
         });
 
-        // دالة فتح صورة في المودال
-        function openImageModal(imageSrc) {
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = imageSrc;
-
-            const modal = new bootstrap.Modal(document.getElementById('imageModal'));
-            modal.show();
+        // Helper function for quick book buttons in rooms
+        function setDates(start, end) {
+            $('#quickStartDate').val(start);
+            $('#quickEndDate').val(end);
+            $('#quickDateRange').val(start + ' - ' + end);
+            $('html, body').animate({
+                scrollTop: $("#quickReserveForm").offset().top - 150
+            }, 500);
         }
 
-        // إصلاح مشكلة Bootstrap مع القائمة في الجوال
-        window.addEventListener('resize', function () {
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            if (window.innerWidth >= 992 && navbarCollapse.classList.contains('show')) {
-                navbarCollapse.classList.remove('show');
-            }
-        });
+        // Image Modal
+        function openImageModal(src) {
+            document.getElementById('modalImage').src = src;
+            new bootstrap.Modal(document.getElementById('imageModal')).show();
+        }
     </script>
 
-    {{-- تضمين الفوتر --}}
-
 </body>
-
 </html>

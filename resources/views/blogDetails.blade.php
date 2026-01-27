@@ -82,11 +82,7 @@
         .user-dropdown .menu.show { display: block; }
         .user-dropdown .menu a, .user-dropdown .menu button { display: block; width: 100%; padding: 10px 15px; text-align: right; border: none; background: transparent; text-decoration: none; color: #333; }
         .user-dropdown .menu a:hover, .user-dropdown .menu button:hover { background: #f3f3f3; }
-
-        /* --- تنسيقات صفحة تفاصيل المقال --- */
         .section-padding { padding: 80px 0 80px; position: relative; }
-
-        /* Hero Section */
         .blog-hero {
             position: relative;
             height: 400px;
