@@ -489,7 +489,7 @@
                     <div class="row g-4">
                         @foreach($hotel->prices as $priceItem)
                             @php
-                                $roomName = $priceItem->name == 1 ? ' كينج ' :
+                                $roomName = $priceItem->name == 1 ? ' سرير كبير ' :
                                             ($priceItem->name == 2 ? 'غرفة مزدوجة ديلوكس' : ' عائلي  (' . $priceItem->name . ' أسرّة)');
                                 $periods = $priceItem->periods->where('rooms_available', '>', 0);
                             @endphp
